@@ -1,0 +1,452 @@
+{
+  "hospitals": [
+    {
+      "id": "hosp-001",
+      "code": "VIC-BLR-01",
+      "name": "Victoria District Hospital",
+      "district": "Bengaluru Urban",
+      "state": "Karnataka",
+      "pincode": "560002",
+      "type": "Tertiary Government Teaching Hospital"
+    }
+  ],
+  "departments": [
+    {
+      "id": "dept-hygiene",
+      "name": "Hygiene and Sanitation"
+    },
+    {
+      "id": "dept-water",
+      "name": "Water and Facilities"
+    },
+    {
+      "id": "dept-pharmacy",
+      "name": "Pharmacy and Medicine Availability"
+    },
+    {
+      "id": "dept-bed",
+      "name": "Bed Management"
+    },
+    {
+      "id": "dept-infra",
+      "name": "Infrastructure Maintenance"
+    },
+    {
+      "id": "dept-services",
+      "name": "Hospital Services"
+    }
+  ],
+  "officials": [
+    {
+      "id": "off-demo-officer",
+      "name": "Demo Official",
+      "officialId": "HYG-OFF-01",
+      "email": "officer.hygiene@janasuvidha.gov.in",
+      "departmentId": "dept-hygiene",
+      "departmentName": "Hygiene and Sanitation",
+      "designation": "Department Officer",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Victoria District Hospital",
+      "role": "OFFICIAL",
+      "phone": "+91 80 2670 1150"
+    },
+    {
+      "id": "off-hyg-supervisor",
+      "name": "Suresh Gowda",
+      "officialId": "HYG-SUP-01",
+      "email": "supervisor.hygiene@janasuvidha.gov.in",
+      "departmentId": "dept-hygiene",
+      "departmentName": "Hygiene and Sanitation",
+      "designation": "Sanitation Supervisor",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Victoria District Hospital",
+      "role": "OFFICIAL",
+      "phone": "+91 80 2670 1151"
+    },
+    {
+      "id": "off-water-officer",
+      "name": "Dr. Ananya Sharma",
+      "officialId": "WAT-OFF-01",
+      "email": "officer.water@janasuvidha.gov.in",
+      "departmentId": "dept-water",
+      "departmentName": "Water and Facilities",
+      "designation": "Department Officer",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Victoria District Hospital",
+      "role": "OFFICIAL",
+      "phone": "+91 80 2670 1152"
+    },
+    {
+      "id": "off-pharmacy-officer",
+      "name": "Kavitha Raman",
+      "officialId": "PHARM-OFF-01",
+      "email": "officer.pharmacy@janasuvidha.gov.in",
+      "departmentId": "dept-pharmacy",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "designation": "Chief Pharmacist",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Victoria District Hospital",
+      "role": "OFFICIAL",
+      "phone": "+91 80 2670 1153"
+    },
+    {
+      "id": "off-bed-officer",
+      "name": "Mohan Raj",
+      "officialId": "BED-OFF-01",
+      "email": "officer.beds@janasuvidha.gov.in",
+      "departmentId": "dept-bed",
+      "departmentName": "Bed Management",
+      "designation": "Nursing Superintendent",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Victoria District Hospital",
+      "role": "OFFICIAL",
+      "phone": "+91 80 2670 1154"
+    },
+    {
+      "id": "off-admin-super",
+      "name": "Dr. Ramesh Babu",
+      "officialId": "MED-SUP-01",
+      "email": "superintendent@janasuvidha.gov.in",
+      "departmentId": "dept-services",
+      "departmentName": "Hospital Services",
+      "designation": "Hospital Administrator",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Victoria District Hospital",
+      "role": "ADMIN",
+      "phone": "+91 80 2670 1100"
+    }
+  ],
+  "complaints": [
+    {
+      "id": "comp-1794347489771-127",
+      "complaintNumber": "JNS-2026-000127",
+      "ticketNumber": "JNS-2026-000127",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "category": "Pharmacy and Medicine Availability",
+      "visibility": "PRIVATE",
+      "receipt": {
+        "complaintNumber": "JNS-2026-000127",
+        "complaintText": "Hospital grievance reported",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Victoria District Hospital",
+        "location": "Victoria District Hospital - Kiosk #1",
+        "submissionDate": "11 Nov 2026",
+        "submissionTime": "03:21 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Pharmacy and Medicine Availability",
+        "forwardedTo": "Pharmacy and Medicine Availability Department",
+        "responsibleAuthority": "Kavitha Raman (Chief Pharmacist)",
+        "status": "Submitted"
+      },
+      "status": "ASSIGNED",
+      "wardOrLocation": "Victoria District Hospital - Kiosk #1",
+      "summary": "Hospital grievance reported",
+      "submittedAt": "2026-11-10T21:59:56.232Z",
+      "createdAt": "2026-11-10T21:59:56.239Z"
+    },
+    {
+      "id": "comp-1794347489745-126",
+      "complaintNumber": "JNS-2026-000126",
+      "ticketNumber": "JNS-2026-000126",
+      "departmentName": "Hygiene and Sanitation",
+      "category": "Hygiene and Sanitation",
+      "visibility": "PUBLIC",
+      "receipt": {
+        "complaintNumber": "JNS-2026-000126",
+        "complaintText": "Washroom not clean",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Victoria District Hospital",
+        "location": "Victoria District Hospital - Kiosk #1",
+        "submissionDate": "11 Nov 2026",
+        "submissionTime": "03:21 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Hygiene and Sanitation",
+        "forwardedTo": "Hygiene and Sanitation Department",
+        "responsibleAuthority": "Demo Official (Department Officer)",
+        "status": "Submitted"
+      },
+      "status": "ASSIGNED",
+      "wardOrLocation": "Victoria District Hospital - Kiosk #1",
+      "summary": "Hospital grievance reported",
+      "submittedAt": "2026-11-10T21:59:56.239Z",
+      "createdAt": "2026-11-10T21:59:56.239Z"
+    },
+    {
+      "id": "comp-seed-1",
+      "complaintNumber": "JNS-2026-000101",
+      "ticketNumber": "JNS-2026-000101",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Victoria District Hospital",
+      "departmentId": "dept-hygiene",
+      "departmentName": "Hygiene and Sanitation",
+      "category": "Hygiene and Sanitation",
+      "visibility": "PUBLIC",
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "3ನೇ ಮಹಡಿಯ ತುರ್ತು ವಾರ್ಡ್ ಬಳಿಯ ಪುರುಷರ ಶೌಚಾಲಯದಲ್ಲಿ ನೀರು ಸೋರುತ್ತಿದೆ ಮತ್ತು ತುಂಬಾ ಗಲೀಜಾಗಿದೆ.",
+      "englishTranslation": "Water is leaking and it is very dirty in the men's washroom near Emergency Ward on the 3rd floor.",
+      "summary": "Washroom leak and unhygienic conditions near 3rd Floor Emergency Ward",
+      "wardOrLocation": "Emergency Ward, 3rd Floor",
+      "floorOrBlock": "3rd Floor",
+      "status": "ASSIGNED",
+      "priority": "High",
+      "assignedOfficialId": "off-demo-officer",
+      "assignedOfficialName": "Demo Official",
+      "assignedOfficialDesignation": "Department Officer",
+      "submittedAt": "2026-11-10T11:30:00.000Z",
+      "createdAt": "2026-11-10T11:30:00.000Z",
+      "updatedAt": "2026-11-10T11:30:00.000Z",
+      "events": [
+        {
+          "id": "ev-1",
+          "eventType": "CREATED",
+          "description": "Complaint reported at Citizen Voice Kiosk in Kannada.",
+          "performedBy": "Citizen Kiosk",
+          "timestamp": "2026-11-10T11:30:00.000Z"
+        },
+        {
+          "id": "ev-2",
+          "eventType": "ASSIGNED",
+          "description": "Auto-routed to Hygiene & Sanitation Dept. Assigned to Demo Official (Department Officer).",
+          "performedBy": "AI Dispatch Engine",
+          "timestamp": "2026-11-10T11:30:05.000Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JNS-2026-000101",
+        "complaintText": "Washroom leak and unhygienic conditions near 3rd Floor Emergency Ward",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Victoria District Hospital",
+        "location": "Victoria District Hospital - Kiosk #1",
+        "submissionDate": "10 Nov 2026",
+        "submissionTime": "05:00 PM IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Hygiene and Sanitation",
+        "forwardedTo": "Hygiene and Sanitation Department",
+        "responsibleAuthority": "Demo Official (Department Officer)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-seed-2",
+      "complaintNumber": "JNS-2026-000102",
+      "ticketNumber": "JNS-2026-000102",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Victoria District Hospital",
+      "departmentId": "dept-water",
+      "departmentName": "Water and Facilities",
+      "category": "Water and Facilities",
+      "visibility": "PUBLIC",
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Hindi",
+      "languageCode": "hi",
+      "originalTranscript": "दूसरी मंजिल पर प्रसूತಿ ವಾರ್ಡ್ के पास पीने के पानी का कूलर खराब है, ठंडा पानी नहीं आ रहा है।",
+      "englishTranslation": "The drinking water cooler near the maternity ward on the second floor is broken, cold water is not coming.",
+      "summary": "Drinking water dispenser malfunctioning near 2nd Floor Maternity Ward",
+      "wardOrLocation": "Maternity Ward Corridor, 2nd Floor",
+      "floorOrBlock": "2nd Floor",
+      "status": "IN_PROGRESS",
+      "priority": "High",
+      "assignedOfficialId": "off-water-officer",
+      "assignedOfficialName": "Water & Facilities Officer",
+      "assignedOfficialDesignation": "Department Officer",
+      "submittedAt": "2026-11-10T13:20:00.000Z",
+      "createdAt": "2026-11-10T13:20:00.000Z",
+      "updatedAt": "2026-11-10T14:00:00.000Z",
+      "events": [
+        {
+          "id": "ev-4",
+          "eventType": "CREATED",
+          "description": "Complaint reported at Citizen Voice Kiosk in Hindi.",
+          "performedBy": "Citizen Kiosk",
+          "timestamp": "2026-11-10T13:20:00.000Z"
+        },
+        {
+          "id": "ev-5",
+          "eventType": "IN_PROGRESS",
+          "description": "Maintenance squad dispatched with spare thermostat.",
+          "performedBy": "Water & Facilities Officer",
+          "timestamp": "2026-11-10T14:00:00.000Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JNS-2026-000102",
+        "complaintText": "Drinking water dispenser malfunctioning near 2nd Floor Maternity Ward",
+        "originalLanguage": "Hindi",
+        "hospitalName": "Victoria District Hospital",
+        "location": "Victoria District Hospital - Kiosk #1",
+        "submissionDate": "10 Nov 2026",
+        "submissionTime": "06:50 PM IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Water and Facilities",
+        "forwardedTo": "Water and Facilities Department",
+        "responsibleAuthority": "Water & Facilities Officer (Department Officer)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-seed-med-1",
+      "complaintNumber": "JNS-2026-000103",
+      "ticketNumber": "JNS-2026-000103",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Victoria District Hospital",
+      "departmentId": "dept-pharmacy",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "category": "Pharmacy and Medicine Availability",
+      "visibility": "PRIVATE",
+      "isMedicineComplaint": true,
+      "medicineName": "Insulin Glargine 100 IU/ml",
+      "citizenPhone": "9876543210",
+      "maskedCitizenPhone": "XXXXXX3210",
+      "citizenName": "Citizen",
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ನನ್ನ ವೈದ್ಯರು ಶಿಫಾರಸು ಮಾಡಿದ ಇನ್ಸುಲಿನ್ ಗ್ಲಾರ್ಜಿನ್ ಔಷಧಾಲಯದಲ್ಲಿ ಲಭ್ಯವಿಲ್ಲ.",
+      "englishTranslation": "Prescribed Insulin Glargine is unavailable at the hospital pharmacy.",
+      "summary": "Medicine unavailable: Insulin Glargine 100 IU/ml",
+      "wardOrLocation": "Victoria District Hospital - Kiosk #1",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "High",
+      "assignedOfficialId": "off-pharmacy-officer",
+      "assignedOfficialName": "Kavitha Raman",
+      "assignedOfficialDesignation": "Chief Pharmacist",
+      "submittedAt": "2026-11-10T14:00:00.000Z",
+      "createdAt": "2026-11-10T14:00:00.000Z",
+      "updatedAt": "2026-11-10T14:00:00.000Z",
+      "events": [
+        {
+          "id": "ev-med-1",
+          "eventType": "CREATED",
+          "description": "Medicine availability request logged for Insulin Glargine 100 IU/ml. Registered phone: XXXXXX3210.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-10T14:00:00.000Z"
+        },
+        {
+          "id": "ev-med-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Pharmacy and Medicine Availability Department. Assigned to Kavitha Raman (Chief Pharmacist).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-10T14:00:02.000Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JNS-2026-000103",
+        "complaintText": "Medicine request: Insulin Glargine 100 IU/ml",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Victoria District Hospital",
+        "location": "Victoria District Hospital - Kiosk #1",
+        "submissionDate": "10 Nov 2026",
+        "submissionTime": "07:30 PM IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Pharmacy and Medicine Availability",
+        "forwardedTo": "Pharmacy and Medicine Availability Department",
+        "responsibleAuthority": "Kavitha Raman (Chief Pharmacist)",
+        "status": "Submitted"
+      }
+    }
+  ],
+  "privateRequests": [
+    {
+      "id": "req-av-seed-1",
+      "requestNumber": "JNS-2026-AV-000101",
+      "verifiedPhoneNumber": "9876543210",
+      "requestedResource": "Paracetamol 500mg IV Infusion",
+      "resourceType": "MEDICINE",
+      "originalTranscript": "ನನ್ನ ವೈದ್ಯರು ಬರೆದಿರುವ ಪ್ಯಾರಸಿಟಮಾಲ್ ಇಂಜೆಕ್ಷನ್ ಇಲ್ಲಿ ಲಭ್ಯವಿಲ್ಲ. ದಯವಿಟ್ಟು ಅದು ಬಂದಾಗ ನನಗೆ ತಿಳಿಸಿ.",
+      "englishTranslation": "The prescribed Paracetamol IV infusion is currently unavailable. Please inform me when it arrives.",
+      "languageCode": "kn",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Victoria District Hospital",
+      "departmentId": "dept-pharmacy",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "status": "Pending",
+      "otpVerified": true,
+      "createdAt": "2026-11-10T10:00:00.000Z",
+      "updatedAt": "2026-11-10T10:00:00.000Z"
+    }
+  ],
+  "observations": [],
+  "notifications": [
+    {
+      "id": "notif-1794348523237-umdt4",
+      "availabilityRequestId": "JNS-2026-000128",
+      "recipient": "3367458768",
+      "message": "JANASUVIDHA: Your request for unavailable medicine \"456476857689708\" has been registered at Victoria District Hospital Pharmacy. Complaint ID: JNS-2026-000128. We will notify you via SMS when fresh stock arrives.",
+      "provider": "mock",
+      "deliveryStatus": "SIMULATED",
+      "sentAt": "2026-11-10T22:08:43.237Z"
+    },
+    {
+      "id": "notif-1794348519098-5ajtm",
+      "availabilityRequestId": "JNS-2026-000128",
+      "recipient": "3367458768",
+      "message": "JANASUVIDHA: Your request for unavailable medicine \"456476857689708\" has been registered at Victoria District Hospital Pharmacy. Complaint ID: JNS-2026-000128. We will notify you via SMS when fresh stock arrives.",
+      "provider": "mock",
+      "deliveryStatus": "SIMULATED",
+      "sentAt": "2026-11-10T22:08:39.098Z"
+    },
+    {
+      "id": "notif-1794347669670-14m9u",
+      "availabilityRequestId": "JNS-2026-000128",
+      "recipient": "8888888888",
+      "message": "JANASUVIDHA: Your request for unavailable medicine \"Paracetamol\" has been registered at Victoria District Hospital Pharmacy. Complaint ID: JNS-2026-000128. We will notify you via SMS when fresh stock arrives.",
+      "provider": "mock",
+      "deliveryStatus": "SIMULATED",
+      "sentAt": "2026-11-10T21:54:29.670Z"
+    },
+    {
+      "id": "notif-1794347486636-yv8kc",
+      "availabilityRequestId": "JNS-2026-000126",
+      "recipient": "1111111111",
+      "message": "JANASUVIDHA: Your request for unavailable medicine \"Paracetamol\" has been registered at Victoria District Hospital Pharmacy. Complaint ID: JNS-2026-000126. We will notify you via SMS when fresh stock arrives.",
+      "provider": "mock",
+      "deliveryStatus": "SIMULATED",
+      "sentAt": "2026-11-10T21:51:26.636Z"
+    }
+  ],
+  "submissions": [
+    {
+      "idempotencyKey": "kiosk-Paracetamol med-1794347485960",
+      "complaintId": "comp-1794347486608-126",
+      "createdAt": "2026-11-10T21:51:26.608Z"
+    },
+    {
+      "idempotencyKey": "kiosk-ಪ್ಯಾರಾಸಿಟಮಾಲ್ ಮ-1794347669591",
+      "complaintId": "comp-1794347669654-128",
+      "createdAt": "2026-11-10T21:54:29.654Z"
+    },
+    {
+      "idempotencyKey": "kiosk-ಇಲ್ಲಿನ ಶೌಚಾಲಯಗಳ-1794347738848",
+      "complaintId": "comp-1794347738876-128",
+      "createdAt": "2026-11-10T21:55:38.876Z"
+    },
+    {
+      "idempotencyKey": "kiosk-Neeru kudiyuva -1794347937691",
+      "complaintId": "comp-1794347937719-128",
+      "createdAt": "2026-11-10T21:58:57.719Z"
+    },
+    {
+      "idempotencyKey": "kiosk-ಇಲ್ಲಿನ ಶೌಚಾಲಯಗಳ-1794348460226",
+      "complaintId": "comp-1794348460263-128",
+      "createdAt": "2026-11-10T22:07:40.263Z"
+    },
+    {
+      "idempotencyKey": "kiosk-Tablets are not-1794348519059",
+      "complaintId": "comp-1794348519090-128",
+      "createdAt": "2026-11-10T22:08:39.090Z"
+    },
+    {
+      "idempotencyKey": "kiosk-Tablets are not-1794348523207",
+      "complaintId": "comp-1794348523231-128",
+      "createdAt": "2026-11-10T22:08:43.231Z"
+    }
+  ],
+  "counter": 127,
+  "counterAv": 102
+}

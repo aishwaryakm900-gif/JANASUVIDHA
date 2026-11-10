@@ -1,0 +1,232 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  CITIZEN
+  OFFICIAL
+  SUPERVISOR
+  ADMIN
+  SUPERADMIN
+}
+
+enum ComplaintStatus {
+  PENDING
+  ASSIGNED
+  IN_PROGRESS
+  RESOLUTION_SUBMITTED
+  VERIFIED
+  REOPENED
+  ESCALATED
+  CLOSED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum SubmissionSource {
+  VOICE_KIOSK
+  QR_PORTAL
+  CITIZEN_WEB
+  PHONE_IVR
+}
+
+model Hospital {
+  id                   String                       @id @default(uuid())
+  code                 String                       @unique
+  name                 String
+  district             String
+  state                String
+  pincode              String
+  type                 String                       // Tertiary Government Hospital
+  departments          Department[]
+  officials            Official[]
+  complaints           Complaint[]
+  availabilityRequests PrivateAvailabilityRequest[]
+  createdAt            DateTime                     @default(now())
+  updatedAt            DateTime                     @updatedAt
+}
+
+model Department {
+  id                   String                       @id @default(uuid())
+  code                 String                       @unique
+  name                 String
+  category             String
+  description          String?
+  hospitalId           String
+  hospital             Hospital                     @relation(fields: [hospitalId], references: [id])
+  officials            Official[]
+  complaints           Complaint[]
+  availabilityRequests PrivateAvailabilityRequest[]
+  createdAt            DateTime                     @default(now())
+  updatedAt            DateTime                     @updatedAt
+}
+
+model Official {
+  id           String       @id @default(uuid())
+  name         String
+  officialId   String       @unique
+  email        String       @unique
+  passwordHash String
+  departmentId String
+  department   Department   @relation(fields: [departmentId], references: [id])
+  designation  String       // "Department Officer" | "Department Supervisor" | "Hospital Administrator"
+  hospitalId   String
+  hospital     Hospital     @relation(fields: [hospitalId], references: [id])
+  role         Role         @default(OFFICIAL)
+  complaints   Complaint[]  @relation("AssignedOfficial")
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  @@index([departmentId])
+  @@index([role])
+}
+
+model Complaint {
+  id                 String           @id @default(uuid())
+  complaintNumber    String           @unique // e.g. JNS-2026-000124
+  originalLanguage   String           @default("kn") // Kannada, Hindi, English
+  languageCode       String           @default("kn") // kn, hi, en
+  originalTranscript String           @db.Text
+  englishTranslation String           @db.Text
+  summary            String           @db.VarChar(255)
+  category           String           // Hygiene and Sanitation, etc.
+  priority           Priority         @default(MEDIUM)
+  
+  hospitalId         String
+  hospital           Hospital         @relation(fields: [hospitalId], references: [id])
+  departmentId       String?
+  department         Department?      @relation(fields: [departmentId], references: [id])
+  assignedOfficialId String?
+  assignedOfficial   Official?        @relation("AssignedOfficial", fields: [assignedOfficialId], references: [id])
+  
+  reportingSource    SubmissionSource @default(VOICE_KIOSK)
+  reportingLocation  String
+  status             ComplaintStatus  @default(PENDING)
+  submittedAt        DateTime         @default(now())
+  
+  recurrenceCount    Int              @default(1)
+  idempotencyKey     String?          @unique
+
+  events             ComplaintEvent[]
+  evidence           Evidence[]
+  observations       ComplaintObservation[]
+  
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+
+  @@index([status])
+  @@index([category])
+  @@index([departmentId])
+  @@index([hospitalId])
+  @@index([submittedAt])
+  @@index([idempotencyKey])
+}
+
+model ComplaintEvent {
+  id          String    @id @default(uuid())
+  complaintId String
+  complaint   Complaint @relation(fields: [complaintId], references: [id], onDelete: Cascade)
+  eventType   String    // CREATED, ASSIGNED, IN_PROGRESS, RESOLVED, VERIFIED, ESCALATED
+  description String    @db.Text
+  performedBy String
+  timestamp   DateTime  @default(now())
+
+  @@index([complaintId])
+}
+
+model Evidence {
+  id           String    @id @default(uuid())
+  complaintId  String
+  complaint    Complaint @relation(fields: [complaintId], references: [id], onDelete: Cascade)
+  fileUrl      String
+  evidenceType String    // BEFORE, AFTER, VERIFICATION_INSPECTION
+  uploadedBy   String
+  createdAt    DateTime  @default(now())
+
+  @@index([complaintId])
+}
+
+enum AvailabilityStatus {
+  PENDING
+  IN_PROGRESS
+  AVAILABLE
+  NOTIFICATION_SENT
+  CLOSED
+}
+
+model PrivateAvailabilityRequest {
+  id                  String             @id @default(uuid())
+  requestNumber       String             @unique // e.g. JNS-2026-AV-000124
+  verifiedPhoneNumber String
+  requestedResource   String
+  resourceType        String             @default("MEDICINE")
+  originalTranscript  String             @db.Text
+  englishTranslation  String             @db.Text
+  languageCode        String             @default("kn")
+  hospitalId          String
+  hospital            Hospital           @relation(fields: [hospitalId], references: [id])
+  departmentId        String?
+  department          Department?        @relation(fields: [departmentId], references: [id])
+  status              AvailabilityStatus @default(PENDING)
+  otpVerified         Boolean            @default(true)
+  notifications       Notification[]
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
+
+  @@index([status])
+  @@index([requestedResource])
+  @@index([verifiedPhoneNumber])
+  @@index([departmentId])
+  @@index([hospitalId])
+}
+
+model ComplaintObservation {
+  id                        String    @id @default(uuid())
+  complaintId               String
+  complaint                 Complaint @relation(fields: [complaintId], references: [id], onDelete: Cascade)
+  observationType           String    // UNCLEAN_CONFIRMED, CLEAN_REPORTED, WORSENED, RETURNED, UNSURE
+  response                  String    // e.g. "Still unclean"
+  durationSinceLastCleaning String?   // e.g. "Less than an hour", "A few hours", "Since morning"
+  languageCode              String    @default("kn")
+  originalTranscript        String?   @db.Text
+  location                  String
+  createdAt                 DateTime  @default(now())
+
+  @@index([complaintId])
+  @@index([observationType])
+  @@index([createdAt])
+}
+
+model Submission {
+  id               String   @id @default(uuid())
+  idempotencyKey   String   @unique
+  complaintId      String?
+  submissionStatus String   @default("SUCCESS") // SUCCESS, PENDING, FAILED
+  createdAt        DateTime @default(now())
+
+  @@index([idempotencyKey])
+}
+
+model Notification {
+  id                    String                      @id @default(uuid())
+  availabilityRequestId String?
+  availabilityRequest   PrivateAvailabilityRequest? @relation(fields: [availabilityRequestId], references: [id], onDelete: Cascade)
+  recipient             String
+  message               String                      @db.Text
+  provider              String                      // mock, twilio
+  deliveryStatus        String                      // SIMULATED, DELIVERED, SENT, FAILED
+  sentAt                DateTime                    @default(now())
+
+  @@index([availabilityRequestId])
+  @@index([recipient])
+}
