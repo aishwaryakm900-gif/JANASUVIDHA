@@ -374,6 +374,15 @@
   "observations": [],
   "notifications": [
     {
+      "id": "notif-1794371527226-bf4v0",
+      "availabilityRequestId": "JNS-2026-000128",
+      "recipient": "9999999999",
+      "message": "JANASUVIDHA: Your request for unavailable medicine \"Medicines\" has been registered at Victoria District Hospital Pharmacy. Complaint ID: JNS-2026-000128. We will notify you via SMS when fresh stock arrives.",
+      "provider": "mock",
+      "deliveryStatus": "SIMULATED",
+      "sentAt": "2026-11-11T04:32:07.226Z"
+    },
+    {
       "id": "notif-1794348523237-umdt4",
       "availabilityRequestId": "JNS-2026-000128",
       "recipient": "3367458768",
@@ -445,6 +454,16 @@
       "idempotencyKey": "kiosk-Tablets are not-1794348523207",
       "complaintId": "comp-1794348523231-128",
       "createdAt": "2026-11-10T22:08:43.231Z"
+    },
+    {
+      "idempotencyKey": "kiosk-Medicines are n-1794371526539",
+      "complaintId": "comp-1794371527174-128",
+      "createdAt": "2026-11-11T04:32:07.174Z"
+    },
+    {
+      "idempotencyKey": "kiosk-Washroom Stenag-1794371686322",
+      "complaintId": "comp-1794371686373-128",
+      "createdAt": "2026-11-11T04:34:46.373Z"
     }
   ],
   "counter": 127,

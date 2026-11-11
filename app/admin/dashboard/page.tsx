@@ -47,6 +47,7 @@ export default function AdminDashboardPage() {
   const router = useRouter();
   const [complaints, setComplaints] = useState<ComplaintItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
 
   const loadData = async () => {
     setLoading(true);
@@ -67,21 +68,33 @@ export default function AdminDashboardPage() {
   };
 
   useEffect(() => {
+    setIsMounted(true);
     loadData();
   }, []);
 
   const handleLogout = () => {
     document.cookie = "admin_session=; path=/; max-age=0";
-    router.push("/admin/login");
+    router.push("/admin/login?logout=true");
   };
 
   const safeComplaints = Array.isArray(complaints) ? complaints : [];
-  const total = safeComplaints.length || 698;
-  const pending = safeComplaints.filter((c) => c?.status === "PENDING" || c?.status === "ASSIGNED" || c?.status === "IN_PROGRESS").length || 32;
-  const resolved = safeComplaints.filter((c) => c?.status === "VERIFIED" || c?.status === "RESOLUTION_SUBMITTED").length || 660;
-  const overdue = safeComplaints.filter((c) => c?.status === "ESCALATED").length || 6;
+  const total = safeComplaints.length;
+  const pending = safeComplaints.filter((c) =>
+    ["PENDING", "ASSIGNED", "IN_PROGRESS"].includes(String(c?.status ?? "").toUpperCase())
+  ).length;
+  const resolved = safeComplaints.filter((c) =>
+    ["VERIFIED", "RESOLUTION_SUBMITTED", "RESOLVED"].includes(String(c?.status ?? "").toUpperCase())
+  ).length;
+  const overdue = safeComplaints.filter(
+    (c) => String(c?.status ?? "").toUpperCase() === "ESCALATED"
+  ).length;
 
-  const escalations = safeComplaints.filter((c) => c?.status === "ESCALATED" || c?.priority === "CRITICAL" || ((c?.recurrenceCount || 0) >= 5));
+  const escalations = safeComplaints.filter(
+    (c) =>
+      String(c?.status ?? "").toUpperCase() === "ESCALATED" ||
+      String(c?.priority ?? "").toUpperCase() === "CRITICAL" ||
+      (c?.recurrenceCount || 0) >= 3
+  );
 
   return (
     <div className="min-h-screen bg-[#F5F8F7] p-6 sm:p-12">
@@ -152,17 +165,21 @@ export default function AdminDashboardPage() {
             <h3 className="text-sm font-bold text-[#12343B]">
               Resolution Trends (Last 7 Days)
             </h3>
-            <div className="h-60 w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={TRENDS}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                  <XAxis dataKey="day" fontSize={11} stroke="#607477" />
-                  <YAxis fontSize={11} stroke="#607477" />
-                  <Tooltip />
-                  <Bar dataKey="total" fill="#12343B" name="Reported" radius={[4, 4, 0, 0]} />
-                  <Bar dataKey="resolved" fill="#147D78" name="Resolved" radius={[4, 4, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
+            <div className="h-60 w-full flex items-center justify-center">
+              {isMounted ? (
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={TRENDS}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                    <XAxis dataKey="day" fontSize={11} stroke="#607477" />
+                    <YAxis fontSize={11} stroke="#607477" />
+                    <Tooltip />
+                    <Bar dataKey="total" fill="#12343B" name="Reported" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="resolved" fill="#147D78" name="Resolved" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="text-xs text-[#607477]">Loading analytics...</div>
+              )}
             </div>
           </div>
 
@@ -171,16 +188,20 @@ export default function AdminDashboardPage() {
             <h3 className="text-sm font-bold text-[#12343B]">
               Department-Wise Complaint Distribution
             </h3>
-            <div className="h-60 w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={DEPT_DISTRIBUTION} layout="vertical">
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                  <XAxis type="number" fontSize={11} stroke="#607477" />
-                  <YAxis dataKey="name" type="category" fontSize={11} stroke="#607477" />
-                  <Tooltip />
-                  <Bar dataKey="count" fill="#147D78" radius={[0, 4, 4, 0]} name="Grievances" />
-                </BarChart>
-              </ResponsiveContainer>
+            <div className="h-60 w-full flex items-center justify-center">
+              {isMounted ? (
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={DEPT_DISTRIBUTION} layout="vertical">
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                    <XAxis type="number" fontSize={11} stroke="#607477" />
+                    <YAxis dataKey="name" type="category" fontSize={11} stroke="#607477" />
+                    <Tooltip />
+                    <Bar dataKey="count" fill="#147D78" radius={[0, 4, 4, 0]} name="Grievances" />
+                  </BarChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="text-xs text-[#607477]">Loading analytics...</div>
+              )}
             </div>
           </div>
         </div>
@@ -198,28 +219,34 @@ export default function AdminDashboardPage() {
           </div>
 
           <div className="divide-y divide-[#E2EBE8]">
-            {escalations.map((item) => (
-              <div key={item.id} className="py-3 flex items-center justify-between gap-4 text-xs">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-mono font-bold text-rose-800 bg-rose-50 px-2 py-0.5 rounded">
-                      {item.complaintNumber || item.ticketNumber}
-                    </span>
-                    <strong className="text-[#12343B]">{item.summary}</strong>
-                  </div>
-                  <span className="text-[11px] text-[#607477] block mt-0.5">
-                    {item.wardOrLocation} • {item.departmentName} • {item.recurrenceCount} Citizen Reports
-                  </span>
-                </div>
-
-                <Link
-                  href={`/official/complaints/${item.ticketNumber}`}
-                  className="font-bold text-[#147D78] hover:underline shrink-0"
-                >
-                  Review ➔
-                </Link>
+            {escalations.length === 0 ? (
+              <div className="py-6 text-center text-xs text-[#607477]">
+                No active SLA escalations. All departments are operating within standard response times.
               </div>
-            ))}
+            ) : (
+              escalations.map((item) => (
+                <div key={item.id} className="py-3 flex items-center justify-between gap-4 text-xs">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono font-bold text-rose-800 bg-rose-50 px-2 py-0.5 rounded">
+                        {item.complaintNumber || item.ticketNumber}
+                      </span>
+                      <strong className="text-[#12343B]">{item.summary}</strong>
+                    </div>
+                    <span className="text-[11px] text-[#607477] block mt-0.5">
+                      {item.wardOrLocation} • {item.departmentName} • {item.recurrenceCount || 1} Citizen Reports
+                    </span>
+                  </div>
+
+                  <Link
+                    href={`/official/complaints/${item.complaintNumber || item.ticketNumber || item.id}`}
+                    className="font-bold text-[#147D78] hover:underline shrink-0"
+                  >
+                    Review ➔
+                  </Link>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>
