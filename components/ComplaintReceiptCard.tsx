@@ -168,7 +168,7 @@ Time Zone:           ${receipt.timeZone}
 
 ----------------------------------------
 ${t.footer}
-${receipt.hospitalName || "Victoria District Hospital"} • JANASUVIDHA
+${receipt.hospitalName || "Outpatient Department, Ballari"} • JANASUVIDHA
 ========================================
 `.trim();
 
@@ -199,7 +199,7 @@ ${receipt.hospitalName || "Victoria District Hospital"} • JANASUVIDHA
             {t.subTitle}
           </div>
           <div className="text-[11px] text-[#147D78] font-bold mt-0.5">
-            {receipt.hospitalName || "Victoria District Hospital"}
+            {receipt.hospitalName || "Outpatient Department, Ballari"}
           </div>
         </div>
 

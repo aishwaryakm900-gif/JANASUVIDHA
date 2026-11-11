@@ -26,7 +26,7 @@ function OfficialLoginForm() {
   const [regPassword, setRegPassword] = useState("");
   const [regDepartment, setRegDepartment] = useState<HospitalDepartment>("Hygiene and Sanitation");
   const [regDesignation, setRegDesignation] = useState<"Department Officer" | "Department Supervisor">("Department Officer");
-  const [regHospital, setRegHospital] = useState("Victoria District Hospital");
+  const [regHospital, setRegHospital] = useState("Outpatient Department, Ballari");
   const [regLoading, setRegLoading] = useState(false);
   const [regSuccess, setRegSuccess] = useState("");
   const [regError, setRegError] = useState("");

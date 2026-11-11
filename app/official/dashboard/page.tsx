@@ -17,11 +17,13 @@ export default function OfficialDashboardPage() {
   const [activeTab, setActiveTab] = useState<string>("ALL");
   const [updatingReqId, setUpdatingReqId] = useState<string | null>(null);
   const [actionNotice, setActionNotice] = useState<string | null>(null);
+  const [highlightId, setHighlightId] = useState<string | null>(null);
+  const [notificationCount, setNotificationCount] = useState<number>(0);
   const [official, setOfficial] = useState<any>({
     name: "Demo Official",
     designation: "Department Officer",
     departmentName: "Hygiene and Sanitation",
-    hospitalName: "Victoria District Hospital",
+    hospitalName: "Outpatient Department, Ballari",
   });
 
   const normalizeComplaint = (c: any): ComplaintItem => {
@@ -35,7 +37,7 @@ export default function OfficialDashboardPage() {
       priority: c?.priority || "Medium",
       category: c?.category || "Hospital Services",
       departmentName: c?.departmentName || "Hospital Services",
-      wardOrLocation: c?.wardOrLocation || c?.location || "Victoria District Hospital - Kiosk #1",
+      wardOrLocation: c?.wardOrLocation || c?.location || "Outpatient Department, Ballari - Kiosk #1",
       summary: c?.summary || c?.originalTranscript || "Hospital grievance reported",
       originalTranscript: c?.originalTranscript || "",
       englishTranslation: c?.englishTranslation || c?.originalTranscript || "",
@@ -46,7 +48,7 @@ export default function OfficialDashboardPage() {
       maskedCitizenPhone: c?.maskedCitizenPhone || (c?.citizenPhone ? `XXXXXX${c.citizenPhone.slice(-4)}` : undefined),
       medicineName: c?.medicineName,
       isMedicineComplaint: Boolean(c?.isMedicineComplaint),
-      hospitalName: c?.hospitalName || "Victoria District Hospital",
+      hospitalName: c?.hospitalName || "Outpatient Department, Ballari",
     };
   };
 
@@ -59,7 +61,7 @@ export default function OfficialDashboardPage() {
       requestedResource: req?.requestedResource || req?.resourceName || "Prescribed Medicine",
       resourceType: req?.resourceType || "MEDICINE",
       departmentName: req?.departmentName || "Pharmacy and Medicine Availability",
-      hospitalName: req?.hospitalName || "Victoria District Hospital",
+      hospitalName: req?.hospitalName || "Outpatient Department, Ballari",
       status,
       createdAt: req?.createdAt || new Date().toISOString(),
       updatedAt: req?.updatedAt || new Date().toISOString(),
@@ -77,11 +79,16 @@ export default function OfficialDashboardPage() {
         params.append("designation", currentOfficial.designation);
       }
 
-      const [res, reqRes] = await Promise.all([
+      const notifUrl = currentOfficial.departmentName && currentOfficial.designation !== "Hospital Administrator"
+        ? `/api/notifications?department=${encodeURIComponent(currentOfficial.departmentName)}`
+        : `/api/notifications`;
+
+      const [res, reqRes, notifRes] = await Promise.all([
         fetch(`/api/complaints?${params.toString()}`, { cache: "no-store" }),
         fetch(`/api/availability-requests?department=${encodeURIComponent(currentOfficial.departmentName || "")}`, { cache: "no-store" }),
+        fetch(notifUrl, { cache: "no-store" }),
       ]);
-      const [data, reqData] = await Promise.all([res.json(), reqRes.json()]);
+      const [data, reqData, notifData] = await Promise.all([res.json(), reqRes.json(), notifRes.json()]);
       if (data.success && Array.isArray(data.complaints)) {
         setComplaints(data.complaints.map(normalizeComplaint));
       }
@@ -89,6 +96,11 @@ export default function OfficialDashboardPage() {
       if (reqData.success && Array.isArray(reqData.requests)) {
         setAvailabilityRequests(reqData.requests.map(normalizeAvailabilityRequest));
       }
+
+      if (notifData.success && typeof notifData.count === "number") {
+        setNotificationCount(notifData.count);
+      }
+
       if (data.success || reqData.success) setLastUpdatedAt(new Date());
     } catch (e) {
       console.error(e);
@@ -97,17 +109,138 @@ export default function OfficialDashboardPage() {
     }
   };
 
+  const handleDepartmentChange = (dept: string) => {
+    let officerName = official.name;
+    let designation = official.designation;
+    if (dept.includes("Pharmacy") || dept.includes("Medicine")) {
+      officerName = "Kavitha Raman";
+      designation = "Chief Pharmacist";
+    } else if (dept.includes("Water") || dept.includes("Facilities")) {
+      officerName = "Dr. Ananya Sharma";
+      designation = "Department Officer";
+    } else if (dept.includes("Bed")) {
+      officerName = "Dr. Preethi Hegde";
+      designation = "Bed Manager & Casualty Officer";
+    } else if (dept.includes("Infra")) {
+      officerName = "Suresh Nambiar";
+      designation = "Civil Works Executive";
+    } else if (dept === "All Departments") {
+      officerName = "Dr. R. Narayana";
+      designation = "Hospital Administrator";
+    } else {
+      officerName = "Demo Official";
+      designation = "Department Officer";
+    }
+
+    const updated = {
+      ...official,
+      name: officerName,
+      designation,
+      departmentName: dept === "All Departments" ? "" : dept,
+      hospitalName: "Outpatient Department, Ballari",
+    };
+    setOfficial(updated);
+    if (typeof window !== "undefined") {
+      try {
+        localStorage.setItem("janasuvidha_official", JSON.stringify(updated));
+        document.cookie = `official_session=${encodeURIComponent(JSON.stringify(updated))}; path=/; max-age=86400`;
+      } catch (e) {}
+    }
+    loadData(updated, true);
+  };
+
   useEffect(() => {
     let current = official;
     if (typeof window !== "undefined") {
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlDept = urlParams.get("department");
+      const urlHighlight = urlParams.get("highlight");
+
       const saved = localStorage.getItem("janasuvidha_official");
       if (saved) {
         try {
           current = JSON.parse(saved);
-          setOfficial(current);
         } catch (e) {}
       }
+
+      if (urlDept) {
+        const d = urlDept.toLowerCase();
+        let canonicalDept = "Hospital Services";
+        let officerName = current.name || "Department Officer";
+        let designation = "Department Officer";
+
+        if (urlDept === "All Departments" || urlDept === "ALL") {
+          canonicalDept = "";
+          officerName = "Dr. R. Narayana";
+          designation = "Hospital Administrator";
+        } else if (
+          d.includes("water") ||
+          d.includes("drink") ||
+          d.includes("cooler") ||
+          d.includes("plumb") ||
+          d.includes("tap") ||
+          d.includes("leak") ||
+          d.includes("pipe") ||
+          d.includes("neeru") ||
+          d.includes("paani") ||
+          d.includes("pani") ||
+          d.includes("tank")
+        ) {
+          canonicalDept = "Water and Facilities";
+          officerName = "Dr. Ananya Sharma";
+          designation = "Department Officer";
+        } else if (
+          d.includes("pharm") ||
+          d.includes("med") ||
+          d.includes("drug") ||
+          d.includes("tablet") ||
+          d.includes("dawa") ||
+          d.includes("aushadh")
+        ) {
+          canonicalDept = "Pharmacy and Medicine Availability";
+          officerName = "Kavitha Raman";
+          designation = "Chief Pharmacist";
+        } else if (d.includes("bed") || d.includes("icu") || d.includes("admiss") || d.includes("stretcher")) {
+          canonicalDept = "Bed Management";
+          officerName = "Dr. Preethi Hegde";
+          designation = "Bed Manager & Casualty Officer";
+        } else if (d.includes("infra") || d.includes("electric") || d.includes("light") || d.includes("fan") || d.includes("lift")) {
+          canonicalDept = "Infrastructure Maintenance";
+          officerName = "Suresh Nambiar";
+          designation = "Civil Works Executive";
+        } else if (
+          d.includes("hygiene") ||
+          d.includes("sanitat") ||
+          d.includes("clean") ||
+          d.includes("toilet") ||
+          d.includes("washroom")
+        ) {
+          canonicalDept = "Hygiene and Sanitation";
+          officerName = "Demo Official";
+          designation = "Department Officer";
+        }
+
+        current = {
+          ...current,
+          name: officerName,
+          designation,
+          departmentName: canonicalDept,
+          hospitalName: "Outpatient Department, Ballari",
+        };
+        try {
+          localStorage.setItem("janasuvidha_official", JSON.stringify(current));
+          document.cookie = `official_session=${encodeURIComponent(JSON.stringify(current))}; path=/; max-age=86400`;
+        } catch (e) {}
+      }
+
+      setOfficial(current);
+
+      if (urlHighlight) {
+        setHighlightId(urlHighlight);
+        setActionNotice(`Redirected to ${current.departmentName || "Department Portal"}: Dispatched ticket ${urlHighlight} is highlighted below.`);
+      }
     }
+
     void loadData(current, true);
 
     let polling = false;
@@ -187,26 +320,40 @@ export default function OfficialDashboardPage() {
         {/* Top Header with Required Official Designation & Department details */}
         <header className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-[#E2EBE8] gap-4">
           <div>
-            <div className="flex items-center gap-2 mb-1">
+            <div className="flex items-center gap-2 mb-1 flex-wrap">
               <span className="text-[11px] font-bold text-[#147D78] uppercase tracking-wider bg-[#E8F4F1] px-2.5 py-0.5 rounded-full border border-[#147D78]/20">
                 {official.designation || "Department Officer"}
               </span>
               <span className="text-xs text-[#607477]">•</span>
               <span className="text-xs font-semibold text-[#12343B]">
-                {official.hospitalName || "Victoria District Hospital"}
+                {official.hospitalName || "Outpatient Department, Ballari"}
               </span>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-50 text-amber-900 border border-amber-300">
+                <BellRing className="w-3 h-3 text-amber-700" />
+                <span>{notificationCount} Dispatched Alert(s)</span>
+              </div>
             </div>
 
             <h1 className="text-2xl sm:text-3xl font-extrabold text-[#12343B]">
               {official.name}
             </h1>
 
-            <p className="text-xs text-[#607477] mt-0.5">
-              Assigned Department:{" "}
-              <strong className="text-[#12343B] font-semibold">
-                {official.departmentName || "Hygiene and Sanitation"}
-              </strong>
-            </p>
+            <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+              <span className="text-xs text-[#607477]">Switch Department:</span>
+              <select
+                value={official.departmentName || "All Departments"}
+                onChange={(e) => handleDepartmentChange(e.target.value)}
+                className="text-xs font-bold text-[#12343B] bg-white border border-[#E2EBE8] rounded-xl px-2.5 py-1 shadow-xs cursor-pointer focus:outline-none focus:border-[#147D78]"
+              >
+                <option value="Hygiene and Sanitation">Hygiene and Sanitation</option>
+                <option value="Water and Facilities">Water and Facilities</option>
+                <option value="Pharmacy and Medicine Availability">Pharmacy and Medicine Availability</option>
+                <option value="Bed Management">Bed Management</option>
+                <option value="Infrastructure Maintenance">Infrastructure Maintenance</option>
+                <option value="Hospital Services">Hospital Services</option>
+                <option value="All Departments">All Departments (Executive View)</option>
+              </select>
+            </div>
           </div>
 
           <div className="flex items-center gap-3">
@@ -221,7 +368,7 @@ export default function OfficialDashboardPage() {
             <button
               type="button"
               onClick={() => loadData()}
-              className="p-2.5 rounded-xl border border-[#E2EBE8] bg-white text-[#607477] hover:text-[#12343B] shadow-xs"
+              className="p-2.5 rounded-xl border border-[#E2EBE8] bg-white text-[#607477] hover:text-[#12343B] shadow-xs cursor-pointer"
               title="Refresh complaints"
             >
               <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
@@ -229,7 +376,7 @@ export default function OfficialDashboardPage() {
             <button
               type="button"
               onClick={handleLogout}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#607477] hover:text-[#12343B] bg-white border border-[#E2EBE8] px-3.5 py-2.5 rounded-xl transition-colors shadow-xs"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#607477] hover:text-[#12343B] bg-white border border-[#E2EBE8] px-3.5 py-2.5 rounded-xl transition-colors shadow-xs cursor-pointer"
             >
               <LogOut className="w-3.5 h-3.5" />
               <span>Log Out</span>
@@ -386,56 +533,83 @@ export default function OfficialDashboardPage() {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-[#E2EBE8]">
-                      {filtered.map((c) => (
-                        <tr key={c.id} className="hover:bg-[#F5F8F7]/50 transition-colors">
-                          <td className="py-3.5 px-5 font-mono font-bold text-[#12343B]">
-                            <div>{c.complaintNumber || c.ticketNumber}</div>
-                            {c.recurrenceCount && c.recurrenceCount > 1 && (
-                              <span className="inline-flex items-center gap-1 mt-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-300">
-                                ⚡ {c.recurrenceCount} Confirmations
+                      {filtered.map((c) => {
+                        const isMatch = Boolean(highlightId && (c.complaintNumber === highlightId || c.ticketNumber === highlightId || c.id === highlightId));
+                        return (
+                          <tr
+                            key={c.id}
+                            className={`transition-colors ${
+                              isMatch
+                                ? "bg-emerald-50/80 border-l-4 border-l-[#147D78] shadow-xs"
+                                : "hover:bg-[#F5F8F7]/50"
+                            }`}
+                          >
+                            <td className="py-3.5 px-5 font-mono font-bold text-[#12343B]">
+                              <div className="flex items-center gap-1.5 flex-wrap">
+                                <span>{c.complaintNumber || c.ticketNumber}</span>
+                                {isMatch && (
+                                  <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-[#147D78] text-white">
+                                    ★ DIRECTED
+                                  </span>
+                                )}
+                                {c.isMedicineComplaint && (
+                                  <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-blue-100 text-blue-800 border border-blue-200">
+                                    💊 Medicine
+                                  </span>
+                                )}
+                              </div>
+                              {c.medicineName && (
+                                <div className="text-[10px] text-blue-800 font-sans font-semibold mt-0.5">
+                                  Ref: {c.medicineName}
+                                </div>
+                              )}
+                              {c.recurrenceCount && c.recurrenceCount > 1 && (
+                                <span className="inline-flex items-center gap-1 mt-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-300">
+                                  ⚡ {c.recurrenceCount} Confirmations
+                                </span>
+                              )}
+                            </td>
+                            <td className="py-3.5 px-5 font-medium text-[#263238] max-w-xs">
+                              <div className="truncate">{c.summary}</div>
+                              {c.latestObservationAt && (
+                                <span className="text-[10px] text-amber-700 block mt-0.5">
+                                  Latest observation: {formatDateTime(c.latestObservationAt)}
+                                </span>
+                              )}
+                            </td>
+                            <td className="py-3.5 px-5 text-[#607477]">
+                              {c.wardOrLocation}
+                            </td>
+                            <td className="py-3.5 px-5">
+                              <span
+                                className={`inline-block px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${
+                                  c.status === "VERIFIED"
+                                    ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
+                                    : c.status === "IN_PROGRESS"
+                                    ? "bg-amber-50 text-amber-800 border border-amber-200"
+                                    : c.status === "RESOLUTION_SUBMITTED"
+                                    ? "bg-blue-50 text-blue-800 border border-blue-200"
+                                    : "bg-sky-50 text-sky-800 border border-sky-200"
+                                }`}
+                              >
+                                {String(c.status ?? "pending").replace(/_/g, " ")}
                               </span>
-                            )}
-                          </td>
-                          <td className="py-3.5 px-5 font-medium text-[#263238] max-w-xs">
-                            <div className="truncate">{c.summary}</div>
-                            {c.latestObservationAt && (
-                              <span className="text-[10px] text-amber-700 block mt-0.5">
-                                Latest observation: {formatDateTime(c.latestObservationAt)}
-                              </span>
-                            )}
-                          </td>
-                          <td className="py-3.5 px-5 text-[#607477]">
-                            {c.wardOrLocation}
-                          </td>
-                          <td className="py-3.5 px-5">
-                            <span
-                              className={`inline-block px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${
-                                c.status === "VERIFIED"
-                                  ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
-                                  : c.status === "IN_PROGRESS"
-                                  ? "bg-amber-50 text-amber-800 border border-amber-200"
-                                  : c.status === "RESOLUTION_SUBMITTED"
-                                  ? "bg-blue-50 text-blue-800 border border-blue-200"
-                                  : "bg-sky-50 text-sky-800 border border-sky-200"
-                              }`}
-                            >
-                              {String(c.status ?? "pending").replace(/_/g, " ")}
-                            </span>
-                          </td>
-                          <td className="py-3.5 px-5 text-[#607477]">
-                            {formatDateTime(c.submittedAt || c.createdAt)}
-                          </td>
-                          <td className="py-3.5 px-5 text-right">
-                            <Link
-                              href={`/official/complaints/${c.complaintNumber || c.ticketNumber || c.id}`}
-                              className="inline-flex items-center gap-1 text-xs font-bold text-[#147D78] hover:underline"
-                            >
-                              <span>Open</span>
-                              <ArrowRight className="w-3.5 h-3.5" />
-                            </Link>
-                          </td>
-                        </tr>
-                      ))}
+                            </td>
+                            <td className="py-3.5 px-5 text-[#607477]">
+                              {formatDateTime(c.submittedAt || c.createdAt)}
+                            </td>
+                            <td className="py-3.5 px-5 text-right">
+                              <Link
+                                href={`/official/complaints/${c.complaintNumber || c.ticketNumber || c.id}`}
+                                className="inline-flex items-center gap-1 text-xs font-bold text-[#147D78] hover:underline"
+                              >
+                                <span>Open</span>
+                                <ArrowRight className="w-3.5 h-3.5" />
+                              </Link>
+                            </td>
+                          </tr>
+                        );
+                      })}
                     </tbody>
                   </table>
                 )}
@@ -481,10 +655,26 @@ export default function OfficialDashboardPage() {
                       const isAvail = req.status === "AVAILABLE" || req.status === "Available" || req.status === "NOTIFICATION_SENT" || req.status === "Notification Sent";
                       const isClosed = req.status === "CLOSED" || req.status === "Closed";
 
+                      const isReqMatch = Boolean(highlightId && (reqIdStr === highlightId || req.id === highlightId));
+
                       return (
-                        <tr key={req.id} className="hover:bg-[#F5F8F7]/50 transition-colors">
+                        <tr
+                          key={req.id}
+                          className={`transition-colors ${
+                            isReqMatch
+                              ? "bg-emerald-50/80 border-l-4 border-l-[#147D78] shadow-xs"
+                              : "hover:bg-[#F5F8F7]/50"
+                          }`}
+                        >
                           <td className="py-3.5 px-5 font-mono font-bold text-[#12343B]">
-                            {reqIdStr}
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              <span>{reqIdStr}</span>
+                              {isReqMatch && (
+                                <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-[#147D78] text-white">
+                                  ★ DIRECTED
+                                </span>
+                              )}
+                            </div>
                           </td>
                           <td className="py-3.5 px-5">
                             <strong className="text-[#12343B] font-semibold block">{resNameStr}</strong>

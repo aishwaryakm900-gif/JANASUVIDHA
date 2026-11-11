@@ -62,6 +62,29 @@ export type ComplaintStatus =
 
 export type Priority = "Low" | "Medium" | "High" | "Critical" | "LOW" | "MEDIUM" | "HIGH" | "CRITICAL";
 
+export type DeliveryState =
+  | "CREATED"
+  | "QUEUED"
+  | "DELIVERED"
+  | "ACKNOWLEDGED"
+  | "FAILED"
+  | "RETRYING"
+  | "NOT_CONFIGURED";
+
+export interface DestinationDelivery {
+  status: DeliveryState;
+  updatedAt: string;
+  attempts?: number;
+  lastError?: string;
+  deliveredAt?: string;
+}
+
+export interface ComplaintDeliveryTracking {
+  adminPortal: DestinationDelivery;
+  departmentPortal: DestinationDelivery;
+  externalGovPortal: DestinationDelivery;
+}
+
 export type Visibility = "PUBLIC" | "PRIVATE";
 
 export type SubmissionSource = "VOICE_KIOSK" | "QR_PORTAL" | "CITIZEN_WEB" | "PHONE_IVR";
@@ -157,6 +180,7 @@ export interface ComplaintItem {
   evidence: EvidenceItem[];
   feedbacks?: FeedbackItem[];
   receipt?: ComplaintReceipt;
+  deliveryTracking?: ComplaintDeliveryTracking;
   
   submittedAt?: string;
   createdAt: string;
@@ -231,6 +255,8 @@ export interface NotificationItem {
   provider: "mock" | "twilio";
   deliveryStatus: "SIMULATED" | "DELIVERED" | "SENT" | "FAILED";
   sentAt: string;
+  departmentName?: string;
+  recipientType?: "OFFICIAL" | "ADMIN" | "CITIZEN" | string;
 }
 
 export interface GeminiProcessResult {

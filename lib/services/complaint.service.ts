@@ -9,6 +9,7 @@ import {
 import { DBService } from "./db.service";
 import { AIService } from "./ai.service";
 import { TranslationService } from "./translation.service";
+import { routeComplaintDepartment } from "@/lib/config/routing";
 
 export interface CreateComplaintDTO {
   idempotencyKey?: string;
@@ -97,6 +98,18 @@ export class ComplaintService {
       priority = (ai.suggestedPriority as any) || "Medium";
     }
 
+    // Centrally resolve designated department and category based on keywords
+    const routed = routeComplaintDepartment({
+      category,
+      department,
+      transcript: dto.transcript,
+      summary,
+      text: englishTranslation,
+    });
+
+    category = dto.isMedicineComplaint ? "Pharmacy and Medicine Availability" : routed.category;
+    department = dto.isMedicineComplaint ? "Pharmacy and Medicine Availability" : routed.name;
+
     const result = await DBService.createComplaintWithIdempotency({
       idempotencyKey: dto.idempotencyKey,
       originalLanguage: originalLanguage || "Kannada",
@@ -104,10 +117,10 @@ export class ComplaintService {
       originalTranscript: dto.transcript,
       englishTranslation: englishTranslation || dto.transcript,
       summary: summary || "Hospital grievance",
-      category: category || "Hygiene and Sanitation",
-      department: department || "Hygiene and Sanitation",
+      category,
+      department,
       priority: priority,
-      location: dto.location || "Victoria District Hospital - Kiosk #1",
+      location: dto.location || "Outpatient Department, Ballari - Kiosk #1",
       source: dto.source || "VOICE_KIOSK",
       medicineName: dto.medicineName,
       citizenPhone: dto.citizenPhone,

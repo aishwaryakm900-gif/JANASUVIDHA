@@ -2,9 +2,11 @@ import fs from "fs";
 import path from "path";
 import {
   AvailabilityStatus,
+  ComplaintDeliveryTracking,
   ComplaintItem,
   ComplaintObservation,
   ComplaintReceipt,
+  DeliveryState,
   HospitalDepartment,
   NotificationItem,
   ObservationType,
@@ -13,6 +15,11 @@ import {
   PrivateAvailabilityRequest,
 } from "@/types";
 import { normalizeDepartmentName } from "@/lib/utils";
+import {
+  CENTRAL_DEPARTMENTS,
+  routeComplaintDepartment,
+  forwardToExternalGovernmentPortal,
+} from "@/lib/config/routing";
 
 const DATA_DIR = path.join(process.cwd(), "data");
 const DB_FILE = path.join(DATA_DIR, "janasuvidha-db.json");
@@ -40,7 +47,7 @@ const SEED_OFFICIALS: OfficialUser[] = [
     departmentName: "Hygiene and Sanitation",
     designation: "Department Officer",
     hospitalId: "hosp-001",
-    hospitalName: "Victoria District Hospital",
+    hospitalName: "Outpatient Department, Ballari",
     role: "OFFICIAL",
     createdAt: "2026-11-01T00:00:00.000Z",
   },
@@ -53,7 +60,7 @@ const SEED_OFFICIALS: OfficialUser[] = [
     departmentName: "Hygiene and Sanitation",
     designation: "Department Supervisor",
     hospitalId: "hosp-001",
-    hospitalName: "Victoria District Hospital",
+    hospitalName: "Outpatient Department, Ballari",
     role: "SUPERVISOR",
     createdAt: "2026-11-01T00:00:00.000Z",
   },
@@ -66,7 +73,7 @@ const SEED_OFFICIALS: OfficialUser[] = [
     departmentName: "All Departments",
     designation: "Hospital Administrator",
     hospitalId: "hosp-001",
-    hospitalName: "Victoria District Hospital",
+    hospitalName: "Outpatient Department, Ballari",
     role: "ADMIN",
     createdAt: "2026-11-01T00:00:00.000Z",
   },
@@ -79,7 +86,7 @@ const SEED_OFFICIALS: OfficialUser[] = [
     departmentName: "Water and Facilities",
     designation: "Department Officer",
     hospitalId: "hosp-001",
-    hospitalName: "Victoria District Hospital",
+    hospitalName: "Outpatient Department, Ballari",
     role: "OFFICIAL",
     createdAt: "2026-11-01T00:00:00.000Z",
   },
@@ -92,7 +99,7 @@ const SEED_OFFICIALS: OfficialUser[] = [
     departmentName: "Pharmacy and Medicine Availability",
     designation: "Department Officer",
     hospitalId: "hosp-001",
-    hospitalName: "Victoria District Hospital",
+    hospitalName: "Outpatient Department, Ballari",
     role: "OFFICIAL",
     createdAt: "2026-11-01T00:00:00.000Z",
   },
@@ -104,7 +111,7 @@ const SEED_COMPLAINTS: ComplaintItem[] = [
     complaintNumber: "JNS-2026-000101",
     ticketNumber: "JNS-2026-000101",
     hospitalId: "hosp-001",
-    hospitalName: "Victoria District Hospital",
+    hospitalName: "Outpatient Department, Ballari",
     departmentId: "dept-hygiene",
     departmentName: "Hygiene and Sanitation",
     category: "Hygiene and Sanitation",
@@ -173,8 +180,8 @@ const SEED_COMPLAINTS: ComplaintItem[] = [
       complaintNumber: "JNS-2026-000101",
       complaintText: "Hospital washrooms are not clean",
       originalLanguage: "Kannada",
-      hospitalName: "Victoria District Hospital",
-      location: "Victoria District Hospital - Kiosk #1",
+      hospitalName: "Outpatient Department, Ballari",
+      location: "Outpatient Department, Ballari - Kiosk #1",
       submissionDate: "10 Nov 2026",
       submissionTime: "05:15 PM IST",
       timeZone: "Asia/Kolkata (IST, UTC+05:30)",
@@ -189,7 +196,7 @@ const SEED_COMPLAINTS: ComplaintItem[] = [
     complaintNumber: "JNS-2026-000102",
     ticketNumber: "JNS-2026-000102",
     hospitalId: "hosp-001",
-    hospitalName: "Victoria District Hospital",
+    hospitalName: "Outpatient Department, Ballari",
     departmentId: "dept-water",
     departmentName: "Water and Facilities",
     category: "Water and Facilities",
@@ -231,8 +238,8 @@ const SEED_COMPLAINTS: ComplaintItem[] = [
       complaintNumber: "JNS-2026-000102",
       complaintText: "Drinking water dispenser malfunctioning near 2nd Floor Maternity Ward",
       originalLanguage: "Hindi",
-      hospitalName: "Victoria District Hospital",
-      location: "Victoria District Hospital - Kiosk #1",
+      hospitalName: "Outpatient Department, Ballari",
+      location: "Outpatient Department, Ballari - Kiosk #1",
       submissionDate: "10 Nov 2026",
       submissionTime: "06:50 PM IST",
       timeZone: "Asia/Kolkata (IST, UTC+05:30)",
@@ -245,6 +252,67 @@ const SEED_COMPLAINTS: ComplaintItem[] = [
 ];
 
 export class DBService {
+  private static fileMutex: Promise<any> = Promise.resolve();
+
+  /**
+   * Concurrency-safe exclusive transaction wrapper.
+   * Serializes file reads and writes across concurrent requests to eliminate race conditions.
+   */
+  static async runInTransaction<T>(work: (db: DatabaseSchema) => Promise<T> | T): Promise<T> {
+    return new Promise<T>((resolve, reject) => {
+      DBService.fileMutex = DBService.fileMutex.then(async () => {
+        try {
+          const db = DBService.ensureInitialized();
+          const result = await work(db);
+          DBService.writeData(db);
+          resolve(result);
+        } catch (err) {
+          reject(err);
+        }
+      });
+    });
+  }
+
+  /**
+   * Generates a globally unique complaint ID:
+   * Format: JAN-${year}-${String(seq).padStart(6, "0")} (e.g. JAN-2026-000128)
+   * Dynamic year, atomic increment, collision-free, uniqueness enforced.
+   */
+  static allocateNextComplaintNumber(db: DatabaseSchema): string {
+    const currentYear = new Date().getFullYear();
+    let maxSeq = 127;
+
+    // Scan all existing complaint numbers
+    for (const c of db.complaints || []) {
+      const num = c.complaintNumber || c.ticketNumber || "";
+      const m = num.match(/^(?:JAN|JNS)-\d{4}-(\d+)$/);
+      if (m) {
+        const parsed = parseInt(m[1], 10);
+        if (!isNaN(parsed) && parsed > maxSeq) {
+          maxSeq = parsed;
+        }
+      }
+    }
+
+    // Also compare against database counter
+    if (typeof db.counter === "number" && db.counter > maxSeq) {
+      maxSeq = db.counter;
+    }
+
+    let nextSeq = maxSeq + 1;
+    let candidate = `JAN-${currentYear}-${String(nextSeq).padStart(6, "0")}`;
+
+    // Guarantee database unique constraint
+    const existing = new Set((db.complaints || []).map((c) => c.complaintNumber || c.ticketNumber));
+    while (existing.has(candidate)) {
+      nextSeq += 1;
+      candidate = `JAN-${currentYear}-${String(nextSeq).padStart(6, "0")}`;
+    }
+
+    db.counter = nextSeq;
+    return candidate;
+  }
+
   private static ensureInitialized(): DatabaseSchema {
     if (!fs.existsSync(DATA_DIR)) {
       fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -255,9 +323,9 @@ export class DBService {
         hospitals: [
           {
             id: "hosp-001",
-            code: "VIC-BLR-01",
-            name: "Victoria District Hospital",
-            district: "Bengaluru Urban",
+            code: "OPD-BAL-01",
+            name: "Outpatient Department, Ballari",
+            district: "Ballari",
             state: "Karnataka",
             pincode: "560002",
             type: "Tertiary Government Teaching Hospital",
@@ -284,7 +352,7 @@ export class DBService {
             englishTranslation: "The prescribed Paracetamol IV infusion is currently unavailable. Please inform me when it arrives.",
             languageCode: "kn",
             hospitalId: "hosp-001",
-            hospitalName: "Victoria District Hospital",
+            hospitalName: "Outpatient Department, Ballari",
             departmentId: "dept-pharmacy",
             departmentName: "Pharmacy and Medicine Availability",
             status: "Pending",
@@ -310,9 +378,9 @@ export class DBService {
         parsed.hospitals = [
           {
             id: "hosp-001",
-            code: "VIC-BLR-01",
-            name: "Victoria District Hospital",
-            district: "Bengaluru Urban",
+            code: "OPD-BAL-01",
+            name: "Outpatient Department, Ballari",
+            district: "Ballari",
             state: "Karnataka",
             pincode: "560002",
             type: "Tertiary Government Teaching Hospital",
@@ -352,9 +420,9 @@ export class DBService {
         hospitals: [
           {
             id: "hosp-001",
-            code: "VIC-BLR-01",
-            name: "Victoria District Hospital",
-            district: "Bengaluru Urban",
+            code: "OPD-BAL-01",
+            name: "Outpatient Department, Ballari",
+            district: "Ballari",
             state: "Karnataka",
             pincode: "560002",
             type: "Tertiary Government Teaching Hospital",
@@ -442,7 +510,7 @@ export class DBService {
       priority: c.priority || "Medium",
       category: c.category || "Hospital Services",
       departmentName: c.departmentName || (c.category as any) || "Hospital Services",
-      wardOrLocation: c.wardOrLocation || (c as any).location || "Victoria District Hospital - Kiosk #1",
+      wardOrLocation: c.wardOrLocation || (c as any).location || "Outpatient Department, Ballari - Kiosk #1",
       summary: c.summary || c.originalTranscript || "Hospital grievance reported",
       originalTranscript: c.originalTranscript || "",
       englishTranslation: c.englishTranslation || c.originalTranscript || "",
@@ -453,7 +521,7 @@ export class DBService {
       maskedCitizenPhone: c.maskedCitizenPhone || (c.citizenPhone ? `XXXXXX${c.citizenPhone.slice(-4)}` : undefined),
       medicineName: c.medicineName,
       isMedicineComplaint: Boolean(c.isMedicineComplaint),
-      hospitalName: c.hospitalName || "Victoria District Hospital",
+      hospitalName: c.hospitalName || "Outpatient Department, Ballari",
     }));
 
     // Exclude private medicine complaints from public reviews
@@ -477,7 +545,12 @@ export class DBService {
     // Security Filter:
     // Hospital Administrator sees ALL complaints.
     // Department Officer and Supervisor see ONLY complaints for their department.
-    if (filter?.officialDepartment && filter.designation !== "Hospital Administrator") {
+    if (
+      filter?.officialDepartment &&
+      filter.designation !== "Hospital Administrator" &&
+      filter.officialDepartment !== "ALL" &&
+      filter.officialDepartment !== "All Departments"
+    ) {
       const deptNormalized = normalizeDepartmentName(filter.officialDepartment);
       list = list.filter(
         (c) =>
@@ -519,62 +592,305 @@ export class DBService {
   static async getComplaintById(idOrNumber: string): Promise<ComplaintItem | null> {
     const db = this.ensureInitialized();
     const query = (idOrNumber || "").trim().toUpperCase();
-    const c = db.complaints.find(
+    let c = db.complaints.find(
       (c) =>
         (c.complaintNumber && c.complaintNumber.toUpperCase() === query) ||
         (c.ticketNumber && c.ticketNumber.toUpperCase() === query) ||
         c.id === idOrNumber
     );
+
+    // If not found directly in complaints, search privateRequests (or requests with -AV- or digits matching)
+    if (!c && db.privateRequests) {
+      const av = db.privateRequests.find(
+        (r) =>
+          (r.requestNumber && r.requestNumber.toUpperCase() === query) ||
+          (r.requestNumber && r.requestNumber.toUpperCase().replace("-AV-", "-") === query.replace("-AV-", "-")) ||
+          (r.requestNumber && query.replace("-AV-", "-") === r.requestNumber.toUpperCase().replace("-AV-", "-")) ||
+          r.id === idOrNumber
+      );
+      if (av) {
+        c = {
+          id: av.id,
+          complaintNumber: av.requestNumber,
+          ticketNumber: av.requestNumber,
+          hospitalId: av.hospitalId || "hosp-001",
+          hospitalName: av.hospitalName || "Outpatient Department, Ballari",
+          departmentName: av.departmentName || "Pharmacy and Medicine Availability",
+          category: "Pharmacy and Medicine Availability",
+          status: av.status === "Available" || av.status === "AVAILABLE" ? "VERIFIED" : (av.status === "Notification Sent" ? "RESOLUTION_SUBMITTED" : "ASSIGNED"),
+          priority: "High",
+          visibility: "PRIVATE",
+          isMedicineComplaint: true,
+          medicineName: av.requestedResource,
+          citizenPhone: av.verifiedPhoneNumber || "",
+          maskedCitizenPhone: av.maskedPhone || (av.verifiedPhoneNumber ? `XXXXXX${av.verifiedPhoneNumber.slice(-4)}` : undefined),
+          citizenName: "Citizen",
+          originalTranscript: av.originalTranscript || `Prescribed medicine "${av.requestedResource}" unavailable`,
+          englishTranslation: av.englishTranslation || `The prescribed medicine "${av.requestedResource}" is unavailable at the pharmacy.`,
+          summary: `Medicine Unavailable: ${av.requestedResource}`,
+          wardOrLocation: "Outpatient Department, Ballari - Pharmacy Counter",
+          assignedOfficialName: "Kavitha Raman",
+          assignedOfficialDesignation: "Chief Pharmacist",
+          submittedAt: av.createdAt,
+          createdAt: av.createdAt,
+          updatedAt: av.updatedAt || av.createdAt,
+          source: "VOICE_KIOSK",
+          originalLanguage: av.languageCode === "kn" ? "Kannada" : av.languageCode === "hi" ? "Hindi" : "English",
+          languageCode: av.languageCode || "en",
+          events: [],
+          evidence: [],
+          receipt: {
+            complaintNumber: av.requestNumber,
+            complaintText: `Medicine Unavailable: ${av.requestedResource}`,
+            originalLanguage: av.languageCode === "kn" ? "Kannada" : av.languageCode === "hi" ? "Hindi" : "English",
+            hospitalName: av.hospitalName || "Outpatient Department, Ballari",
+            location: "Outpatient Department, Ballari - Pharmacy Counter",
+            submissionDate: new Date(av.createdAt).toLocaleDateString("en-IN"),
+            submissionTime: new Date(av.createdAt).toLocaleTimeString("en-IN"),
+            timeZone: "Asia/Kolkata (IST, UTC+05:30)",
+            category: "Pharmacy and Medicine Availability",
+            forwardedTo: "Pharmacy and Medicine Availability Department",
+            responsibleAuthority: "Kavitha Raman (Chief Pharmacist)",
+            status: av.status,
+          },
+        };
+      }
+    }
+
     if (!c) return null;
+
+    const isMed = Boolean(
+      c.isMedicineComplaint ||
+      c.medicineName ||
+      c.category === "Pharmacy and Medicine Availability" ||
+      c.departmentName === "Pharmacy and Medicine Availability"
+    );
+
+    const medName =
+      c.medicineName ||
+      (isMed ? c.summary?.replace(/^Medicine Unavailable:\s*/i, "") : undefined);
+
+    const summaryText =
+      isMed && medName
+        ? `Medicine Unavailable: ${medName}`
+        : (c.summary && c.summary !== "Hospital grievance reported"
+            ? c.summary
+            : (c.englishTranslation || c.originalTranscript || "Hospital grievance"));
+
+    const dept = this.getCanonicalDepartmentName(c.departmentName || (c.category as any));
+
     return {
       ...c,
       id: c.id || `comp-${Math.random()}`,
       complaintNumber: c.complaintNumber || c.ticketNumber || "JNS-2026-UNKNOWN",
       ticketNumber: c.ticketNumber || c.complaintNumber || "JNS-2026-UNKNOWN",
       status: c.status || "ASSIGNED",
-      priority: c.priority || "Medium",
-      category: c.category || "Hospital Services",
-      departmentName: c.departmentName || (c.category as any) || "Hospital Services",
-      wardOrLocation: c.wardOrLocation || (c as any).location || "Victoria District Hospital - Kiosk #1",
-      summary: c.summary || c.originalTranscript || "Hospital grievance reported",
-      originalTranscript: c.originalTranscript || "",
-      englishTranslation: c.englishTranslation || c.originalTranscript || "",
+      priority: c.priority || (isMed ? "High" : "Medium"),
+      category: isMed ? "Pharmacy and Medicine Availability" : (c.category || dept),
+      departmentName: dept,
+      wardOrLocation: c.wardOrLocation || (c as any).location || "Outpatient Department, Ballari - Kiosk #1",
+      summary: summaryText,
+      originalTranscript: c.originalTranscript || c.summary || "Hospital grievance reported",
+      englishTranslation: c.englishTranslation || c.summary || c.originalTranscript || "Hospital grievance reported",
       submittedAt: c.submittedAt || c.createdAt || new Date().toISOString(),
       createdAt: c.createdAt || c.submittedAt || new Date().toISOString(),
       citizenName: c.citizenName || "Citizen",
       citizenPhone: c.citizenPhone || "",
       maskedCitizenPhone: c.maskedCitizenPhone || (c.citizenPhone ? `XXXXXX${c.citizenPhone.slice(-4)}` : undefined),
-      medicineName: c.medicineName,
-      isMedicineComplaint: Boolean(c.isMedicineComplaint),
-      hospitalName: c.hospitalName || "Victoria District Hospital",
+      medicineName: medName,
+      isMedicineComplaint: isMed,
+      hospitalName: c.hospitalName || "Outpatient Department, Ballari",
+      assignedOfficialName:
+        c.assignedOfficialName ||
+        (dept.includes("Pharmacy")
+          ? "Kavitha Raman"
+          : dept.includes("Water")
+          ? "Rajesh Verma"
+          : dept.includes("Bed")
+          ? "Dr. Preethi Hegde"
+          : dept.includes("Infra")
+          ? "Suresh Nambiar"
+          : "Demo Official"),
+      assignedOfficialDesignation:
+        c.assignedOfficialDesignation ||
+        (dept.includes("Pharmacy")
+          ? "Chief Pharmacist"
+          : dept.includes("Water")
+          ? "Sanitation & Facilities Lead"
+          : dept.includes("Bed")
+          ? "Bed Manager & Casualty Officer"
+          : dept.includes("Infra")
+          ? "Civil Works Executive"
+          : "Department Officer"),
     };
   }
 
-  /**
-   * Save a newly submitted complaint permanently to the database
-   */
-  static async createComplaint(params: {
-    originalLanguage: string;
-    languageCode: string;
-    originalTranscript: string;
-    englishTranslation: string;
-    summary: string;
-    category: string;
-    department: string;
-    priority?: "Low" | "Medium" | "High" | "Critical";
-    location?: string;
-    source?: "VOICE_KIOSK" | "QR_PORTAL" | "CITIZEN_WEB" | "PHONE_IVR";
-    medicineName?: string;
-    citizenPhone?: string;
-    citizenName?: string;
-    isMedicineComplaint?: boolean;
-    visibility?: "PUBLIC" | "PRIVATE";
-  }): Promise<ComplaintItem> {
-    const db = this.ensureInitialized();
+  static getCanonicalDepartmentName(dept?: string): string {
+    if (!dept) return "Hospital Services";
+    const d = dept.trim().toLowerCase();
 
-    db.counter += 1;
-    const year = new Date().getFullYear();
-    const complaintNumber = `JNS-${year}-${String(db.counter).padStart(6, "0")}`;
+    // 1. Water and Facilities (high priority check)
+    if (
+      d.includes("water") ||
+      d.includes("drink") ||
+      d.includes("cooler") ||
+      d.includes("plumb") ||
+      d.includes("neeru") ||
+      d.includes("paani") ||
+      d.includes("pani") ||
+      d.includes("neellu") ||
+      d.includes("tap") ||
+      d.includes("leak") ||
+      d.includes("pipe") ||
+      d.includes("filter") ||
+      d.includes("tank") ||
+      d.includes("drain") ||
+      d.includes("flushing") ||
+      d.includes("ನಲ್ಲಿ") ||
+      d.includes("ನೀರು") ||
+      d.includes("ಕುಡಿಯುವ") ||
+      d.includes("ತಣ್ಣೀರು") ||
+      d.includes("नल") ||
+      d.includes("पानी") ||
+      d.includes("जल") ||
+      d.includes("నీరు") ||
+      d.includes("நீர") ||
+      d.includes("தண்ணீர்") ||
+      d.includes("വെള്ളം")
+    ) {
+      return "Water and Facilities";
+    }
+
+    // 2. Pharmacy & Medicines
+    if (
+      d.includes("pharm") ||
+      d.includes("med") ||
+      d.includes("drug") ||
+      d.includes("tablet") ||
+      d.includes("dawa") ||
+      d.includes("aushadh") ||
+      d.includes("insulin") ||
+      d.includes("prescri") ||
+      d.includes("capsule") ||
+      d.includes("syrup") ||
+      d.includes("drops") ||
+      d.includes("injection") ||
+      d.includes("dolo") ||
+      d.includes("paracetamol") ||
+      d.includes("ಮಾತ್ರೆ") ||
+      d.includes("ಔಷಧಿ") ||
+      d.includes("ದವಾ") ||
+      d.includes("दवा") ||
+      d.includes("दवाई") ||
+      d.includes("మందు")
+    ) {
+      return "Pharmacy and Medicine Availability";
+    }
+
+    // 3. Bed Management
+    if (
+      d.includes("bed") ||
+      d.includes("icu") ||
+      d.includes("admiss") ||
+      d.includes("stretcher") ||
+      d.includes("wheelchair") ||
+      d.includes("ventilator") ||
+      d.includes("hasige") ||
+      d.includes("bistar") ||
+      d.includes("ಹಾಸಿಗೆ") ||
+      d.includes("ಬೆಡ್") ||
+      d.includes("बिस्तर") ||
+      d.includes("पलंग")
+    ) {
+      return "Bed Management";
+    }
+
+    // 4. Infrastructure Maintenance
+    if (
+      d.includes("infra") ||
+      d.includes("electric") ||
+      d.includes("light") ||
+      d.includes("fan") ||
+      d.includes("lift") ||
+      d.includes("repair") ||
+      d.includes("maint") ||
+      d.includes("pankha") ||
+      d.includes("power") ||
+      d.includes("switch") ||
+      d.includes("wire") ||
+      d.includes("generator") ||
+      d.includes("ac") ||
+      d.includes("door") ||
+      d.includes("window") ||
+      d.includes("ಬೆಳಕು") ||
+      d.includes("ಫ್ಯಾನ್") ||
+      d.includes("ವಿದ್ಯುತ್") ||
+      d.includes("ಲಿಫ್ಟ್") ||
+      d.includes("बिजली") ||
+      d.includes("पंखा") ||
+      d.includes("लाइट")
+    ) {
+      return "Infrastructure Maintenance";
+    }
+
+    // 5. Hygiene and Sanitation
+    if (
+      d.includes("hygiene") ||
+      d.includes("sanitat") ||
+      d.includes("clean") ||
+      d.includes("shauchalay") ||
+      d.includes("swachh") ||
+      d.includes("toilet") ||
+      d.includes("washroom") ||
+      d.includes("dirty") ||
+      d.includes("waste") ||
+      d.includes("garbage") ||
+      d.includes("dustbin") ||
+      d.includes("odour") ||
+      d.includes("smell") ||
+      d.includes("stink") ||
+      d.includes("mosquito") ||
+      d.includes("sweep") ||
+      d.includes("broom") ||
+      d.includes("ಸ್ವಚ್ಛ") ||
+      d.includes("ಶೌಚಾಲಯ") ||
+      d.includes("ಕಸ") ||
+      d.includes("ಗಬ್ಬು") ||
+      d.includes("गंदगी") ||
+      d.includes("शौचालय") ||
+      d.includes("सफाई")
+    ) {
+      return "Hygiene and Sanitation";
+    }
+
+    return "Hospital Services";
+  }
+
+  /**
+   * Internal routine for complaint creation, called within runInTransaction.
+   */
+  private static async createComplaintInternal(
+    db: DatabaseSchema,
+    params: {
+      originalLanguage: string;
+      languageCode: string;
+      originalTranscript: string;
+      englishTranslation: string;
+      summary: string;
+      category: string;
+      department: string;
+      priority?: "Low" | "Medium" | "High" | "Critical";
+      location?: string;
+      source?: "VOICE_KIOSK" | "QR_PORTAL" | "CITIZEN_WEB" | "PHONE_IVR";
+      medicineName?: string;
+      citizenPhone?: string;
+      citizenName?: string;
+      isMedicineComplaint?: boolean;
+      visibility?: "PUBLIC" | "PRIVATE";
+      simulateDeptFailure?: boolean;
+    }
+  ): Promise<ComplaintItem> {
+    const complaintNumber = this.allocateNextComplaintNumber(db);
     const id = `comp-${Date.now()}-${db.counter}`;
     const nowIso = new Date().toISOString();
     const { formattedDate, formattedTime, timeZone } = this.getKolkataDateTime();
@@ -585,25 +901,36 @@ export class DBService {
       (typeof params.department === "string" && params.department.toLowerCase().includes("pharmacy")) ||
       Boolean(params.medicineName);
 
-    const category = isMed ? "Pharmacy and Medicine Availability" : (params.category || "Hospital Services");
-    const department = isMed ? "Pharmacy and Medicine Availability" : (params.department || "Hospital Services");
+    // Central category-based department routing
+    const routedDept = routeComplaintDepartment({
+      category: isMed ? "Pharmacy and Medicine Availability" : params.category,
+      department: isMed ? "Pharmacy and Medicine Availability" : params.department,
+      summary: params.summary,
+      transcript: params.originalTranscript,
+      text: params.englishTranslation,
+    });
+
+    const canonicalDepartment = isMed ? "Pharmacy and Medicine Availability" : routedDept.name;
+    const category = isMed ? "Pharmacy and Medicine Availability" : routedDept.category;
+    const department = canonicalDepartment;
     const visibility = isMed ? "PRIVATE" : (params.visibility || "PUBLIC");
 
     // Identify responsible official in the department
-    const deptNormalized = normalizeDepartmentName(department || "Hospital Services");
+    const deptNormalized = normalizeDepartmentName(department);
     const departmentRecord = (db.departments || []).find(
       (item) => normalizeDepartmentName(item?.name) === deptNormalized
     );
+
     const fallbackOfficial = {
-      id: `off-${departmentRecord?.id || deptNormalized.replace(/\s+/g, "-")}-default`,
-      name: "Department Officer",
-      officialId: "OFF-01",
-      email: "officer@janasuvidha.gov.in",
-      departmentId: departmentRecord?.id || `dept-${deptNormalized.replace(/\s+/g, "-")}`,
+      id: routedDept.id,
+      name: routedDept.officialName,
+      officialId: `${routedDept.code}-01`,
+      email: routedDept.officialEmail,
+      departmentId: departmentRecord?.id || routedDept.id,
       departmentName: department,
-      designation: "Department Officer",
+      designation: routedDept.officialDesignation,
       hospitalId: "hosp-001",
-      hospitalName: "Victoria District Hospital",
+      hospitalName: "Outpatient Department, Ballari",
       role: "OFFICIAL" as any,
       phone: "+91 80 2670 1150",
     };
@@ -623,13 +950,13 @@ export class DBService {
       complaintNumber,
       complaintText: params.summary || (isMed ? `Medicine request: ${params.medicineName || "Prescribed medicine"}` : "Hospital grievance reported"),
       originalLanguage: params.originalLanguage || "Kannada",
-      hospitalName: "Victoria District Hospital",
-      location: params.location || "Victoria District Hospital - Kiosk #1",
+      hospitalName: "Outpatient Department, Ballari",
+      location: params.location || "Outpatient Department, Ballari - Kiosk #1",
       submissionDate: formattedDate,
       submissionTime: formattedTime,
       timeZone,
       category: category as any,
-      forwardedTo: `${department} Department`,
+      forwardedTo: department,
       responsibleAuthority: official
         ? `${official.name} (${official.designation})`
         : "Department Supervisor",
@@ -640,13 +967,41 @@ export class DBService {
       ? `XXXXXX${params.citizenPhone.slice(-4)}`
       : undefined;
 
+    // Multi-destination delivery tracking
+    const deptDeliveryStatus: DeliveryState = params.simulateDeptFailure ? "FAILED" : "DELIVERED";
+    const deptLastError = params.simulateDeptFailure
+      ? "Simulated connection timeout to department endpoint"
+      : undefined;
+
+    const deliveryTracking: ComplaintDeliveryTracking = {
+      adminPortal: {
+        status: "DELIVERED",
+        updatedAt: nowIso,
+        deliveredAt: nowIso,
+        attempts: 1,
+      },
+      departmentPortal: {
+        status: deptDeliveryStatus,
+        updatedAt: nowIso,
+        deliveredAt: params.simulateDeptFailure ? undefined : nowIso,
+        lastError: deptLastError,
+        attempts: 1,
+      },
+      externalGovPortal: {
+        status: "NOT_CONFIGURED",
+        updatedAt: nowIso,
+        attempts: 0,
+        lastError: "External government integration endpoint or credentials not configured in environment.",
+      },
+    };
+
     const newComplaint: ComplaintItem = {
       id,
       complaintNumber,
       ticketNumber: complaintNumber,
       hospitalId: "hosp-001",
-      hospitalName: "Victoria District Hospital",
-      departmentId: official?.departmentId || "dept-services",
+      hospitalName: "Outpatient Department, Ballari",
+      departmentId: official?.departmentId || routedDept.id,
       departmentName: department,
       category: category as any,
       visibility,
@@ -662,7 +1017,7 @@ export class DBService {
       englishTranslation: params.englishTranslation || params.originalTranscript || "",
       translatedText: params.englishTranslation || params.originalTranscript || "",
       summary: params.summary || "Hospital grievance",
-      wardOrLocation: params.location || "Victoria District Hospital - Kiosk #1",
+      wardOrLocation: params.location || "Outpatient Department, Ballari - Kiosk #1",
       floorOrBlock: "Ground Floor",
       status: "ASSIGNED",
       priority: params.priority || "Medium",
@@ -672,6 +1027,7 @@ export class DBService {
       submittedAt: nowIso,
       createdAt: nowIso,
       updatedAt: nowIso,
+      deliveryTracking,
       events: [
         {
           id: `ev-${Date.now()}-1`,
@@ -698,9 +1054,89 @@ export class DBService {
       db.complaints = [];
     }
     db.complaints.unshift(newComplaint);
-    this.writeData(db);
+
+    // Save official and admin dispatch notifications
+    if (!Array.isArray(db.notifications)) {
+      db.notifications = [];
+    }
+    const deptNotif: NotificationItem = {
+      id: `notif-${Date.now()}-dept`,
+      availabilityRequestId: newComplaint.id,
+      recipient: official.email || routedDept.officialEmail,
+      message: `New grievance ${complaintNumber} dispatched to ${canonicalDepartment}: "${params.summary || params.originalTranscript}"`,
+      provider: "mock",
+      deliveryStatus: params.simulateDeptFailure ? "FAILED" : "DELIVERED",
+      sentAt: nowIso,
+      departmentName: canonicalDepartment,
+      recipientType: "OFFICIAL",
+    };
+    const adminNotif: NotificationItem = {
+      id: `notif-${Date.now()}-admin`,
+      availabilityRequestId: newComplaint.id,
+      recipient: "admin.ballari@janasuvidha.gov.in",
+      message: `New grievance ${complaintNumber} registered for ${canonicalDepartment} (${isMed ? 'Medicine Shortage' : 'Facility'}).`,
+      provider: "mock",
+      deliveryStatus: "DELIVERED",
+      sentAt: nowIso,
+      departmentName: canonicalDepartment,
+      recipientType: "ADMIN",
+    };
+    db.notifications.unshift(deptNotif, adminNotif);
+
+    // If it's a medicine complaint with citizen phone, record private availability request and send SMS ack
+    if (isMed && params.citizenPhone) {
+      if (!Array.isArray(db.privateRequests)) {
+        db.privateRequests = [];
+      }
+      const avReq: PrivateAvailabilityRequest = {
+        id: `req-av-${newComplaint.id}`,
+        requestNumber: `JNS-2026-AV-${complaintNumber.split("-").pop() || String(Date.now()).slice(-4)}`,
+        verifiedPhoneNumber: params.citizenPhone,
+        requestedResource: params.medicineName || params.summary || "Prescribed Medicine",
+        resourceType: "MEDICINE",
+        originalTranscript: params.originalTranscript || "",
+        englishTranslation: params.englishTranslation || "",
+        languageCode: params.languageCode || "kn",
+        hospitalId: "hosp-001",
+        hospitalName: "Outpatient Department, Ballari",
+        departmentId: official.departmentId || "dept-pharmacy",
+        departmentName: "Pharmacy and Medicine Availability",
+        status: "Pending",
+        otpVerified: true,
+        notifications: [],
+        createdAt: nowIso,
+        updatedAt: nowIso,
+      };
+      db.privateRequests.unshift(avReq);
+    }
 
     return newComplaint;
+  }
+
+  /**
+   * Save a newly submitted complaint permanently to the database (atomic transaction)
+   */
+  static async createComplaint(params: {
+    originalLanguage: string;
+    languageCode: string;
+    originalTranscript: string;
+    englishTranslation: string;
+    summary: string;
+    category: string;
+    department: string;
+    priority?: "Low" | "Medium" | "High" | "Critical";
+    location?: string;
+    source?: "VOICE_KIOSK" | "QR_PORTAL" | "CITIZEN_WEB" | "PHONE_IVR";
+    medicineName?: string;
+    citizenPhone?: string;
+    citizenName?: string;
+    isMedicineComplaint?: boolean;
+    visibility?: "PUBLIC" | "PRIVATE";
+    simulateDeptFailure?: boolean;
+  }): Promise<ComplaintItem> {
+    return this.runInTransaction(async (db) => {
+      return this.createComplaintInternal(db, params);
+    });
   }
 
   /**
@@ -868,7 +1304,7 @@ export class DBService {
       departmentName: params.department,
       designation: params.designation,
       hospitalId: "hosp-001",
-      hospitalName: params.hospital || "Victoria District Hospital",
+      hospitalName: params.hospital || "Outpatient Department, Ballari",
       role:
         params.designation === "Hospital Administrator"
           ? "ADMIN"
@@ -924,7 +1360,7 @@ export class DBService {
       englishTranslation: params.englishTranslation,
       languageCode: params.languageCode || "kn",
       hospitalId: params.hospitalId || "hosp-001",
-      hospitalName: params.hospitalName || "Victoria District Hospital",
+      hospitalName: params.hospitalName || "Outpatient Department, Ballari",
       departmentId: params.departmentId || "dept-pharmacy",
       departmentName: params.departmentName || "Pharmacy and Medicine Availability",
       status: "Pending",
@@ -955,7 +1391,7 @@ export class DBService {
       requestedResource: r.requestedResource || "Requested Resource",
       resourceType: r.resourceType || "MEDICINE",
       departmentName: r.departmentName || "Pharmacy and Medicine Availability",
-      hospitalName: r.hospitalName || "Victoria District Hospital",
+      hospitalName: r.hospitalName || "Outpatient Department, Ballari",
       status: r.status || "Pending",
       verifiedPhoneNumber: r.verifiedPhoneNumber || "",
       maskedPhone: r.maskedPhone || (r.verifiedPhoneNumber ? `XXXXXX${r.verifiedPhoneNumber.slice(-4)}` : ""),
@@ -1059,6 +1495,28 @@ export class DBService {
     this.writeData(db);
   }
 
+  /**
+   * Retrieve notification logs filtered by department or recipient
+   */
+  static async getNotifications(filters?: { department?: string; recipientType?: string }): Promise<NotificationItem[]> {
+    const db = this.ensureInitialized();
+    let notifs = db.notifications || [];
+    if (filters?.department && filters.department !== "ALL" && filters.department !== "All Departments") {
+      const canonical = this.getCanonicalDepartmentName(filters.department);
+      notifs = notifs.filter(
+        (n) =>
+          !n.departmentName ||
+          n.departmentName === "ALL" ||
+          n.departmentName === "All Departments" ||
+          this.getCanonicalDepartmentName(n.departmentName) === canonical
+      );
+    }
+    if (filters?.recipientType) {
+      notifs = notifs.filter((n) => n.recipientType === filters.recipientType);
+    }
+    return notifs;
+  }
+
   // ========================================================
   // PILLAR 2: REPEAT COMPLAINTS & FACILITY OBSERVATIONS
   // ========================================================
@@ -1160,7 +1618,8 @@ export class DBService {
   // ========================================================
 
   /**
-   * Creates a complaint with idempotency protection to prevent duplicates if YES is repeated
+   * Creates a complaint with idempotency protection and atomic transaction.
+   * If the exact same idempotencyKey is submitted again, returns the existing record without generating a new ID.
    */
   static async createComplaintWithIdempotency(params: {
     idempotencyKey?: string;
@@ -1179,49 +1638,90 @@ export class DBService {
     citizenName?: string;
     isMedicineComplaint?: boolean;
     visibility?: "PUBLIC" | "PRIVATE";
+    simulateDeptFailure?: boolean;
   }): Promise<{ complaint: ComplaintItem; isDuplicate: boolean }> {
-    const db = this.ensureInitialized();
-
-    // 1. Check idempotency key if provided
-    if (params.idempotencyKey) {
-      if (!db.submissions) db.submissions = [];
-      const existingSub = db.submissions.find((s) => s.idempotencyKey === params.idempotencyKey);
-      if (existingSub) {
-        const existingComp = db.complaints.find((c) => c.id === existingSub.complaintId);
-        if (existingComp) {
-          return { complaint: existingComp, isDuplicate: true };
+    return this.runInTransaction(async (db) => {
+      // 1. Check idempotency key if provided
+      if (params.idempotencyKey) {
+        if (!db.submissions) db.submissions = [];
+        const existingSub = db.submissions.find((s) => s.idempotencyKey === params.idempotencyKey);
+        if (existingSub) {
+          const existingComp = (db.complaints || []).find(
+            (c) => c.id === existingSub.complaintId || c.complaintNumber === existingSub.complaintId
+          );
+          if (existingComp) {
+            return { complaint: existingComp, isDuplicate: true };
+          }
         }
       }
-    }
 
-    // 2. Create the complaint
-    const newComplaint = await this.createComplaint(params);
+      // 2. Create the complaint atomically
+      const newComplaint = await this.createComplaintInternal(db, params);
 
-    // 3. Record idempotency entry
-    if (params.idempotencyKey) {
-      db.submissions.push({
-        idempotencyKey: params.idempotencyKey,
-        complaintId: newComplaint.id,
-        createdAt: newComplaint.createdAt,
-      });
-      this.writeData(db);
-    }
-
-    // 4. Send acknowledgment SMS if medicine complaint with registered mobile
-    if (newComplaint.isMedicineComplaint && newComplaint.citizenPhone) {
-      try {
-        const { NotificationService } = await import("./notification.service");
-        await NotificationService.sendMedicineRegistrationAck({
-          phone: newComplaint.citizenPhone,
-          medicineName: newComplaint.medicineName || newComplaint.summary || "Prescribed Medicine",
-          complaintId: newComplaint.complaintNumber || newComplaint.id,
-          hospitalName: newComplaint.hospitalName,
+      // 3. Record idempotency entry
+      if (params.idempotencyKey) {
+        db.submissions.push({
+          idempotencyKey: params.idempotencyKey,
+          complaintId: newComplaint.id,
+          createdAt: newComplaint.createdAt,
         });
-      } catch (smsErr) {
-        console.warn("[Registration Ack SMS warning]", smsErr);
       }
-    }
 
-    return { complaint: newComplaint, isDuplicate: false };
+      // 4. Send acknowledgment SMS if medicine complaint with registered mobile
+      if (newComplaint.isMedicineComplaint && newComplaint.citizenPhone) {
+        try {
+          const { NotificationService } = await import("./notification.service");
+          void NotificationService.sendMedicineRegistrationAck({
+            phone: newComplaint.citizenPhone,
+            medicineName: newComplaint.medicineName || newComplaint.summary || "Prescribed Medicine",
+            complaintId: newComplaint.complaintNumber || newComplaint.id,
+            hospitalName: newComplaint.hospitalName,
+          });
+        } catch (smsErr) {
+          console.warn("[Registration Ack SMS warning]", smsErr);
+        }
+      }
+
+      return { complaint: newComplaint, isDuplicate: false };
+    });
+  }
+
+  /**
+   * Retries a failed department notification and updates delivery tracking.
+   */
+  static async retryFailedNotification(complaintIdOrNumber: string): Promise<{ success: boolean; complaint?: ComplaintItem }> {
+    return this.runInTransaction((db) => {
+      const complaint = (db.complaints || []).find(
+        (c) => c.id === complaintIdOrNumber || c.complaintNumber === complaintIdOrNumber || c.ticketNumber === complaintIdOrNumber
+      );
+      if (!complaint) return { success: false };
+
+      const nowIso = new Date().toISOString();
+      if (!complaint.deliveryTracking) {
+        complaint.deliveryTracking = {
+          adminPortal: { status: "DELIVERED", updatedAt: nowIso, deliveredAt: nowIso, attempts: 1 },
+          departmentPortal: { status: "DELIVERED", updatedAt: nowIso, deliveredAt: nowIso, attempts: 2 },
+          externalGovPortal: { status: "NOT_CONFIGURED", updatedAt: nowIso, attempts: 0 },
+        };
+      } else {
+        complaint.deliveryTracking.departmentPortal = {
+          status: "DELIVERED",
+          updatedAt: nowIso,
+          deliveredAt: nowIso,
+          attempts: (complaint.deliveryTracking.departmentPortal.attempts || 1) + 1,
+        };
+      }
+
+      // Update matching notification in db.notifications
+      const notif = (db.notifications || []).find(
+        (n) => (n.availabilityRequestId === complaint.id || n.message.includes(complaint.complaintNumber || "")) && n.recipientType === "OFFICIAL"
+      );
+      if (notif) {
+        notif.deliveryStatus = "DELIVERED";
+        notif.sentAt = nowIso;
+      }
+
+      return { success: true, complaint };
+    });
   }
 }

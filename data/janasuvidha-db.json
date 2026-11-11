@@ -2,9 +2,9 @@
   "hospitals": [
     {
       "id": "hosp-001",
-      "code": "VIC-BLR-01",
-      "name": "Victoria District Hospital",
-      "district": "Bengaluru Urban",
+      "code": "OPD-BAL-01",
+      "name": "Outpatient Department, Ballari",
+      "district": "Ballari",
       "state": "Karnataka",
       "pincode": "560002",
       "type": "Tertiary Government Teaching Hospital"
@@ -46,7 +46,7 @@
       "departmentName": "Hygiene and Sanitation",
       "designation": "Department Officer",
       "hospitalId": "hosp-001",
-      "hospitalName": "Victoria District Hospital",
+      "hospitalName": "Outpatient Department, Ballari",
       "role": "OFFICIAL",
       "phone": "+91 80 2670 1150"
     },
@@ -59,7 +59,7 @@
       "departmentName": "Hygiene and Sanitation",
       "designation": "Sanitation Supervisor",
       "hospitalId": "hosp-001",
-      "hospitalName": "Victoria District Hospital",
+      "hospitalName": "Outpatient Department, Ballari",
       "role": "OFFICIAL",
       "phone": "+91 80 2670 1151"
     },
@@ -72,7 +72,7 @@
       "departmentName": "Water and Facilities",
       "designation": "Department Officer",
       "hospitalId": "hosp-001",
-      "hospitalName": "Victoria District Hospital",
+      "hospitalName": "Outpatient Department, Ballari",
       "role": "OFFICIAL",
       "phone": "+91 80 2670 1152"
     },
@@ -85,7 +85,7 @@
       "departmentName": "Pharmacy and Medicine Availability",
       "designation": "Chief Pharmacist",
       "hospitalId": "hosp-001",
-      "hospitalName": "Victoria District Hospital",
+      "hospitalName": "Outpatient Department, Ballari",
       "role": "OFFICIAL",
       "phone": "+91 80 2670 1153"
     },
@@ -98,7 +98,7 @@
       "departmentName": "Bed Management",
       "designation": "Nursing Superintendent",
       "hospitalId": "hosp-001",
-      "hospitalName": "Victoria District Hospital",
+      "hospitalName": "Outpatient Department, Ballari",
       "role": "OFFICIAL",
       "phone": "+91 80 2670 1154"
     },
@@ -111,12 +111,2746 @@
       "departmentName": "Hospital Services",
       "designation": "Hospital Administrator",
       "hospitalId": "hosp-001",
-      "hospitalName": "Victoria District Hospital",
+      "hospitalName": "Outpatient Department, Ballari",
       "role": "ADMIN",
       "phone": "+91 80 2670 1100"
     }
   ],
   "complaints": [
+    {
+      "id": "comp-1794423669230-161",
+      "complaintNumber": "JAN-2026-000161",
+      "ticketNumber": "JAN-2026-000161",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-water",
+      "departmentName": "Water and Facilities",
+      "category": "Water and Facilities",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Telugu",
+      "languageCode": "te",
+      "originalTranscript": "ఇక్కడ తాగే నీళ్లు లేవు. No",
+      "englishTranslation": "Drinking water facility is broken or water cooler is not working.",
+      "translatedText": "Drinking water facility is broken or water cooler is not working.",
+      "summary": "Drinking water facility malfunctioning",
+      "wardOrLocation": "Outpatient Department, Ballari - Kiosk #1",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "off-water-officer",
+      "assignedOfficialName": "Dr. Ananya Sharma",
+      "assignedOfficialDesignation": "Department Officer",
+      "submittedAt": "2026-11-11T19:01:09.230Z",
+      "createdAt": "2026-11-11T19:01:09.230Z",
+      "updatedAt": "2026-11-11T19:01:09.230Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T19:01:09.230Z",
+          "deliveredAt": "2026-11-11T19:01:09.230Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T19:01:09.230Z",
+          "deliveredAt": "2026-11-11T19:01:09.230Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T19:01:09.230Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794423669241-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in Telugu at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T19:01:09.230Z"
+        },
+        {
+          "id": "ev-1794423669241-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Water and Facilities Department. Assigned to Dr. Ananya Sharma (Department Officer).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T19:01:09.230Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000161",
+        "complaintText": "Drinking water facility malfunctioning",
+        "originalLanguage": "Telugu",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Kiosk #1",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:31 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Water and Facilities",
+        "forwardedTo": "Water and Facilities",
+        "responsibleAuthority": "Dr. Ananya Sharma (Department Officer)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794423551340-160",
+      "complaintNumber": "JAN-2026-000160",
+      "ticketNumber": "JAN-2026-000160",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-hygiene",
+      "departmentName": "Hygiene and Sanitation",
+      "category": "Hygiene and Sanitation",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "English",
+      "languageCode": "en",
+      "originalTranscript": "Idhar pani aur washroom ka bahut samasya hai.",
+      "englishTranslation": "The washrooms here are not clean and need urgent sanitization.",
+      "translatedText": "The washrooms here are not clean and need urgent sanitization.",
+      "summary": "Hospital washrooms are not clean",
+      "wardOrLocation": "Outpatient Department, Ballari - Kiosk #1",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "off-demo-officer",
+      "assignedOfficialName": "Demo Official",
+      "assignedOfficialDesignation": "Department Officer",
+      "submittedAt": "2026-11-11T18:59:11.340Z",
+      "createdAt": "2026-11-11T18:59:11.340Z",
+      "updatedAt": "2026-11-11T18:59:11.340Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:59:11.340Z",
+          "deliveredAt": "2026-11-11T18:59:11.340Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:59:11.340Z",
+          "deliveredAt": "2026-11-11T18:59:11.340Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:59:11.340Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794423551350-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in English at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:59:11.340Z"
+        },
+        {
+          "id": "ev-1794423551350-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Hygiene and Sanitation Department. Assigned to Demo Official (Department Officer).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:59:11.340Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000160",
+        "complaintText": "Hospital washrooms are not clean",
+        "originalLanguage": "English",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Kiosk #1",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:29 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Hygiene and Sanitation",
+        "forwardedTo": "Hygiene and Sanitation",
+        "responsibleAuthority": "Demo Official (Department Officer)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794423477352-159",
+      "complaintNumber": "JAN-2026-000159",
+      "ticketNumber": "JAN-2026-000159",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-pharmacy",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "category": "Pharmacy and Medicine Availability",
+      "visibility": "PRIVATE",
+      "isMedicineComplaint": true,
+      "citizenName": "Citizen",
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ಔಷಧಾಲಯದಲ್ಲಿ ಬಿಪಿ ಮಾತ್ರೆಗಳು ಖಾಲಿಯಾಗಿವೆ.",
+      "englishTranslation": "BP tablets are out of stock in pharmacy.",
+      "translatedText": "BP tablets are out of stock in pharmacy.",
+      "summary": "BP tablets stockout in OPD pharmacy",
+      "wardOrLocation": "Ballari OPD - Pharmacy Counter",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "off-pharmacy-officer",
+      "assignedOfficialName": "Kavitha Raman",
+      "assignedOfficialDesignation": "Chief Pharmacist",
+      "submittedAt": "2026-11-11T18:57:57.352Z",
+      "createdAt": "2026-11-11T18:57:57.352Z",
+      "updatedAt": "2026-11-11T18:57:57.352Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.352Z",
+          "deliveredAt": "2026-11-11T18:57:57.352Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.352Z",
+          "deliveredAt": "2026-11-11T18:57:57.352Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:57:57.352Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794423477352-1",
+          "eventType": "CREATED",
+          "description": "Medicine availability request logged for \"BP tablets stockout in OPD pharmacy\". Registered phone: N/A.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:57:57.352Z"
+        },
+        {
+          "id": "ev-1794423477352-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Pharmacy and Medicine Availability Department. Assigned to Kavitha Raman (Chief Pharmacist).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:57:57.352Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000159",
+        "complaintText": "BP tablets stockout in OPD pharmacy",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Ballari OPD - Pharmacy Counter",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:27 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Pharmacy and Medicine Availability",
+        "forwardedTo": "Pharmacy and Medicine Availability",
+        "responsibleAuthority": "Kavitha Raman (Chief Pharmacist)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794423477347-158",
+      "complaintNumber": "JAN-2026-000158",
+      "ticketNumber": "JAN-2026-000158",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-admin",
+      "departmentName": "Hospital Administration",
+      "category": "Hospital Services",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "English",
+      "languageCode": "en",
+      "originalTranscript": "Testing unconfigured external government portal status.",
+      "englishTranslation": "Testing unconfigured external government portal status.",
+      "translatedText": "Testing unconfigured external government portal status.",
+      "summary": "Gov portal sync verification",
+      "wardOrLocation": "Outpatient Department, Ballari - Kiosk #1",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "dept-admin",
+      "assignedOfficialName": "Dr. B. K. Shivakumar",
+      "assignedOfficialDesignation": "Deputy Medical Superintendent",
+      "submittedAt": "2026-11-11T18:57:57.347Z",
+      "createdAt": "2026-11-11T18:57:57.347Z",
+      "updatedAt": "2026-11-11T18:57:57.347Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.347Z",
+          "deliveredAt": "2026-11-11T18:57:57.347Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.347Z",
+          "deliveredAt": "2026-11-11T18:57:57.347Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:57:57.347Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794423477348-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in English at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:57:57.347Z"
+        },
+        {
+          "id": "ev-1794423477348-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Hospital Administration Department. Assigned to Dr. B. K. Shivakumar (Deputy Medical Superintendent).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:57:57.347Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000158",
+        "complaintText": "Gov portal sync verification",
+        "originalLanguage": "English",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Kiosk #1",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:27 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Hospital Services",
+        "forwardedTo": "Hospital Administration",
+        "responsibleAuthority": "Dr. B. K. Shivakumar (Deputy Medical Superintendent)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794423477331-157",
+      "complaintNumber": "JAN-2026-000157",
+      "ticketNumber": "JAN-2026-000157",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-infra",
+      "departmentName": "Medical Equipment / Maintenance",
+      "category": "Infrastructure Maintenance",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "English",
+      "languageCode": "en",
+      "originalTranscript": "Ventilator machine screen blinking with error code E04.",
+      "englishTranslation": "Ventilator machine screen blinking with error code E04.",
+      "translatedText": "Ventilator machine screen blinking with error code E04.",
+      "summary": "Ventilator error code E04",
+      "wardOrLocation": "Outpatient Department, Ballari - Kiosk #1",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "dept-equipment",
+      "assignedOfficialName": "Dr. Prabhakar Rao",
+      "assignedOfficialDesignation": "Biomedical Engineer & Facilities In-charge",
+      "submittedAt": "2026-11-11T18:57:57.331Z",
+      "createdAt": "2026-11-11T18:57:57.331Z",
+      "updatedAt": "2026-11-11T18:57:57.331Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.331Z",
+          "deliveredAt": "2026-11-11T18:57:57.331Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.338Z",
+          "deliveredAt": "2026-11-11T18:57:57.338Z",
+          "attempts": 2
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:57:57.331Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794423477332-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in English at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:57:57.331Z"
+        },
+        {
+          "id": "ev-1794423477332-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Medical Equipment / Maintenance Department. Assigned to Dr. Prabhakar Rao (Biomedical Engineer & Facilities In-charge).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:57:57.331Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000157",
+        "complaintText": "Ventilator error code E04",
+        "originalLanguage": "English",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Kiosk #1",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:27 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Infrastructure Maintenance",
+        "forwardedTo": "Medical Equipment / Maintenance",
+        "responsibleAuthority": "Dr. Prabhakar Rao (Biomedical Engineer & Facilities In-charge)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794423477320-156",
+      "complaintNumber": "JAN-2026-000156",
+      "ticketNumber": "JAN-2026-000156",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-water",
+      "departmentName": "Water and Facilities",
+      "category": "Water and Facilities",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "English",
+      "languageCode": "en",
+      "originalTranscript": "Water dispenser is leaking and water is flooding the hallway.",
+      "englishTranslation": "Drinking water facility is not available or broken.",
+      "translatedText": "Drinking water facility is not available or broken.",
+      "summary": "Drinking water or plumbing system failure",
+      "wardOrLocation": "Outpatient Department, Ballari - Hallway Kiosk",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "HIGH",
+      "assignedOfficialId": "off-water-officer",
+      "assignedOfficialName": "Dr. Ananya Sharma",
+      "assignedOfficialDesignation": "Department Officer",
+      "submittedAt": "2026-11-11T18:57:57.320Z",
+      "createdAt": "2026-11-11T18:57:57.320Z",
+      "updatedAt": "2026-11-11T18:57:57.320Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.320Z",
+          "deliveredAt": "2026-11-11T18:57:57.320Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.320Z",
+          "deliveredAt": "2026-11-11T18:57:57.320Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:57:57.320Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794423477321-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in English at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:57:57.320Z"
+        },
+        {
+          "id": "ev-1794423477321-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Water and Facilities Department. Assigned to Dr. Ananya Sharma (Department Officer).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:57:57.320Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000156",
+        "complaintText": "Drinking water or plumbing system failure",
+        "originalLanguage": "English",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Hallway Kiosk",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:27 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Water and Facilities",
+        "forwardedTo": "Water and Facilities",
+        "responsibleAuthority": "Dr. Ananya Sharma (Department Officer)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794423477313-155",
+      "complaintNumber": "JAN-2026-000155",
+      "ticketNumber": "JAN-2026-000155",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-hygiene",
+      "departmentName": "Hygiene and Sanitation",
+      "category": "Hygiene and Sanitation",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ಇಲ್ಲಿನ ಶೌಚಾಲಯ ತುಂಬಾ ಗಲೀಜಾಗಿದೆ, ಕಸ ಮತ್ತು ದುರ್ವಾಸನೆ ಬರುತ್ತಿದೆ.",
+      "englishTranslation": "The hospital washrooms are unclean and lack proper sanitation.",
+      "translatedText": "The hospital washrooms are unclean and lack proper sanitation.",
+      "summary": "Sanitation and cleanliness issue reported in hospital facility",
+      "wardOrLocation": "Ballari OPD - Ground Floor Washroom",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "MEDIUM",
+      "assignedOfficialId": "off-demo-officer",
+      "assignedOfficialName": "Demo Official",
+      "assignedOfficialDesignation": "Department Officer",
+      "submittedAt": "2026-11-11T18:57:57.313Z",
+      "createdAt": "2026-11-11T18:57:57.313Z",
+      "updatedAt": "2026-11-11T18:57:57.313Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.313Z",
+          "deliveredAt": "2026-11-11T18:57:57.313Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.313Z",
+          "deliveredAt": "2026-11-11T18:57:57.313Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:57:57.313Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794423477314-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in Kannada at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:57:57.313Z"
+        },
+        {
+          "id": "ev-1794423477314-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Hygiene and Sanitation Department. Assigned to Demo Official (Department Officer).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:57:57.313Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000155",
+        "complaintText": "Sanitation and cleanliness issue reported in hospital facility",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Ballari OPD - Ground Floor Washroom",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:27 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Hygiene and Sanitation",
+        "forwardedTo": "Hygiene and Sanitation",
+        "responsibleAuthority": "Demo Official (Department Officer)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794423477290-154",
+      "complaintNumber": "JAN-2026-000154",
+      "ticketNumber": "JAN-2026-000154",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-pharmacy",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "category": "Pharmacy and Medicine Availability",
+      "visibility": "PRIVATE",
+      "isMedicineComplaint": true,
+      "medicineName": "Insulin & Paracetamol",
+      "citizenPhone": "9876543210",
+      "maskedCitizenPhone": "XXXXXX3210",
+      "citizenName": "Citizen",
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ಡಾಕ್ಟರ್ ಬರೆದಿರುವ ಪ್ಯಾರಸಿಟಮಾಲ್ ಮತ್ತು ಇನ್ಸುಲಿನ್ ಔಷಧ ಲಭ್ಯವಿಲ್ಲ.",
+      "englishTranslation": "Prescribed medicines or tablets are out of stock at the pharmacy counter.",
+      "translatedText": "Prescribed medicines or tablets are out of stock at the pharmacy counter.",
+      "summary": "Crucial medicine or pharmacy supply stock unavailability",
+      "wardOrLocation": "Outpatient Department, Ballari - Kiosk #1",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "HIGH",
+      "assignedOfficialId": "off-pharmacy-officer",
+      "assignedOfficialName": "Kavitha Raman",
+      "assignedOfficialDesignation": "Chief Pharmacist",
+      "submittedAt": "2026-11-11T18:57:57.290Z",
+      "createdAt": "2026-11-11T18:57:57.290Z",
+      "updatedAt": "2026-11-11T18:57:57.290Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.290Z",
+          "deliveredAt": "2026-11-11T18:57:57.290Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.290Z",
+          "deliveredAt": "2026-11-11T18:57:57.290Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:57:57.290Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794423477291-1",
+          "eventType": "CREATED",
+          "description": "Medicine availability request logged for \"Insulin & Paracetamol\". Registered phone: XXXXXX3210.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:57:57.290Z"
+        },
+        {
+          "id": "ev-1794423477291-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Pharmacy and Medicine Availability Department. Assigned to Kavitha Raman (Chief Pharmacist).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:57:57.290Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000154",
+        "complaintText": "Crucial medicine or pharmacy supply stock unavailability",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Kiosk #1",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:27 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Pharmacy and Medicine Availability",
+        "forwardedTo": "Pharmacy and Medicine Availability",
+        "responsibleAuthority": "Kavitha Raman (Chief Pharmacist)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794423477283-153",
+      "complaintNumber": "JAN-2026-000153",
+      "ticketNumber": "JAN-2026-000153",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-admin",
+      "departmentName": "Hospital Administration",
+      "category": "Hospital Services",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ಏಕಕಾಲಿಕ ದೂರು ಪರೀಕ್ಷೆ ಸಂಖ್ಯೆ 6",
+      "englishTranslation": "Simultaneous complaint test batch 6",
+      "translatedText": "Simultaneous complaint test batch 6",
+      "summary": "Concurrent submission test 6",
+      "wardOrLocation": "Ballari OPD - Kiosk #3",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "dept-admin",
+      "assignedOfficialName": "Dr. B. K. Shivakumar",
+      "assignedOfficialDesignation": "Deputy Medical Superintendent",
+      "submittedAt": "2026-11-11T18:57:57.283Z",
+      "createdAt": "2026-11-11T18:57:57.283Z",
+      "updatedAt": "2026-11-11T18:57:57.283Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.283Z",
+          "deliveredAt": "2026-11-11T18:57:57.283Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.283Z",
+          "deliveredAt": "2026-11-11T18:57:57.283Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:57:57.283Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794423477284-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in Kannada at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:57:57.283Z"
+        },
+        {
+          "id": "ev-1794423477284-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Hospital Administration Department. Assigned to Dr. B. K. Shivakumar (Deputy Medical Superintendent).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:57:57.283Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000153",
+        "complaintText": "Concurrent submission test 6",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Ballari OPD - Kiosk #3",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:27 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Hospital Services",
+        "forwardedTo": "Hospital Administration",
+        "responsibleAuthority": "Dr. B. K. Shivakumar (Deputy Medical Superintendent)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794423477279-152",
+      "complaintNumber": "JAN-2026-000152",
+      "ticketNumber": "JAN-2026-000152",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-admin",
+      "departmentName": "Hospital Administration",
+      "category": "Hospital Services",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ಏಕಕಾಲಿಕ ದೂರು ಪರೀಕ್ಷೆ ಸಂಖ್ಯೆ 5",
+      "englishTranslation": "Simultaneous complaint test batch 5",
+      "translatedText": "Simultaneous complaint test batch 5",
+      "summary": "Concurrent submission test 5",
+      "wardOrLocation": "Ballari OPD - Kiosk #2",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "dept-admin",
+      "assignedOfficialName": "Dr. B. K. Shivakumar",
+      "assignedOfficialDesignation": "Deputy Medical Superintendent",
+      "submittedAt": "2026-11-11T18:57:57.279Z",
+      "createdAt": "2026-11-11T18:57:57.279Z",
+      "updatedAt": "2026-11-11T18:57:57.279Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.279Z",
+          "deliveredAt": "2026-11-11T18:57:57.279Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.279Z",
+          "deliveredAt": "2026-11-11T18:57:57.279Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:57:57.279Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794423477280-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in Kannada at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:57:57.279Z"
+        },
+        {
+          "id": "ev-1794423477280-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Hospital Administration Department. Assigned to Dr. B. K. Shivakumar (Deputy Medical Superintendent).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:57:57.279Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000152",
+        "complaintText": "Concurrent submission test 5",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Ballari OPD - Kiosk #2",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:27 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Hospital Services",
+        "forwardedTo": "Hospital Administration",
+        "responsibleAuthority": "Dr. B. K. Shivakumar (Deputy Medical Superintendent)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794423477275-151",
+      "complaintNumber": "JAN-2026-000151",
+      "ticketNumber": "JAN-2026-000151",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-admin",
+      "departmentName": "Hospital Administration",
+      "category": "Hospital Services",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ಏಕಕಾಲಿಕ ದೂರು ಪರೀಕ್ಷೆ ಸಂಖ್ಯೆ 4",
+      "englishTranslation": "Simultaneous complaint test batch 4",
+      "translatedText": "Simultaneous complaint test batch 4",
+      "summary": "Concurrent submission test 4",
+      "wardOrLocation": "Ballari OPD - Kiosk #1",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "dept-admin",
+      "assignedOfficialName": "Dr. B. K. Shivakumar",
+      "assignedOfficialDesignation": "Deputy Medical Superintendent",
+      "submittedAt": "2026-11-11T18:57:57.275Z",
+      "createdAt": "2026-11-11T18:57:57.275Z",
+      "updatedAt": "2026-11-11T18:57:57.275Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.275Z",
+          "deliveredAt": "2026-11-11T18:57:57.275Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.275Z",
+          "deliveredAt": "2026-11-11T18:57:57.275Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:57:57.275Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794423477276-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in Kannada at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:57:57.275Z"
+        },
+        {
+          "id": "ev-1794423477276-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Hospital Administration Department. Assigned to Dr. B. K. Shivakumar (Deputy Medical Superintendent).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:57:57.275Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000151",
+        "complaintText": "Concurrent submission test 4",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Ballari OPD - Kiosk #1",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:27 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Hospital Services",
+        "forwardedTo": "Hospital Administration",
+        "responsibleAuthority": "Dr. B. K. Shivakumar (Deputy Medical Superintendent)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794423477270-150",
+      "complaintNumber": "JAN-2026-000150",
+      "ticketNumber": "JAN-2026-000150",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-admin",
+      "departmentName": "Hospital Administration",
+      "category": "Hospital Services",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ಏಕಕಾಲಿಕ ದೂರು ಪರೀಕ್ಷೆ ಸಂಖ್ಯೆ 3",
+      "englishTranslation": "Simultaneous complaint test batch 3",
+      "translatedText": "Simultaneous complaint test batch 3",
+      "summary": "Concurrent submission test 3",
+      "wardOrLocation": "Ballari OPD - Kiosk #3",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "dept-admin",
+      "assignedOfficialName": "Dr. B. K. Shivakumar",
+      "assignedOfficialDesignation": "Deputy Medical Superintendent",
+      "submittedAt": "2026-11-11T18:57:57.270Z",
+      "createdAt": "2026-11-11T18:57:57.270Z",
+      "updatedAt": "2026-11-11T18:57:57.270Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.270Z",
+          "deliveredAt": "2026-11-11T18:57:57.270Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.270Z",
+          "deliveredAt": "2026-11-11T18:57:57.270Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:57:57.270Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794423477271-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in Kannada at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:57:57.270Z"
+        },
+        {
+          "id": "ev-1794423477271-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Hospital Administration Department. Assigned to Dr. B. K. Shivakumar (Deputy Medical Superintendent).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:57:57.270Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000150",
+        "complaintText": "Concurrent submission test 3",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Ballari OPD - Kiosk #3",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:27 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Hospital Services",
+        "forwardedTo": "Hospital Administration",
+        "responsibleAuthority": "Dr. B. K. Shivakumar (Deputy Medical Superintendent)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794423477265-149",
+      "complaintNumber": "JAN-2026-000149",
+      "ticketNumber": "JAN-2026-000149",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-admin",
+      "departmentName": "Hospital Administration",
+      "category": "Hospital Services",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ಏಕಕಾಲಿಕ ದೂರು ಪರೀಕ್ಷೆ ಸಂಖ್ಯೆ 2",
+      "englishTranslation": "Simultaneous complaint test batch 2",
+      "translatedText": "Simultaneous complaint test batch 2",
+      "summary": "Concurrent submission test 2",
+      "wardOrLocation": "Ballari OPD - Kiosk #2",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "dept-admin",
+      "assignedOfficialName": "Dr. B. K. Shivakumar",
+      "assignedOfficialDesignation": "Deputy Medical Superintendent",
+      "submittedAt": "2026-11-11T18:57:57.265Z",
+      "createdAt": "2026-11-11T18:57:57.265Z",
+      "updatedAt": "2026-11-11T18:57:57.265Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.265Z",
+          "deliveredAt": "2026-11-11T18:57:57.265Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.265Z",
+          "deliveredAt": "2026-11-11T18:57:57.265Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:57:57.265Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794423477265-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in Kannada at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:57:57.265Z"
+        },
+        {
+          "id": "ev-1794423477265-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Hospital Administration Department. Assigned to Dr. B. K. Shivakumar (Deputy Medical Superintendent).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:57:57.265Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000149",
+        "complaintText": "Concurrent submission test 2",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Ballari OPD - Kiosk #2",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:27 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Hospital Services",
+        "forwardedTo": "Hospital Administration",
+        "responsibleAuthority": "Dr. B. K. Shivakumar (Deputy Medical Superintendent)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794423477260-148",
+      "complaintNumber": "JAN-2026-000148",
+      "ticketNumber": "JAN-2026-000148",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-admin",
+      "departmentName": "Hospital Administration",
+      "category": "Hospital Services",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ಏಕಕಾಲಿಕ ದೂರು ಪರೀಕ್ಷೆ ಸಂಖ್ಯೆ 1",
+      "englishTranslation": "Simultaneous complaint test batch 1",
+      "translatedText": "Simultaneous complaint test batch 1",
+      "summary": "Concurrent submission test 1",
+      "wardOrLocation": "Ballari OPD - Kiosk #1",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "dept-admin",
+      "assignedOfficialName": "Dr. B. K. Shivakumar",
+      "assignedOfficialDesignation": "Deputy Medical Superintendent",
+      "submittedAt": "2026-11-11T18:57:57.260Z",
+      "createdAt": "2026-11-11T18:57:57.260Z",
+      "updatedAt": "2026-11-11T18:57:57.260Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.260Z",
+          "deliveredAt": "2026-11-11T18:57:57.260Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.260Z",
+          "deliveredAt": "2026-11-11T18:57:57.260Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:57:57.260Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794423477261-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in Kannada at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:57:57.260Z"
+        },
+        {
+          "id": "ev-1794423477261-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Hospital Administration Department. Assigned to Dr. B. K. Shivakumar (Deputy Medical Superintendent).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:57:57.260Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000148",
+        "complaintText": "Concurrent submission test 1",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Ballari OPD - Kiosk #1",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:27 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Hospital Services",
+        "forwardedTo": "Hospital Administration",
+        "responsibleAuthority": "Dr. B. K. Shivakumar (Deputy Medical Superintendent)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794423477255-147",
+      "complaintNumber": "JAN-2026-000147",
+      "ticketNumber": "JAN-2026-000147",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-infra",
+      "departmentName": "Medical Equipment / Maintenance",
+      "category": "Infrastructure Maintenance",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "English",
+      "languageCode": "en",
+      "originalTranscript": "Wheelchair wheel broken near main entrance.",
+      "englishTranslation": "Wheelchair wheel broken near main entrance.",
+      "translatedText": "Wheelchair wheel broken near main entrance.",
+      "summary": "Broken wheelchair near entrance",
+      "wardOrLocation": "Outpatient Department, Ballari - Entrance",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "dept-equipment",
+      "assignedOfficialName": "Dr. Prabhakar Rao",
+      "assignedOfficialDesignation": "Biomedical Engineer & Facilities In-charge",
+      "submittedAt": "2026-11-11T18:57:57.255Z",
+      "createdAt": "2026-11-11T18:57:57.255Z",
+      "updatedAt": "2026-11-11T18:57:57.255Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.255Z",
+          "deliveredAt": "2026-11-11T18:57:57.255Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.255Z",
+          "deliveredAt": "2026-11-11T18:57:57.255Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:57:57.255Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794423477255-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in English at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:57:57.255Z"
+        },
+        {
+          "id": "ev-1794423477255-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Medical Equipment / Maintenance Department. Assigned to Dr. Prabhakar Rao (Biomedical Engineer & Facilities In-charge).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:57:57.255Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000147",
+        "complaintText": "Broken wheelchair near entrance",
+        "originalLanguage": "English",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Entrance",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:27 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Infrastructure Maintenance",
+        "forwardedTo": "Medical Equipment / Maintenance",
+        "responsibleAuthority": "Dr. Prabhakar Rao (Biomedical Engineer & Facilities In-charge)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794423477249-146",
+      "complaintNumber": "JAN-2026-000146",
+      "ticketNumber": "JAN-2026-000146",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-hygiene",
+      "departmentName": "Hygiene and Sanitation",
+      "category": "Hygiene and Sanitation",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Hindi",
+      "languageCode": "hi",
+      "originalTranscript": "वार्ड में बहुत बदबू आ रही है, कचरा नहीं उठाया गया।",
+      "englishTranslation": "Bad odor in the ward, garbage has not been cleared.",
+      "translatedText": "Bad odor in the ward, garbage has not been cleared.",
+      "summary": "Ward garbage not cleared",
+      "wardOrLocation": "Outpatient Department, Ballari - Ward 3",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "off-demo-officer",
+      "assignedOfficialName": "Demo Official",
+      "assignedOfficialDesignation": "Department Officer",
+      "submittedAt": "2026-11-11T18:57:57.249Z",
+      "createdAt": "2026-11-11T18:57:57.249Z",
+      "updatedAt": "2026-11-11T18:57:57.249Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.249Z",
+          "deliveredAt": "2026-11-11T18:57:57.249Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.249Z",
+          "deliveredAt": "2026-11-11T18:57:57.249Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:57:57.249Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794423477250-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in Hindi at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:57:57.249Z"
+        },
+        {
+          "id": "ev-1794423477250-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Hygiene and Sanitation Department. Assigned to Demo Official (Department Officer).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:57:57.249Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000146",
+        "complaintText": "Ward garbage not cleared",
+        "originalLanguage": "Hindi",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Ward 3",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:27 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Hygiene and Sanitation",
+        "forwardedTo": "Hygiene and Sanitation",
+        "responsibleAuthority": "Demo Official (Department Officer)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794423477218-145",
+      "complaintNumber": "JAN-2026-000145",
+      "ticketNumber": "JAN-2026-000145",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-water",
+      "departmentName": "Water and Facilities",
+      "category": "Water and Facilities",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ಶೌಚಾಲಯದಲ್ಲಿ ನೀರಿಲ್ಲ, ಟ್ಯಾಪ್ ಸೋರುತ್ತಿದೆ.",
+      "englishTranslation": "No water in washroom, tap is leaking.",
+      "translatedText": "No water in washroom, tap is leaking.",
+      "summary": "Washroom tap leakage reported",
+      "wardOrLocation": "Outpatient Department, Ballari - Block A",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "off-water-officer",
+      "assignedOfficialName": "Dr. Ananya Sharma",
+      "assignedOfficialDesignation": "Department Officer",
+      "submittedAt": "2026-11-11T18:57:57.218Z",
+      "createdAt": "2026-11-11T18:57:57.218Z",
+      "updatedAt": "2026-11-11T18:57:57.218Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.218Z",
+          "deliveredAt": "2026-11-11T18:57:57.218Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:57:57.218Z",
+          "deliveredAt": "2026-11-11T18:57:57.218Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:57:57.218Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794423477244-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in Kannada at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:57:57.218Z"
+        },
+        {
+          "id": "ev-1794423477244-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Water and Facilities Department. Assigned to Dr. Ananya Sharma (Department Officer).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:57:57.218Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000145",
+        "complaintText": "Washroom tap leakage reported",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Block A",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:27 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Water and Facilities",
+        "forwardedTo": "Water and Facilities",
+        "responsibleAuthority": "Dr. Ananya Sharma (Department Officer)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794422984940-144",
+      "complaintNumber": "JAN-2026-000144",
+      "ticketNumber": "JAN-2026-000144",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-water",
+      "departmentName": "Water and Facilities",
+      "category": "Water and Facilities",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ಇಲ್ಲಿ ವಾಶ್ರೂಮ್ಸ್ ಚೆನ್ನಾಗಿಲ್ಲ ಮತ್ತೆ ನೀರನ್ನು ಚೆನ್ನಾಗಿಲ್ಲ.",
+      "englishTranslation": "The washrooms here are not good and the water is also not good.",
+      "translatedText": "The washrooms here are not good and the water is also not good.",
+      "summary": "ವಾಶ್ರೂಮ್‌ಗಳು ಮತ್ತು ನೀರಿನ ಗುಣಮಟ್ಟ ಸರಿಯಿಲ್ಲ.",
+      "wardOrLocation": "Outpatient Department, Ballari - Kiosk #1",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "off-water-officer",
+      "assignedOfficialName": "Dr. Ananya Sharma",
+      "assignedOfficialDesignation": "Department Officer",
+      "submittedAt": "2026-11-11T18:49:44.940Z",
+      "createdAt": "2026-11-11T18:49:44.940Z",
+      "updatedAt": "2026-11-11T18:49:44.940Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:49:44.940Z",
+          "deliveredAt": "2026-11-11T18:49:44.940Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:49:44.940Z",
+          "deliveredAt": "2026-11-11T18:49:44.940Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:49:44.940Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794422984949-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in Kannada at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:49:44.940Z"
+        },
+        {
+          "id": "ev-1794422984949-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Water and Facilities Department. Assigned to Dr. Ananya Sharma (Department Officer).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:49:44.940Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000144",
+        "complaintText": "ವಾಶ್ರೂಮ್‌ಗಳು ಮತ್ತು ನೀರಿನ ಗುಣಮಟ್ಟ ಸರಿಯಿಲ್ಲ.",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Kiosk #1",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:19 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Water and Facilities",
+        "forwardedTo": "Water and Facilities",
+        "responsibleAuthority": "Dr. Ananya Sharma (Department Officer)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794422451630-143",
+      "complaintNumber": "JAN-2026-000143",
+      "ticketNumber": "JAN-2026-000143",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-pharmacy",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "category": "Pharmacy and Medicine Availability",
+      "visibility": "PRIVATE",
+      "isMedicineComplaint": true,
+      "medicineName": "Paracetamol",
+      "citizenPhone": "1234579876",
+      "maskedCitizenPhone": "XXXXXX9876",
+      "citizenName": "Citizen",
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "English",
+      "languageCode": "en",
+      "originalTranscript": "Paracetamol and Cetirizine tablets are not available.",
+      "englishTranslation": "The prescribed medicine \"Paracetamol\" is unavailable at the pharmacy.",
+      "translatedText": "The prescribed medicine \"Paracetamol\" is unavailable at the pharmacy.",
+      "summary": "Medicine Unavailable: Paracetamol",
+      "wardOrLocation": "Outpatient Department, Ballari - Pharmacy Counter",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "High",
+      "assignedOfficialId": "off-pharmacy-officer",
+      "assignedOfficialName": "Kavitha Raman",
+      "assignedOfficialDesignation": "Chief Pharmacist",
+      "submittedAt": "2026-11-11T18:40:51.630Z",
+      "createdAt": "2026-11-11T18:40:51.630Z",
+      "updatedAt": "2026-11-11T18:40:51.630Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:40:51.630Z",
+          "deliveredAt": "2026-11-11T18:40:51.630Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:40:51.630Z",
+          "deliveredAt": "2026-11-11T18:40:51.630Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:40:51.630Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794422451630-1",
+          "eventType": "CREATED",
+          "description": "Medicine availability request logged for \"Paracetamol\". Registered phone: XXXXXX9876.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:40:51.630Z"
+        },
+        {
+          "id": "ev-1794422451630-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Pharmacy and Medicine Availability Department. Assigned to Kavitha Raman (Chief Pharmacist).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:40:51.630Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000143",
+        "complaintText": "Medicine Unavailable: Paracetamol",
+        "originalLanguage": "English",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Pharmacy Counter",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:10 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Pharmacy and Medicine Availability",
+        "forwardedTo": "Pharmacy and Medicine Availability",
+        "responsibleAuthority": "Kavitha Raman (Chief Pharmacist)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794422250632-142",
+      "complaintNumber": "JAN-2026-000142",
+      "ticketNumber": "JAN-2026-000142",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-pharmacy",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "category": "Pharmacy and Medicine Availability",
+      "visibility": "PRIVATE",
+      "isMedicineComplaint": true,
+      "citizenName": "Citizen",
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ಔಷಧಾಲಯದಲ್ಲಿ ಬಿಪಿ ಮಾತ್ರೆಗಳು ಖಾಲಿಯಾಗಿವೆ.",
+      "englishTranslation": "BP tablets are out of stock in pharmacy.",
+      "translatedText": "BP tablets are out of stock in pharmacy.",
+      "summary": "BP tablets stockout in OPD pharmacy",
+      "wardOrLocation": "Ballari OPD - Pharmacy Counter",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "off-pharmacy-officer",
+      "assignedOfficialName": "Kavitha Raman",
+      "assignedOfficialDesignation": "Chief Pharmacist",
+      "submittedAt": "2026-11-11T18:37:30.632Z",
+      "createdAt": "2026-11-11T18:37:30.632Z",
+      "updatedAt": "2026-11-11T18:37:30.632Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.632Z",
+          "deliveredAt": "2026-11-11T18:37:30.632Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.632Z",
+          "deliveredAt": "2026-11-11T18:37:30.632Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:37:30.632Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794422250632-1",
+          "eventType": "CREATED",
+          "description": "Medicine availability request logged for \"BP tablets stockout in OPD pharmacy\". Registered phone: N/A.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:37:30.632Z"
+        },
+        {
+          "id": "ev-1794422250632-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Pharmacy and Medicine Availability Department. Assigned to Kavitha Raman (Chief Pharmacist).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:37:30.632Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000142",
+        "complaintText": "BP tablets stockout in OPD pharmacy",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Ballari OPD - Pharmacy Counter",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:07 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Pharmacy and Medicine Availability",
+        "forwardedTo": "Pharmacy and Medicine Availability",
+        "responsibleAuthority": "Kavitha Raman (Chief Pharmacist)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794422250630-141",
+      "complaintNumber": "JAN-2026-000141",
+      "ticketNumber": "JAN-2026-000141",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-admin",
+      "departmentName": "Hospital Administration",
+      "category": "Hospital Services",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "English",
+      "languageCode": "en",
+      "originalTranscript": "Testing unconfigured external government portal status.",
+      "englishTranslation": "Testing unconfigured external government portal status.",
+      "translatedText": "Testing unconfigured external government portal status.",
+      "summary": "Gov portal sync verification",
+      "wardOrLocation": "Outpatient Department, Ballari - Kiosk #1",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "dept-admin",
+      "assignedOfficialName": "Dr. B. K. Shivakumar",
+      "assignedOfficialDesignation": "Deputy Medical Superintendent",
+      "submittedAt": "2026-11-11T18:37:30.630Z",
+      "createdAt": "2026-11-11T18:37:30.630Z",
+      "updatedAt": "2026-11-11T18:37:30.630Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.630Z",
+          "deliveredAt": "2026-11-11T18:37:30.630Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.630Z",
+          "deliveredAt": "2026-11-11T18:37:30.630Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:37:30.630Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794422250630-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in English at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:37:30.630Z"
+        },
+        {
+          "id": "ev-1794422250630-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Hospital Administration Department. Assigned to Dr. B. K. Shivakumar (Deputy Medical Superintendent).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:37:30.630Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000141",
+        "complaintText": "Gov portal sync verification",
+        "originalLanguage": "English",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Kiosk #1",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:07 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Hospital Services",
+        "forwardedTo": "Hospital Administration",
+        "responsibleAuthority": "Dr. B. K. Shivakumar (Deputy Medical Superintendent)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794422250625-140",
+      "complaintNumber": "JAN-2026-000140",
+      "ticketNumber": "JAN-2026-000140",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-infra",
+      "departmentName": "Medical Equipment / Maintenance",
+      "category": "Infrastructure Maintenance",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "English",
+      "languageCode": "en",
+      "originalTranscript": "Ventilator machine screen blinking with error code E04.",
+      "englishTranslation": "Ventilator machine screen blinking with error code E04.",
+      "translatedText": "Ventilator machine screen blinking with error code E04.",
+      "summary": "Ventilator error code E04",
+      "wardOrLocation": "Outpatient Department, Ballari - Kiosk #1",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "dept-equipment",
+      "assignedOfficialName": "Dr. Prabhakar Rao",
+      "assignedOfficialDesignation": "Biomedical Engineer & Facilities In-charge",
+      "submittedAt": "2026-11-11T18:37:30.625Z",
+      "createdAt": "2026-11-11T18:37:30.625Z",
+      "updatedAt": "2026-11-11T18:37:30.625Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.625Z",
+          "deliveredAt": "2026-11-11T18:37:30.625Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.627Z",
+          "deliveredAt": "2026-11-11T18:37:30.627Z",
+          "attempts": 2
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:37:30.625Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794422250625-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in English at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:37:30.625Z"
+        },
+        {
+          "id": "ev-1794422250625-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Medical Equipment / Maintenance Department. Assigned to Dr. Prabhakar Rao (Biomedical Engineer & Facilities In-charge).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:37:30.625Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000140",
+        "complaintText": "Ventilator error code E04",
+        "originalLanguage": "English",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Kiosk #1",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:07 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Infrastructure Maintenance",
+        "forwardedTo": "Medical Equipment / Maintenance",
+        "responsibleAuthority": "Dr. Prabhakar Rao (Biomedical Engineer & Facilities In-charge)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794422250622-139",
+      "complaintNumber": "JAN-2026-000139",
+      "ticketNumber": "JAN-2026-000139",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-water",
+      "departmentName": "Water and Facilities",
+      "category": "Water and Facilities",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "English",
+      "languageCode": "en",
+      "originalTranscript": "Water dispenser is leaking and water is flooding the hallway.",
+      "englishTranslation": "Drinking water facility is not available or broken.",
+      "translatedText": "Drinking water facility is not available or broken.",
+      "summary": "Drinking water or plumbing system failure",
+      "wardOrLocation": "Outpatient Department, Ballari - Hallway Kiosk",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "HIGH",
+      "assignedOfficialId": "off-water-officer",
+      "assignedOfficialName": "Dr. Ananya Sharma",
+      "assignedOfficialDesignation": "Department Officer",
+      "submittedAt": "2026-11-11T18:37:30.622Z",
+      "createdAt": "2026-11-11T18:37:30.622Z",
+      "updatedAt": "2026-11-11T18:37:30.622Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.622Z",
+          "deliveredAt": "2026-11-11T18:37:30.622Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.622Z",
+          "deliveredAt": "2026-11-11T18:37:30.622Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:37:30.622Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794422250623-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in English at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:37:30.622Z"
+        },
+        {
+          "id": "ev-1794422250623-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Water and Facilities Department. Assigned to Dr. Ananya Sharma (Department Officer).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:37:30.622Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000139",
+        "complaintText": "Drinking water or plumbing system failure",
+        "originalLanguage": "English",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Hallway Kiosk",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:07 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Water and Facilities",
+        "forwardedTo": "Water and Facilities",
+        "responsibleAuthority": "Dr. Ananya Sharma (Department Officer)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794422250619-138",
+      "complaintNumber": "JAN-2026-000138",
+      "ticketNumber": "JAN-2026-000138",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-hygiene",
+      "departmentName": "Hygiene and Sanitation",
+      "category": "Hygiene and Sanitation",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ಇಲ್ಲಿನ ಶೌಚಾಲಯ ತುಂಬಾ ಗಲೀಜಾಗಿದೆ, ಕಸ ಮತ್ತು ದುರ್ವಾಸನೆ ಬರುತ್ತಿದೆ.",
+      "englishTranslation": "The hospital washrooms are unclean and lack proper sanitation.",
+      "translatedText": "The hospital washrooms are unclean and lack proper sanitation.",
+      "summary": "Sanitation and cleanliness issue reported in hospital facility",
+      "wardOrLocation": "Ballari OPD - Ground Floor Washroom",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "MEDIUM",
+      "assignedOfficialId": "off-demo-officer",
+      "assignedOfficialName": "Demo Official",
+      "assignedOfficialDesignation": "Department Officer",
+      "submittedAt": "2026-11-11T18:37:30.619Z",
+      "createdAt": "2026-11-11T18:37:30.619Z",
+      "updatedAt": "2026-11-11T18:37:30.619Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.619Z",
+          "deliveredAt": "2026-11-11T18:37:30.619Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.619Z",
+          "deliveredAt": "2026-11-11T18:37:30.619Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:37:30.619Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794422250620-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in Kannada at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:37:30.619Z"
+        },
+        {
+          "id": "ev-1794422250620-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Hygiene and Sanitation Department. Assigned to Demo Official (Department Officer).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:37:30.619Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000138",
+        "complaintText": "Sanitation and cleanliness issue reported in hospital facility",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Ballari OPD - Ground Floor Washroom",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:07 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Hygiene and Sanitation",
+        "forwardedTo": "Hygiene and Sanitation",
+        "responsibleAuthority": "Demo Official (Department Officer)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794422250603-137",
+      "complaintNumber": "JAN-2026-000137",
+      "ticketNumber": "JAN-2026-000137",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-pharmacy",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "category": "Pharmacy and Medicine Availability",
+      "visibility": "PRIVATE",
+      "isMedicineComplaint": true,
+      "medicineName": "Insulin & Paracetamol",
+      "citizenPhone": "9876543210",
+      "maskedCitizenPhone": "XXXXXX3210",
+      "citizenName": "Citizen",
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ಡಾಕ್ಟರ್ ಬರೆದಿರುವ ಪ್ಯಾರಸಿಟಮಾಲ್ ಮತ್ತು ಇನ್ಸುಲಿನ್ ಔಷಧ ಲಭ್ಯವಿಲ್ಲ.",
+      "englishTranslation": "Prescribed medicines or tablets are out of stock at the pharmacy counter.",
+      "translatedText": "Prescribed medicines or tablets are out of stock at the pharmacy counter.",
+      "summary": "Crucial medicine or pharmacy supply stock unavailability",
+      "wardOrLocation": "Outpatient Department, Ballari - Kiosk #1",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "HIGH",
+      "assignedOfficialId": "off-pharmacy-officer",
+      "assignedOfficialName": "Kavitha Raman",
+      "assignedOfficialDesignation": "Chief Pharmacist",
+      "submittedAt": "2026-11-11T18:37:30.603Z",
+      "createdAt": "2026-11-11T18:37:30.603Z",
+      "updatedAt": "2026-11-11T18:37:30.603Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.603Z",
+          "deliveredAt": "2026-11-11T18:37:30.603Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.603Z",
+          "deliveredAt": "2026-11-11T18:37:30.603Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:37:30.603Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794422250604-1",
+          "eventType": "CREATED",
+          "description": "Medicine availability request logged for \"Insulin & Paracetamol\". Registered phone: XXXXXX3210.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:37:30.603Z"
+        },
+        {
+          "id": "ev-1794422250604-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Pharmacy and Medicine Availability Department. Assigned to Kavitha Raman (Chief Pharmacist).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:37:30.603Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000137",
+        "complaintText": "Crucial medicine or pharmacy supply stock unavailability",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Kiosk #1",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:07 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Pharmacy and Medicine Availability",
+        "forwardedTo": "Pharmacy and Medicine Availability",
+        "responsibleAuthority": "Kavitha Raman (Chief Pharmacist)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794422250601-136",
+      "complaintNumber": "JAN-2026-000136",
+      "ticketNumber": "JAN-2026-000136",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-admin",
+      "departmentName": "Hospital Administration",
+      "category": "Hospital Services",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ಏಕಕಾಲಿಕ ದೂರು ಪರೀಕ್ಷೆ ಸಂಖ್ಯೆ 6",
+      "englishTranslation": "Simultaneous complaint test batch 6",
+      "translatedText": "Simultaneous complaint test batch 6",
+      "summary": "Concurrent submission test 6",
+      "wardOrLocation": "Ballari OPD - Kiosk #3",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "dept-admin",
+      "assignedOfficialName": "Dr. B. K. Shivakumar",
+      "assignedOfficialDesignation": "Deputy Medical Superintendent",
+      "submittedAt": "2026-11-11T18:37:30.601Z",
+      "createdAt": "2026-11-11T18:37:30.601Z",
+      "updatedAt": "2026-11-11T18:37:30.601Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.601Z",
+          "deliveredAt": "2026-11-11T18:37:30.601Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.601Z",
+          "deliveredAt": "2026-11-11T18:37:30.601Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:37:30.601Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794422250602-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in Kannada at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:37:30.601Z"
+        },
+        {
+          "id": "ev-1794422250602-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Hospital Administration Department. Assigned to Dr. B. K. Shivakumar (Deputy Medical Superintendent).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:37:30.601Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000136",
+        "complaintText": "Concurrent submission test 6",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Ballari OPD - Kiosk #3",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:07 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Hospital Services",
+        "forwardedTo": "Hospital Administration",
+        "responsibleAuthority": "Dr. B. K. Shivakumar (Deputy Medical Superintendent)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794422250600-135",
+      "complaintNumber": "JAN-2026-000135",
+      "ticketNumber": "JAN-2026-000135",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-admin",
+      "departmentName": "Hospital Administration",
+      "category": "Hospital Services",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ಏಕಕಾಲಿಕ ದೂರು ಪರೀಕ್ಷೆ ಸಂಖ್ಯೆ 5",
+      "englishTranslation": "Simultaneous complaint test batch 5",
+      "translatedText": "Simultaneous complaint test batch 5",
+      "summary": "Concurrent submission test 5",
+      "wardOrLocation": "Ballari OPD - Kiosk #2",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "dept-admin",
+      "assignedOfficialName": "Dr. B. K. Shivakumar",
+      "assignedOfficialDesignation": "Deputy Medical Superintendent",
+      "submittedAt": "2026-11-11T18:37:30.600Z",
+      "createdAt": "2026-11-11T18:37:30.600Z",
+      "updatedAt": "2026-11-11T18:37:30.600Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.600Z",
+          "deliveredAt": "2026-11-11T18:37:30.600Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.600Z",
+          "deliveredAt": "2026-11-11T18:37:30.600Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:37:30.600Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794422250600-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in Kannada at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:37:30.600Z"
+        },
+        {
+          "id": "ev-1794422250600-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Hospital Administration Department. Assigned to Dr. B. K. Shivakumar (Deputy Medical Superintendent).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:37:30.600Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000135",
+        "complaintText": "Concurrent submission test 5",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Ballari OPD - Kiosk #2",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:07 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Hospital Services",
+        "forwardedTo": "Hospital Administration",
+        "responsibleAuthority": "Dr. B. K. Shivakumar (Deputy Medical Superintendent)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794422250598-134",
+      "complaintNumber": "JAN-2026-000134",
+      "ticketNumber": "JAN-2026-000134",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-admin",
+      "departmentName": "Hospital Administration",
+      "category": "Hospital Services",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ಏಕಕಾಲಿಕ ದೂರು ಪರೀಕ್ಷೆ ಸಂಖ್ಯೆ 4",
+      "englishTranslation": "Simultaneous complaint test batch 4",
+      "translatedText": "Simultaneous complaint test batch 4",
+      "summary": "Concurrent submission test 4",
+      "wardOrLocation": "Ballari OPD - Kiosk #1",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "dept-admin",
+      "assignedOfficialName": "Dr. B. K. Shivakumar",
+      "assignedOfficialDesignation": "Deputy Medical Superintendent",
+      "submittedAt": "2026-11-11T18:37:30.598Z",
+      "createdAt": "2026-11-11T18:37:30.598Z",
+      "updatedAt": "2026-11-11T18:37:30.598Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.598Z",
+          "deliveredAt": "2026-11-11T18:37:30.598Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.598Z",
+          "deliveredAt": "2026-11-11T18:37:30.598Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:37:30.598Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794422250599-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in Kannada at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:37:30.598Z"
+        },
+        {
+          "id": "ev-1794422250599-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Hospital Administration Department. Assigned to Dr. B. K. Shivakumar (Deputy Medical Superintendent).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:37:30.598Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000134",
+        "complaintText": "Concurrent submission test 4",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Ballari OPD - Kiosk #1",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:07 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Hospital Services",
+        "forwardedTo": "Hospital Administration",
+        "responsibleAuthority": "Dr. B. K. Shivakumar (Deputy Medical Superintendent)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794422250597-133",
+      "complaintNumber": "JAN-2026-000133",
+      "ticketNumber": "JAN-2026-000133",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-admin",
+      "departmentName": "Hospital Administration",
+      "category": "Hospital Services",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ಏಕಕಾಲಿಕ ದೂರು ಪರೀಕ್ಷೆ ಸಂಖ್ಯೆ 3",
+      "englishTranslation": "Simultaneous complaint test batch 3",
+      "translatedText": "Simultaneous complaint test batch 3",
+      "summary": "Concurrent submission test 3",
+      "wardOrLocation": "Ballari OPD - Kiosk #3",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "dept-admin",
+      "assignedOfficialName": "Dr. B. K. Shivakumar",
+      "assignedOfficialDesignation": "Deputy Medical Superintendent",
+      "submittedAt": "2026-11-11T18:37:30.597Z",
+      "createdAt": "2026-11-11T18:37:30.597Z",
+      "updatedAt": "2026-11-11T18:37:30.597Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.597Z",
+          "deliveredAt": "2026-11-11T18:37:30.597Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.597Z",
+          "deliveredAt": "2026-11-11T18:37:30.597Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:37:30.597Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794422250597-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in Kannada at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:37:30.597Z"
+        },
+        {
+          "id": "ev-1794422250597-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Hospital Administration Department. Assigned to Dr. B. K. Shivakumar (Deputy Medical Superintendent).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:37:30.597Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000133",
+        "complaintText": "Concurrent submission test 3",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Ballari OPD - Kiosk #3",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:07 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Hospital Services",
+        "forwardedTo": "Hospital Administration",
+        "responsibleAuthority": "Dr. B. K. Shivakumar (Deputy Medical Superintendent)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794422250595-132",
+      "complaintNumber": "JAN-2026-000132",
+      "ticketNumber": "JAN-2026-000132",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-admin",
+      "departmentName": "Hospital Administration",
+      "category": "Hospital Services",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ಏಕಕಾಲಿಕ ದೂರು ಪರೀಕ್ಷೆ ಸಂಖ್ಯೆ 2",
+      "englishTranslation": "Simultaneous complaint test batch 2",
+      "translatedText": "Simultaneous complaint test batch 2",
+      "summary": "Concurrent submission test 2",
+      "wardOrLocation": "Ballari OPD - Kiosk #2",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "dept-admin",
+      "assignedOfficialName": "Dr. B. K. Shivakumar",
+      "assignedOfficialDesignation": "Deputy Medical Superintendent",
+      "submittedAt": "2026-11-11T18:37:30.595Z",
+      "createdAt": "2026-11-11T18:37:30.595Z",
+      "updatedAt": "2026-11-11T18:37:30.595Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.595Z",
+          "deliveredAt": "2026-11-11T18:37:30.595Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.595Z",
+          "deliveredAt": "2026-11-11T18:37:30.595Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:37:30.595Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794422250595-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in Kannada at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:37:30.595Z"
+        },
+        {
+          "id": "ev-1794422250595-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Hospital Administration Department. Assigned to Dr. B. K. Shivakumar (Deputy Medical Superintendent).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:37:30.595Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000132",
+        "complaintText": "Concurrent submission test 2",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Ballari OPD - Kiosk #2",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:07 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Hospital Services",
+        "forwardedTo": "Hospital Administration",
+        "responsibleAuthority": "Dr. B. K. Shivakumar (Deputy Medical Superintendent)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794422250593-131",
+      "complaintNumber": "JAN-2026-000131",
+      "ticketNumber": "JAN-2026-000131",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-admin",
+      "departmentName": "Hospital Administration",
+      "category": "Hospital Services",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ಏಕಕಾಲಿಕ ದೂರು ಪರೀಕ್ಷೆ ಸಂಖ್ಯೆ 1",
+      "englishTranslation": "Simultaneous complaint test batch 1",
+      "translatedText": "Simultaneous complaint test batch 1",
+      "summary": "Concurrent submission test 1",
+      "wardOrLocation": "Ballari OPD - Kiosk #1",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "dept-admin",
+      "assignedOfficialName": "Dr. B. K. Shivakumar",
+      "assignedOfficialDesignation": "Deputy Medical Superintendent",
+      "submittedAt": "2026-11-11T18:37:30.593Z",
+      "createdAt": "2026-11-11T18:37:30.593Z",
+      "updatedAt": "2026-11-11T18:37:30.593Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.593Z",
+          "deliveredAt": "2026-11-11T18:37:30.593Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.593Z",
+          "deliveredAt": "2026-11-11T18:37:30.593Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:37:30.593Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794422250593-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in Kannada at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:37:30.593Z"
+        },
+        {
+          "id": "ev-1794422250593-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Hospital Administration Department. Assigned to Dr. B. K. Shivakumar (Deputy Medical Superintendent).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:37:30.593Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000131",
+        "complaintText": "Concurrent submission test 1",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Ballari OPD - Kiosk #1",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:07 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Hospital Services",
+        "forwardedTo": "Hospital Administration",
+        "responsibleAuthority": "Dr. B. K. Shivakumar (Deputy Medical Superintendent)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794422250590-130",
+      "complaintNumber": "JAN-2026-000130",
+      "ticketNumber": "JAN-2026-000130",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-infra",
+      "departmentName": "Medical Equipment / Maintenance",
+      "category": "Infrastructure Maintenance",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "English",
+      "languageCode": "en",
+      "originalTranscript": "Wheelchair wheel broken near main entrance.",
+      "englishTranslation": "Wheelchair wheel broken near main entrance.",
+      "translatedText": "Wheelchair wheel broken near main entrance.",
+      "summary": "Broken wheelchair near entrance",
+      "wardOrLocation": "Outpatient Department, Ballari - Entrance",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "dept-equipment",
+      "assignedOfficialName": "Dr. Prabhakar Rao",
+      "assignedOfficialDesignation": "Biomedical Engineer & Facilities In-charge",
+      "submittedAt": "2026-11-11T18:37:30.590Z",
+      "createdAt": "2026-11-11T18:37:30.590Z",
+      "updatedAt": "2026-11-11T18:37:30.590Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.590Z",
+          "deliveredAt": "2026-11-11T18:37:30.590Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.590Z",
+          "deliveredAt": "2026-11-11T18:37:30.590Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:37:30.590Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794422250590-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in English at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:37:30.590Z"
+        },
+        {
+          "id": "ev-1794422250590-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Medical Equipment / Maintenance Department. Assigned to Dr. Prabhakar Rao (Biomedical Engineer & Facilities In-charge).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:37:30.590Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000130",
+        "complaintText": "Broken wheelchair near entrance",
+        "originalLanguage": "English",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Entrance",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:07 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Infrastructure Maintenance",
+        "forwardedTo": "Medical Equipment / Maintenance",
+        "responsibleAuthority": "Dr. Prabhakar Rao (Biomedical Engineer & Facilities In-charge)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794422250587-129",
+      "complaintNumber": "JAN-2026-000129",
+      "ticketNumber": "JAN-2026-000129",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-hygiene",
+      "departmentName": "Hygiene and Sanitation",
+      "category": "Hygiene and Sanitation",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Hindi",
+      "languageCode": "hi",
+      "originalTranscript": "वार्ड में बहुत बदबू आ रही है, कचरा नहीं उठाया गया।",
+      "englishTranslation": "Bad odor in the ward, garbage has not been cleared.",
+      "translatedText": "Bad odor in the ward, garbage has not been cleared.",
+      "summary": "Ward garbage not cleared",
+      "wardOrLocation": "Outpatient Department, Ballari - Ward 3",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "off-demo-officer",
+      "assignedOfficialName": "Demo Official",
+      "assignedOfficialDesignation": "Department Officer",
+      "submittedAt": "2026-11-11T18:37:30.587Z",
+      "createdAt": "2026-11-11T18:37:30.587Z",
+      "updatedAt": "2026-11-11T18:37:30.587Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.587Z",
+          "deliveredAt": "2026-11-11T18:37:30.587Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.587Z",
+          "deliveredAt": "2026-11-11T18:37:30.587Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:37:30.587Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794422250588-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in Hindi at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:37:30.587Z"
+        },
+        {
+          "id": "ev-1794422250588-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Hygiene and Sanitation Department. Assigned to Demo Official (Department Officer).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:37:30.587Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000129",
+        "complaintText": "Ward garbage not cleared",
+        "originalLanguage": "Hindi",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Ward 3",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:07 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Hygiene and Sanitation",
+        "forwardedTo": "Hygiene and Sanitation",
+        "responsibleAuthority": "Demo Official (Department Officer)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794422250570-128",
+      "complaintNumber": "JAN-2026-000128",
+      "ticketNumber": "JAN-2026-000128",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-water",
+      "departmentName": "Water and Facilities",
+      "category": "Water and Facilities",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ಶೌಚಾಲಯದಲ್ಲಿ ನೀರಿಲ್ಲ, ಟ್ಯಾಪ್ ಸೋರುತ್ತಿದೆ.",
+      "englishTranslation": "No water in washroom, tap is leaking.",
+      "translatedText": "No water in washroom, tap is leaking.",
+      "summary": "Washroom tap leakage reported",
+      "wardOrLocation": "Outpatient Department, Ballari - Block A",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "off-water-officer",
+      "assignedOfficialName": "Dr. Ananya Sharma",
+      "assignedOfficialDesignation": "Department Officer",
+      "submittedAt": "2026-11-11T18:37:30.570Z",
+      "createdAt": "2026-11-11T18:37:30.570Z",
+      "updatedAt": "2026-11-11T18:37:30.570Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.570Z",
+          "deliveredAt": "2026-11-11T18:37:30.570Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-11T18:37:30.570Z",
+          "deliveredAt": "2026-11-11T18:37:30.570Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-11T18:37:30.570Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794422250585-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in Kannada at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-11T18:37:30.570Z"
+        },
+        {
+          "id": "ev-1794422250585-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Water and Facilities Department. Assigned to Dr. Ananya Sharma (Department Officer).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-11T18:37:30.570Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000128",
+        "complaintText": "Washroom tap leakage reported",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Block A",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:07 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Water and Facilities",
+        "forwardedTo": "Water and Facilities",
+        "responsibleAuthority": "Dr. Ananya Sharma (Department Officer)",
+        "status": "Submitted"
+      }
+    },
     {
       "id": "comp-1794347489771-127",
       "complaintNumber": "JNS-2026-000127",
@@ -128,8 +2862,8 @@
         "complaintNumber": "JNS-2026-000127",
         "complaintText": "Hospital grievance reported",
         "originalLanguage": "Kannada",
-        "hospitalName": "Victoria District Hospital",
-        "location": "Victoria District Hospital - Kiosk #1",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Kiosk #1",
         "submissionDate": "11 Nov 2026",
         "submissionTime": "03:21 am IST",
         "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
@@ -139,7 +2873,7 @@
         "status": "Submitted"
       },
       "status": "ASSIGNED",
-      "wardOrLocation": "Victoria District Hospital - Kiosk #1",
+      "wardOrLocation": "Outpatient Department, Ballari - Kiosk #1",
       "summary": "Hospital grievance reported",
       "submittedAt": "2026-11-10T21:59:56.232Z",
       "createdAt": "2026-11-10T21:59:56.239Z"
@@ -155,8 +2889,8 @@
         "complaintNumber": "JNS-2026-000126",
         "complaintText": "Washroom not clean",
         "originalLanguage": "Kannada",
-        "hospitalName": "Victoria District Hospital",
-        "location": "Victoria District Hospital - Kiosk #1",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Kiosk #1",
         "submissionDate": "11 Nov 2026",
         "submissionTime": "03:21 am IST",
         "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
@@ -166,7 +2900,7 @@
         "status": "Submitted"
       },
       "status": "ASSIGNED",
-      "wardOrLocation": "Victoria District Hospital - Kiosk #1",
+      "wardOrLocation": "Outpatient Department, Ballari - Kiosk #1",
       "summary": "Hospital grievance reported",
       "submittedAt": "2026-11-10T21:59:56.239Z",
       "createdAt": "2026-11-10T21:59:56.239Z"
@@ -176,7 +2910,7 @@
       "complaintNumber": "JNS-2026-000101",
       "ticketNumber": "JNS-2026-000101",
       "hospitalId": "hosp-001",
-      "hospitalName": "Victoria District Hospital",
+      "hospitalName": "Outpatient Department, Ballari",
       "departmentId": "dept-hygiene",
       "departmentName": "Hygiene and Sanitation",
       "category": "Hygiene and Sanitation",
@@ -256,8 +2990,8 @@
         "complaintNumber": "JNS-2026-000101",
         "complaintText": "Washroom leak and unhygienic conditions near 3rd Floor Emergency Ward",
         "originalLanguage": "Kannada",
-        "hospitalName": "Victoria District Hospital",
-        "location": "Victoria District Hospital - Kiosk #1",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Kiosk #1",
         "submissionDate": "10 Nov 2026",
         "submissionTime": "05:00 PM IST",
         "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
@@ -275,7 +3009,7 @@
       "complaintNumber": "JNS-2026-000102",
       "ticketNumber": "JNS-2026-000102",
       "hospitalId": "hosp-001",
-      "hospitalName": "Victoria District Hospital",
+      "hospitalName": "Outpatient Department, Ballari",
       "departmentId": "dept-water",
       "departmentName": "Water and Facilities",
       "category": "Water and Facilities",
@@ -317,8 +3051,8 @@
         "complaintNumber": "JNS-2026-000102",
         "complaintText": "Drinking water dispenser malfunctioning near 2nd Floor Maternity Ward",
         "originalLanguage": "Hindi",
-        "hospitalName": "Victoria District Hospital",
-        "location": "Victoria District Hospital - Kiosk #1",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Kiosk #1",
         "submissionDate": "10 Nov 2026",
         "submissionTime": "06:50 PM IST",
         "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
@@ -333,7 +3067,7 @@
       "complaintNumber": "JNS-2026-000103",
       "ticketNumber": "JNS-2026-000103",
       "hospitalId": "hosp-001",
-      "hospitalName": "Victoria District Hospital",
+      "hospitalName": "Outpatient Department, Ballari",
       "departmentId": "dept-pharmacy",
       "departmentName": "Pharmacy and Medicine Availability",
       "category": "Pharmacy and Medicine Availability",
@@ -349,7 +3083,7 @@
       "originalTranscript": "ನನ್ನ ವೈದ್ಯರು ಶಿಫಾರಸು ಮಾಡಿದ ಇನ್ಸುಲಿನ್ ಗ್ಲಾರ್ಜಿನ್ ಔಷಧಾಲಯದಲ್ಲಿ ಲಭ್ಯವಿಲ್ಲ.",
       "englishTranslation": "Prescribed Insulin Glargine is unavailable at the hospital pharmacy.",
       "summary": "Medicine unavailable: Insulin Glargine 100 IU/ml",
-      "wardOrLocation": "Victoria District Hospital - Kiosk #1",
+      "wardOrLocation": "Outpatient Department, Ballari - Kiosk #1",
       "floorOrBlock": "Ground Floor",
       "status": "ASSIGNED",
       "priority": "High",
@@ -358,7 +3092,7 @@
       "assignedOfficialDesignation": "Chief Pharmacist",
       "submittedAt": "2026-11-10T14:00:00.000Z",
       "createdAt": "2026-11-10T14:00:00.000Z",
-      "updatedAt": "2026-11-10T14:00:00.000Z",
+      "updatedAt": "2026-11-11T10:51:36.541Z",
       "events": [
         {
           "id": "ev-med-1",
@@ -380,8 +3114,8 @@
         "complaintNumber": "JNS-2026-000103",
         "complaintText": "Medicine request: Insulin Glargine 100 IU/ml",
         "originalLanguage": "Kannada",
-        "hospitalName": "Victoria District Hospital",
-        "location": "Victoria District Hospital - Kiosk #1",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Kiosk #1",
         "submissionDate": "10 Nov 2026",
         "submissionTime": "07:30 PM IST",
         "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
@@ -394,6 +3128,101 @@
   ],
   "privateRequests": [
     {
+      "id": "req-av-comp-1794423477290-154",
+      "requestNumber": "JNS-2026-AV-000154",
+      "verifiedPhoneNumber": "9876543210",
+      "requestedResource": "Insulin & Paracetamol",
+      "resourceType": "MEDICINE",
+      "originalTranscript": "ಡಾಕ್ಟರ್ ಬರೆದಿರುವ ಪ್ಯಾರಸಿಟಮಾಲ್ ಮತ್ತು ಇನ್ಸುಲಿನ್ ಔಷಧ ಲಭ್ಯವಿಲ್ಲ.",
+      "englishTranslation": "Prescribed medicines or tablets are out of stock at the pharmacy counter.",
+      "languageCode": "kn",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-pharmacy",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "status": "Pending",
+      "otpVerified": true,
+      "notifications": [],
+      "createdAt": "2026-11-11T18:57:57.290Z",
+      "updatedAt": "2026-11-11T18:57:57.290Z"
+    },
+    {
+      "id": "req-av-comp-1794422451630-143",
+      "requestNumber": "JNS-2026-AV-000143",
+      "verifiedPhoneNumber": "1234579876",
+      "requestedResource": "Paracetamol",
+      "resourceType": "MEDICINE",
+      "originalTranscript": "Paracetamol and Cetirizine tablets are not available.",
+      "englishTranslation": "The prescribed medicine \"Paracetamol\" is unavailable at the pharmacy.",
+      "languageCode": "en",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-pharmacy",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "status": "Pending",
+      "otpVerified": true,
+      "notifications": [],
+      "createdAt": "2026-11-11T18:40:51.630Z",
+      "updatedAt": "2026-11-11T18:40:51.630Z"
+    },
+    {
+      "id": "req-av-comp-1794422250603-137",
+      "requestNumber": "JNS-2026-AV-000137",
+      "verifiedPhoneNumber": "9876543210",
+      "requestedResource": "Insulin & Paracetamol",
+      "resourceType": "MEDICINE",
+      "originalTranscript": "ಡಾಕ್ಟರ್ ಬರೆದಿರುವ ಪ್ಯಾರಸಿಟಮಾಲ್ ಮತ್ತು ಇನ್ಸುಲಿನ್ ಔಷಧ ಲಭ್ಯವಿಲ್ಲ.",
+      "englishTranslation": "Prescribed medicines or tablets are out of stock at the pharmacy counter.",
+      "languageCode": "kn",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-pharmacy",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "status": "Pending",
+      "otpVerified": true,
+      "notifications": [],
+      "createdAt": "2026-11-11T18:37:30.603Z",
+      "updatedAt": "2026-11-11T18:37:30.603Z"
+    },
+    {
+      "id": "req-av-1794395178411-104",
+      "requestNumber": "JNS-2026-AV-000104",
+      "verifiedPhoneNumber": "1234567890",
+      "requestedResource": "Paracetamol",
+      "resourceType": "MEDICINE",
+      "originalTranscript": "Medicines are not available. paracetamol and cetirizine",
+      "englishTranslation": "The prescribed medicine \"Paracetamol\" is unavailable at the pharmacy.",
+      "languageCode": "en",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-pharmacy",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "status": "Pending",
+      "otpVerified": true,
+      "notifications": [],
+      "createdAt": "2026-11-11T11:06:18.411Z",
+      "updatedAt": "2026-11-11T11:06:18.411Z"
+    },
+    {
+      "id": "req-av-1794394186377-103",
+      "requestNumber": "JNS-2026-AV-000103",
+      "verifiedPhoneNumber": "1234567890",
+      "requestedResource": "Paracetamol",
+      "resourceType": "MEDICINE",
+      "originalTranscript": "My tablets are not available. Could you help me to track them? paracetamol",
+      "englishTranslation": "The prescribed medicine \"Paracetamol\" is unavailable at the pharmacy.",
+      "languageCode": "en",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-pharmacy",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "status": "Pending",
+      "otpVerified": true,
+      "notifications": [],
+      "createdAt": "2026-11-11T10:49:46.377Z",
+      "updatedAt": "2026-11-11T10:49:46.377Z"
+    },
+    {
       "id": "req-av-seed-1",
       "requestNumber": "JNS-2026-AV-000101",
       "verifiedPhoneNumber": "9876543210",
@@ -403,7 +3232,7 @@
       "englishTranslation": "The prescribed Paracetamol IV infusion is currently unavailable. Please inform me when it arrives.",
       "languageCode": "kn",
       "hospitalId": "hosp-001",
-      "hospitalName": "Victoria District Hospital",
+      "hospitalName": "Outpatient Department, Ballari",
       "departmentId": "dept-pharmacy",
       "departmentName": "Pharmacy and Medicine Availability",
       "status": "Pending",
@@ -415,10 +3244,776 @@
   "observations": [],
   "notifications": [
     {
+      "id": "notif-1794423669241-dept",
+      "availabilityRequestId": "comp-1794423669230-161",
+      "recipient": "officer.water@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000161 dispatched to Water and Facilities: \"Drinking water facility malfunctioning\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T19:01:09.230Z",
+      "departmentName": "Water and Facilities",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794423669241-admin",
+      "availabilityRequestId": "comp-1794423669230-161",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000161 registered for Water and Facilities (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T19:01:09.230Z",
+      "departmentName": "Water and Facilities",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794423551350-dept",
+      "availabilityRequestId": "comp-1794423551340-160",
+      "recipient": "officer.hygiene@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000160 dispatched to Hygiene and Sanitation: \"Hospital washrooms are not clean\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:59:11.340Z",
+      "departmentName": "Hygiene and Sanitation",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794423551350-admin",
+      "availabilityRequestId": "comp-1794423551340-160",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000160 registered for Hygiene and Sanitation (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:59:11.340Z",
+      "departmentName": "Hygiene and Sanitation",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794423477352-dept",
+      "availabilityRequestId": "comp-1794423477352-159",
+      "recipient": "officer.pharmacy@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000159 dispatched to Pharmacy and Medicine Availability: \"BP tablets stockout in OPD pharmacy\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.352Z",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794423477352-admin",
+      "availabilityRequestId": "comp-1794423477352-159",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000159 registered for Pharmacy and Medicine Availability (Medicine Shortage).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.352Z",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794423477348-dept",
+      "availabilityRequestId": "comp-1794423477347-158",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000158 dispatched to Hospital Administration: \"Gov portal sync verification\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.347Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794423477348-admin",
+      "availabilityRequestId": "comp-1794423477347-158",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000158 registered for Hospital Administration (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.347Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794423477332-dept",
+      "availabilityRequestId": "comp-1794423477331-157",
+      "recipient": "equipment.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000157 dispatched to Medical Equipment / Maintenance: \"Ventilator error code E04\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.338Z",
+      "departmentName": "Medical Equipment / Maintenance",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794423477332-admin",
+      "availabilityRequestId": "comp-1794423477331-157",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000157 registered for Medical Equipment / Maintenance (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.331Z",
+      "departmentName": "Medical Equipment / Maintenance",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794423477321-dept",
+      "availabilityRequestId": "comp-1794423477320-156",
+      "recipient": "officer.water@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000156 dispatched to Water and Facilities: \"Drinking water or plumbing system failure\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.320Z",
+      "departmentName": "Water and Facilities",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794423477321-admin",
+      "availabilityRequestId": "comp-1794423477320-156",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000156 registered for Water and Facilities (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.320Z",
+      "departmentName": "Water and Facilities",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794423477314-dept",
+      "availabilityRequestId": "comp-1794423477313-155",
+      "recipient": "officer.hygiene@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000155 dispatched to Hygiene and Sanitation: \"Sanitation and cleanliness issue reported in hospital facility\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.313Z",
+      "departmentName": "Hygiene and Sanitation",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794423477314-admin",
+      "availabilityRequestId": "comp-1794423477313-155",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000155 registered for Hygiene and Sanitation (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.313Z",
+      "departmentName": "Hygiene and Sanitation",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794423477291-dept",
+      "availabilityRequestId": "comp-1794423477290-154",
+      "recipient": "officer.pharmacy@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000154 dispatched to Pharmacy and Medicine Availability: \"Crucial medicine or pharmacy supply stock unavailability\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.290Z",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794423477291-admin",
+      "availabilityRequestId": "comp-1794423477290-154",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000154 registered for Pharmacy and Medicine Availability (Medicine Shortage).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.290Z",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794423477284-dept",
+      "availabilityRequestId": "comp-1794423477283-153",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000153 dispatched to Hospital Administration: \"Concurrent submission test 6\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.283Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794423477284-admin",
+      "availabilityRequestId": "comp-1794423477283-153",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000153 registered for Hospital Administration (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.283Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794423477280-dept",
+      "availabilityRequestId": "comp-1794423477279-152",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000152 dispatched to Hospital Administration: \"Concurrent submission test 5\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.279Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794423477280-admin",
+      "availabilityRequestId": "comp-1794423477279-152",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000152 registered for Hospital Administration (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.279Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794423477276-dept",
+      "availabilityRequestId": "comp-1794423477275-151",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000151 dispatched to Hospital Administration: \"Concurrent submission test 4\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.275Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794423477276-admin",
+      "availabilityRequestId": "comp-1794423477275-151",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000151 registered for Hospital Administration (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.275Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794423477271-dept",
+      "availabilityRequestId": "comp-1794423477270-150",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000150 dispatched to Hospital Administration: \"Concurrent submission test 3\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.270Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794423477271-admin",
+      "availabilityRequestId": "comp-1794423477270-150",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000150 registered for Hospital Administration (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.270Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794423477265-dept",
+      "availabilityRequestId": "comp-1794423477265-149",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000149 dispatched to Hospital Administration: \"Concurrent submission test 2\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.265Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794423477265-admin",
+      "availabilityRequestId": "comp-1794423477265-149",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000149 registered for Hospital Administration (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.265Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794423477261-dept",
+      "availabilityRequestId": "comp-1794423477260-148",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000148 dispatched to Hospital Administration: \"Concurrent submission test 1\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.260Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794423477261-admin",
+      "availabilityRequestId": "comp-1794423477260-148",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000148 registered for Hospital Administration (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.260Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794423477255-dept",
+      "availabilityRequestId": "comp-1794423477255-147",
+      "recipient": "equipment.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000147 dispatched to Medical Equipment / Maintenance: \"Broken wheelchair near entrance\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.255Z",
+      "departmentName": "Medical Equipment / Maintenance",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794423477255-admin",
+      "availabilityRequestId": "comp-1794423477255-147",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000147 registered for Medical Equipment / Maintenance (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.255Z",
+      "departmentName": "Medical Equipment / Maintenance",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794423477250-dept",
+      "availabilityRequestId": "comp-1794423477249-146",
+      "recipient": "officer.hygiene@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000146 dispatched to Hygiene and Sanitation: \"Ward garbage not cleared\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.249Z",
+      "departmentName": "Hygiene and Sanitation",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794423477250-admin",
+      "availabilityRequestId": "comp-1794423477249-146",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000146 registered for Hygiene and Sanitation (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.249Z",
+      "departmentName": "Hygiene and Sanitation",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794423477244-dept",
+      "availabilityRequestId": "comp-1794423477218-145",
+      "recipient": "officer.water@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000145 dispatched to Water and Facilities: \"Washroom tap leakage reported\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.218Z",
+      "departmentName": "Water and Facilities",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794423477244-admin",
+      "availabilityRequestId": "comp-1794423477218-145",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000145 registered for Water and Facilities (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:57:57.218Z",
+      "departmentName": "Water and Facilities",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794422984949-dept",
+      "availabilityRequestId": "comp-1794422984940-144",
+      "recipient": "officer.water@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000144 dispatched to Water and Facilities: \"ವಾಶ್ರೂಮ್‌ಗಳು ಮತ್ತು ನೀರಿನ ಗುಣಮಟ್ಟ ಸರಿಯಿಲ್ಲ.\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:49:44.940Z",
+      "departmentName": "Water and Facilities",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794422984949-admin",
+      "availabilityRequestId": "comp-1794422984940-144",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000144 registered for Water and Facilities (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:49:44.940Z",
+      "departmentName": "Water and Facilities",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794422451630-dept",
+      "availabilityRequestId": "comp-1794422451630-143",
+      "recipient": "officer.pharmacy@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000143 dispatched to Pharmacy and Medicine Availability: \"Medicine Unavailable: Paracetamol\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:40:51.630Z",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794422451630-admin",
+      "availabilityRequestId": "comp-1794422451630-143",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000143 registered for Pharmacy and Medicine Availability (Medicine Shortage).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:40:51.630Z",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794422250632-dept",
+      "availabilityRequestId": "comp-1794422250632-142",
+      "recipient": "officer.pharmacy@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000142 dispatched to Pharmacy and Medicine Availability: \"BP tablets stockout in OPD pharmacy\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.632Z",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794422250632-admin",
+      "availabilityRequestId": "comp-1794422250632-142",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000142 registered for Pharmacy and Medicine Availability (Medicine Shortage).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.632Z",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794422250630-dept",
+      "availabilityRequestId": "comp-1794422250630-141",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000141 dispatched to Hospital Administration: \"Gov portal sync verification\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.630Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794422250630-admin",
+      "availabilityRequestId": "comp-1794422250630-141",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000141 registered for Hospital Administration (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.630Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794422250625-dept",
+      "availabilityRequestId": "comp-1794422250625-140",
+      "recipient": "equipment.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000140 dispatched to Medical Equipment / Maintenance: \"Ventilator error code E04\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.627Z",
+      "departmentName": "Medical Equipment / Maintenance",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794422250625-admin",
+      "availabilityRequestId": "comp-1794422250625-140",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000140 registered for Medical Equipment / Maintenance (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.625Z",
+      "departmentName": "Medical Equipment / Maintenance",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794422250623-dept",
+      "availabilityRequestId": "comp-1794422250622-139",
+      "recipient": "officer.water@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000139 dispatched to Water and Facilities: \"Drinking water or plumbing system failure\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.622Z",
+      "departmentName": "Water and Facilities",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794422250623-admin",
+      "availabilityRequestId": "comp-1794422250622-139",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000139 registered for Water and Facilities (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.622Z",
+      "departmentName": "Water and Facilities",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794422250620-dept",
+      "availabilityRequestId": "comp-1794422250619-138",
+      "recipient": "officer.hygiene@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000138 dispatched to Hygiene and Sanitation: \"Sanitation and cleanliness issue reported in hospital facility\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.619Z",
+      "departmentName": "Hygiene and Sanitation",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794422250620-admin",
+      "availabilityRequestId": "comp-1794422250619-138",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000138 registered for Hygiene and Sanitation (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.619Z",
+      "departmentName": "Hygiene and Sanitation",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794422250604-dept",
+      "availabilityRequestId": "comp-1794422250603-137",
+      "recipient": "officer.pharmacy@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000137 dispatched to Pharmacy and Medicine Availability: \"Crucial medicine or pharmacy supply stock unavailability\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.603Z",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794422250604-admin",
+      "availabilityRequestId": "comp-1794422250603-137",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000137 registered for Pharmacy and Medicine Availability (Medicine Shortage).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.603Z",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794422250602-dept",
+      "availabilityRequestId": "comp-1794422250601-136",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000136 dispatched to Hospital Administration: \"Concurrent submission test 6\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.601Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794422250602-admin",
+      "availabilityRequestId": "comp-1794422250601-136",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000136 registered for Hospital Administration (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.601Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794422250600-dept",
+      "availabilityRequestId": "comp-1794422250600-135",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000135 dispatched to Hospital Administration: \"Concurrent submission test 5\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.600Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794422250600-admin",
+      "availabilityRequestId": "comp-1794422250600-135",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000135 registered for Hospital Administration (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.600Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794422250599-dept",
+      "availabilityRequestId": "comp-1794422250598-134",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000134 dispatched to Hospital Administration: \"Concurrent submission test 4\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.598Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794422250599-admin",
+      "availabilityRequestId": "comp-1794422250598-134",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000134 registered for Hospital Administration (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.598Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794422250597-dept",
+      "availabilityRequestId": "comp-1794422250597-133",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000133 dispatched to Hospital Administration: \"Concurrent submission test 3\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.597Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794422250597-admin",
+      "availabilityRequestId": "comp-1794422250597-133",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000133 registered for Hospital Administration (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.597Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794422250595-dept",
+      "availabilityRequestId": "comp-1794422250595-132",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000132 dispatched to Hospital Administration: \"Concurrent submission test 2\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.595Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794422250595-admin",
+      "availabilityRequestId": "comp-1794422250595-132",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000132 registered for Hospital Administration (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.595Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794422250593-dept",
+      "availabilityRequestId": "comp-1794422250593-131",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000131 dispatched to Hospital Administration: \"Concurrent submission test 1\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.593Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794422250593-admin",
+      "availabilityRequestId": "comp-1794422250593-131",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000131 registered for Hospital Administration (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.593Z",
+      "departmentName": "Hospital Administration",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794422250590-dept",
+      "availabilityRequestId": "comp-1794422250590-130",
+      "recipient": "equipment.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000130 dispatched to Medical Equipment / Maintenance: \"Broken wheelchair near entrance\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.590Z",
+      "departmentName": "Medical Equipment / Maintenance",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794422250590-admin",
+      "availabilityRequestId": "comp-1794422250590-130",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000130 registered for Medical Equipment / Maintenance (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.590Z",
+      "departmentName": "Medical Equipment / Maintenance",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794422250588-dept",
+      "availabilityRequestId": "comp-1794422250587-129",
+      "recipient": "officer.hygiene@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000129 dispatched to Hygiene and Sanitation: \"Ward garbage not cleared\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.587Z",
+      "departmentName": "Hygiene and Sanitation",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794422250588-admin",
+      "availabilityRequestId": "comp-1794422250587-129",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000129 registered for Hygiene and Sanitation (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.587Z",
+      "departmentName": "Hygiene and Sanitation",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794422250585-dept",
+      "availabilityRequestId": "comp-1794422250570-128",
+      "recipient": "officer.water@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000128 dispatched to Water and Facilities: \"Washroom tap leakage reported\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.570Z",
+      "departmentName": "Water and Facilities",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794422250585-admin",
+      "availabilityRequestId": "comp-1794422250570-128",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000128 registered for Water and Facilities (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-11T18:37:30.570Z",
+      "departmentName": "Water and Facilities",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794420863508-ocupn",
+      "availabilityRequestId": "JNS-2026-000128",
+      "recipient": "8147464388",
+      "message": "JANASUVIDHA: Your request for unavailable medicine \"Paracetamol\" has been registered at Outpatient Department, Ballari Pharmacy. Complaint ID: JNS-2026-000128. We will notify you via SMS when fresh stock arrives.",
+      "provider": "mock",
+      "deliveryStatus": "SIMULATED",
+      "sentAt": "2026-11-11T18:14:23.508Z"
+    },
+    {
+      "id": "notif-1794420863506-2q230",
+      "availabilityRequestId": "JNS-2026-000128",
+      "recipient": "8147464388",
+      "message": "JANASUVIDHA: Your request for unavailable medicine \"Paracetamol\" has been registered at Outpatient Department, Ballari Pharmacy. Complaint ID: JNS-2026-000128. We will notify you via SMS when fresh stock arrives.",
+      "provider": "mock",
+      "deliveryStatus": "SIMULATED",
+      "sentAt": "2026-11-11T18:14:23.506Z"
+    },
+    {
       "id": "notif-1794371527226-bf4v0",
       "availabilityRequestId": "JNS-2026-000128",
       "recipient": "9999999999",
-      "message": "JANASUVIDHA: Your request for unavailable medicine \"Medicines\" has been registered at Victoria District Hospital Pharmacy. Complaint ID: JNS-2026-000128. We will notify you via SMS when fresh stock arrives.",
+      "message": "JANASUVIDHA: Your request for unavailable medicine \"Medicines\" has been registered at Outpatient Department, Ballari Pharmacy. Complaint ID: JNS-2026-000128. We will notify you via SMS when fresh stock arrives.",
       "provider": "mock",
       "deliveryStatus": "SIMULATED",
       "sentAt": "2026-11-11T04:32:07.226Z"
@@ -427,7 +4022,7 @@
       "id": "notif-1794348523237-umdt4",
       "availabilityRequestId": "JNS-2026-000128",
       "recipient": "3367458768",
-      "message": "JANASUVIDHA: Your request for unavailable medicine \"456476857689708\" has been registered at Victoria District Hospital Pharmacy. Complaint ID: JNS-2026-000128. We will notify you via SMS when fresh stock arrives.",
+      "message": "JANASUVIDHA: Your request for unavailable medicine \"456476857689708\" has been registered at Outpatient Department, Ballari Pharmacy. Complaint ID: JNS-2026-000128. We will notify you via SMS when fresh stock arrives.",
       "provider": "mock",
       "deliveryStatus": "SIMULATED",
       "sentAt": "2026-11-10T22:08:43.237Z"
@@ -436,7 +4031,7 @@
       "id": "notif-1794348519098-5ajtm",
       "availabilityRequestId": "JNS-2026-000128",
       "recipient": "3367458768",
-      "message": "JANASUVIDHA: Your request for unavailable medicine \"456476857689708\" has been registered at Victoria District Hospital Pharmacy. Complaint ID: JNS-2026-000128. We will notify you via SMS when fresh stock arrives.",
+      "message": "JANASUVIDHA: Your request for unavailable medicine \"456476857689708\" has been registered at Outpatient Department, Ballari Pharmacy. Complaint ID: JNS-2026-000128. We will notify you via SMS when fresh stock arrives.",
       "provider": "mock",
       "deliveryStatus": "SIMULATED",
       "sentAt": "2026-11-10T22:08:39.098Z"
@@ -445,7 +4040,7 @@
       "id": "notif-1794347669670-14m9u",
       "availabilityRequestId": "JNS-2026-000128",
       "recipient": "8888888888",
-      "message": "JANASUVIDHA: Your request for unavailable medicine \"Paracetamol\" has been registered at Victoria District Hospital Pharmacy. Complaint ID: JNS-2026-000128. We will notify you via SMS when fresh stock arrives.",
+      "message": "JANASUVIDHA: Your request for unavailable medicine \"Paracetamol\" has been registered at Outpatient Department, Ballari Pharmacy. Complaint ID: JNS-2026-000128. We will notify you via SMS when fresh stock arrives.",
       "provider": "mock",
       "deliveryStatus": "SIMULATED",
       "sentAt": "2026-11-10T21:54:29.670Z"
@@ -454,7 +4049,7 @@
       "id": "notif-1794347486636-yv8kc",
       "availabilityRequestId": "JNS-2026-000126",
       "recipient": "1111111111",
-      "message": "JANASUVIDHA: Your request for unavailable medicine \"Paracetamol\" has been registered at Victoria District Hospital Pharmacy. Complaint ID: JNS-2026-000126. We will notify you via SMS when fresh stock arrives.",
+      "message": "JANASUVIDHA: Your request for unavailable medicine \"Paracetamol\" has been registered at Outpatient Department, Ballari Pharmacy. Complaint ID: JNS-2026-000126. We will notify you via SMS when fresh stock arrives.",
       "provider": "mock",
       "deliveryStatus": "SIMULATED",
       "sentAt": "2026-11-10T21:51:26.636Z"
@@ -510,8 +4105,113 @@
       "idempotencyKey": "kiosk-1794391919310-6f2yeb",
       "complaintId": "comp-1794391919859-128",
       "createdAt": "2026-11-11T10:11:59.859Z"
+    },
+    {
+      "idempotencyKey": "kiosk-1794394933319-k6o2qb",
+      "complaintId": "comp-1794394933885-128",
+      "createdAt": "2026-11-11T11:02:13.885Z"
+    },
+    {
+      "idempotencyKey": "kiosk-1794396587435-w9040m",
+      "complaintId": "comp-1794396587783-128",
+      "createdAt": "2026-11-11T11:29:47.783Z"
+    },
+    {
+      "idempotencyKey": "kiosk-1794396832095-tp4wcp",
+      "complaintId": "comp-1794396832632-128",
+      "createdAt": "2026-11-11T11:33:52.632Z"
+    },
+    {
+      "idempotencyKey": "kiosk-1794420037562-345bts",
+      "complaintId": "comp-1794420037802-128",
+      "createdAt": "2026-11-11T18:00:37.802Z"
+    },
+    {
+      "idempotencyKey": "kiosk-med-1794420863032-xcmmkr",
+      "complaintId": "comp-1794420863500-128",
+      "createdAt": "2026-11-11T18:14:23.500Z"
+    },
+    {
+      "idempotencyKey": "concurrent-session-0-1794422250592-hqyjlgaxr48",
+      "complaintId": "comp-1794422250593-131",
+      "createdAt": "2026-11-11T18:37:30.593Z"
+    },
+    {
+      "idempotencyKey": "concurrent-session-1-1794422250592-6z3zdcthbyo",
+      "complaintId": "comp-1794422250595-132",
+      "createdAt": "2026-11-11T18:37:30.595Z"
+    },
+    {
+      "idempotencyKey": "concurrent-session-2-1794422250592-pi7prxkgvh",
+      "complaintId": "comp-1794422250597-133",
+      "createdAt": "2026-11-11T18:37:30.597Z"
+    },
+    {
+      "idempotencyKey": "concurrent-session-3-1794422250592-9lpqhpdke36",
+      "complaintId": "comp-1794422250598-134",
+      "createdAt": "2026-11-11T18:37:30.598Z"
+    },
+    {
+      "idempotencyKey": "concurrent-session-4-1794422250592-miwslexsewe",
+      "complaintId": "comp-1794422250600-135",
+      "createdAt": "2026-11-11T18:37:30.600Z"
+    },
+    {
+      "idempotencyKey": "concurrent-session-5-1794422250592-xy3jlbs0758",
+      "complaintId": "comp-1794422250601-136",
+      "createdAt": "2026-11-11T18:37:30.601Z"
+    },
+    {
+      "idempotencyKey": "kiosk-med-1794422451142-pw1nz2",
+      "complaintId": "comp-1794422451630-143",
+      "createdAt": "2026-11-11T18:40:51.630Z"
+    },
+    {
+      "idempotencyKey": "kiosk-1794422984709-xjw82x",
+      "complaintId": "comp-1794422984940-144",
+      "createdAt": "2026-11-11T18:49:44.940Z"
+    },
+    {
+      "idempotencyKey": "concurrent-session-0-1794423477258-mu25f84kgy",
+      "complaintId": "comp-1794423477260-148",
+      "createdAt": "2026-11-11T18:57:57.260Z"
+    },
+    {
+      "idempotencyKey": "concurrent-session-1-1794423477258-63c5et1bpav",
+      "complaintId": "comp-1794423477265-149",
+      "createdAt": "2026-11-11T18:57:57.265Z"
+    },
+    {
+      "idempotencyKey": "concurrent-session-2-1794423477258-842mo3i17l",
+      "complaintId": "comp-1794423477270-150",
+      "createdAt": "2026-11-11T18:57:57.270Z"
+    },
+    {
+      "idempotencyKey": "concurrent-session-3-1794423477258-vv7hw7lamlf",
+      "complaintId": "comp-1794423477275-151",
+      "createdAt": "2026-11-11T18:57:57.275Z"
+    },
+    {
+      "idempotencyKey": "concurrent-session-4-1794423477258-ncojy2sttn",
+      "complaintId": "comp-1794423477279-152",
+      "createdAt": "2026-11-11T18:57:57.279Z"
+    },
+    {
+      "idempotencyKey": "concurrent-session-5-1794423477258-dd5cqahgxg",
+      "complaintId": "comp-1794423477283-153",
+      "createdAt": "2026-11-11T18:57:57.283Z"
+    },
+    {
+      "idempotencyKey": "kiosk-1794423551317-acnln1",
+      "complaintId": "comp-1794423551340-160",
+      "createdAt": "2026-11-11T18:59:11.340Z"
+    },
+    {
+      "idempotencyKey": "kiosk-1794423668675-2w24tq",
+      "complaintId": "comp-1794423669230-161",
+      "createdAt": "2026-11-11T19:01:09.230Z"
     }
   ],
-  "counter": 127,
-  "counterAv": 102
+  "counter": 161,
+  "counterAv": 104
 }

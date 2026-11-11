@@ -1,7 +1,7 @@
 # JANASUVIDHA — AI-Powered Multilingual Hospital Grievance & Resolution Platform
 
 > **Tagline:** Every Voice Matters. Every Complaint Counts.  
-> Designed for Government Hospitals across India (Pilot: Victoria District Hospital, Bengaluru).
+> Designed for Government Hospitals across India (Pilot: Outpatient Department, Ballari).
 
 ---
 
@@ -132,7 +132,7 @@ lib/
 │   ├── notification.service.ts# SMS notification dispatch adapter
 │   ├── storage.service.ts     # Evidence photo upload service
 │   └── complaint.service.ts   # Core business logic & state machine
-└── mock-data.ts               # Realistic initial seed data for Victoria Hospital
+└── mock-data.ts               # Realistic initial seed data for Outpatient Department, Ballari
 
 prisma/
 └── schema.prisma              # Complete PostgreSQL database schema
