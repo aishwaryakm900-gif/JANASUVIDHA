@@ -13,6 +13,7 @@ export default function OfficialDashboardPage() {
   const [availabilityRequests, setAvailabilityRequests] = useState<PrivateAvailabilityRequest[]>([]);
   const [mainView, setMainView] = useState<"GRIEVANCES" | "AVAILABILITY">("GRIEVANCES");
   const [loading, setLoading] = useState(true);
+  const [lastUpdatedAt, setLastUpdatedAt] = useState<Date | null>(null);
   const [activeTab, setActiveTab] = useState<string>("ALL");
   const [updatingReqId, setUpdatingReqId] = useState<string | null>(null);
   const [actionNotice, setActionNotice] = useState<string | null>(null);
@@ -67,8 +68,8 @@ export default function OfficialDashboardPage() {
     };
   };
 
-  const loadData = async (currentOfficial = official) => {
-    setLoading(true);
+  const loadData = async (currentOfficial = official, showLoading = true) => {
+    if (showLoading) setLoading(true);
     try {
       const params = new URLSearchParams();
       if (currentOfficial.departmentName && currentOfficial.designation !== "Hospital Administrator") {
@@ -76,29 +77,23 @@ export default function OfficialDashboardPage() {
         params.append("designation", currentOfficial.designation);
       }
 
-      // 1. Load public complaints
-      const res = await fetch(`/api/complaints?${params.toString()}`);
-      const data = await res.json();
+      const [res, reqRes] = await Promise.all([
+        fetch(`/api/complaints?${params.toString()}`, { cache: "no-store" }),
+        fetch(`/api/availability-requests?department=${encodeURIComponent(currentOfficial.departmentName || "")}`, { cache: "no-store" }),
+      ]);
+      const [data, reqData] = await Promise.all([res.json(), reqRes.json()]);
       if (data.success && Array.isArray(data.complaints)) {
         setComplaints(data.complaints.map(normalizeComplaint));
-      } else {
-        setComplaints([]);
       }
 
-      // 2. Load private availability requests for this department/hospital
-      const reqRes = await fetch(`/api/availability-requests?department=${encodeURIComponent(currentOfficial.departmentName || "")}`);
-      const reqData = await reqRes.json();
       if (reqData.success && Array.isArray(reqData.requests)) {
         setAvailabilityRequests(reqData.requests.map(normalizeAvailabilityRequest));
-      } else {
-        setAvailabilityRequests([]);
       }
+      if (data.success || reqData.success) setLastUpdatedAt(new Date());
     } catch (e) {
       console.error(e);
-      setComplaints([]);
-      setAvailabilityRequests([]);
     } finally {
-      setLoading(false);
+      if (showLoading) setLoading(false);
     }
   };
 
@@ -113,7 +108,25 @@ export default function OfficialDashboardPage() {
         } catch (e) {}
       }
     }
-    loadData(current);
+    void loadData(current, true);
+
+    let polling = false;
+    const refreshInBackground = async () => {
+      if (polling || document.visibilityState !== "visible") return;
+      polling = true;
+      try {
+        await loadData(current, false);
+      } finally {
+        polling = false;
+      }
+    };
+    const interval = window.setInterval(() => void refreshInBackground(), 3000);
+    const refreshOnFocus = () => void refreshInBackground();
+    window.addEventListener("focus", refreshOnFocus);
+    return () => {
+      window.clearInterval(interval);
+      window.removeEventListener("focus", refreshOnFocus);
+    };
   }, []);
 
   const handleLogout = () => {
@@ -197,6 +210,14 @@ export default function OfficialDashboardPage() {
           </div>
 
           <div className="flex items-center gap-3">
+            <div className="hidden sm:block text-right" aria-live="polite">
+              <p className="text-[11px] font-semibold text-emerald-700">Live updates every 3 seconds</p>
+              {lastUpdatedAt && (
+                <p className="text-[10px] text-[#607477]">
+                  Updated {lastUpdatedAt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
+                </p>
+              )}
+            </div>
             <button
               type="button"
               onClick={() => loadData()}

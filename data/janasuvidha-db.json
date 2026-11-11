@@ -505,6 +505,11 @@
       "idempotencyKey": "kiosk-Washroom Stenag-1794371686322",
       "complaintId": "comp-1794371686373-128",
       "createdAt": "2026-11-11T04:34:46.373Z"
+    },
+    {
+      "idempotencyKey": "kiosk-1794391919310-6f2yeb",
+      "complaintId": "comp-1794391919859-128",
+      "createdAt": "2026-11-11T10:11:59.859Z"
     }
   ],
   "counter": 127,

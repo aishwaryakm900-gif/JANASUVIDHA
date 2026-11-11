@@ -1,3 +1,5 @@
+"use client";
+
 import { Language } from "@/types";
 
 export interface SpokenConfirmationPhrases {
@@ -320,35 +322,38 @@ export const LANGUAGE_PHRASES: Record<string, SpokenConfirmationPhrases> = {
       "nope",
       "cancel",
       "stop",
-      "dont",
-      "do not",
-      "negative",
+      "abort",
+      "don't",
+      "incorrect",
     ],
   },
 };
 
 export class TTSService {
-  /**
-   * Helper to retrieve language phrases safely with fallback to English
-   */
-  static getPhrases(lang: string = "kn"): SpokenConfirmationPhrases {
-    const code = (lang || "kn").toLowerCase().split("-")[0];
-    return LANGUAGE_PHRASES[code] || LANGUAGE_PHRASES.kn || LANGUAGE_PHRASES.en;
+  static getPhrases(lang: string = "en"): SpokenConfirmationPhrases {
+    const code = (lang || "en").toLowerCase().split("-")[0];
+    return LANGUAGE_PHRASES[code] || LANGUAGE_PHRASES.en;
   }
 
   /**
-   * Speaks the given text in the requested language using the Web Speech Synthesis API.
-   * Resolves when playback finishes.
+   * Speaks the given text reliably using Web Speech Synthesis API.
+   * Resolves when speech finishes speaking or upon timeout.
    */
-  static speak(text: string, lang: string): Promise<void> {
+  static speak(text: string, lang: string = "en"): Promise<void> {
     return new Promise((resolve) => {
       if (typeof window === "undefined" || !("speechSynthesis" in window)) {
-        console.log(`[TTS Audio Playback] (${lang}): "${text}"`);
-        setTimeout(resolve, 1500);
+        setTimeout(resolve, 500);
         return;
       }
 
-      window.speechSynthesis.cancel();
+      try {
+        window.speechSynthesis.cancel();
+        // Chrome bug workaround: resume if paused
+        if (window.speechSynthesis.paused) {
+          window.speechSynthesis.resume();
+        }
+      } catch (e) {}
+
       const utterance = new SpeechSynthesisUtterance(text);
 
       const langMap: Record<string, string> = {
@@ -357,62 +362,70 @@ export class TTSService {
         te: "te-IN",
         ta: "ta-IN",
         ml: "ml-IN",
-        en: "en-IN",
+        en: "en-US",
         bn: "bn-IN",
         mr: "mr-IN",
         gu: "gu-IN",
       };
 
-      const cleanCode = (lang || "kn").toLowerCase().split("-")[0];
-      utterance.lang = langMap[cleanCode] || (lang.includes("-") ? lang : `${lang}-IN`);
-      utterance.rate = 0.92;
+      const cleanCode = (lang || "en").toLowerCase().split("-")[0];
+      utterance.lang = langMap[cleanCode] || "en-US";
+      utterance.rate = 1.0;
       utterance.pitch = 1.0;
 
-      utterance.onend = () => resolve();
-      utterance.onerror = (e) => {
-        console.warn("TTS playback warning:", e);
-        resolve();
+      let hasResolved = false;
+      const finish = () => {
+        if (!hasResolved) {
+          hasResolved = true;
+          resolve();
+        }
       };
 
+      utterance.onend = finish;
+      utterance.onerror = (e) => {
+        console.warn("TTS playback status/ended:", e);
+        finish();
+      };
+
+      // Match voice
       try {
         const voices = window.speechSynthesis.getVoices();
         const bcp47 = utterance.lang.toLowerCase();
-        const prefix = cleanCode;
-
-        // Find voice for language
-        const matchedVoice = voices.find((v) => {
+        const matched = voices.find((v) => {
           const vLang = v.lang.toLowerCase().replace(/_/g, "-");
-          return vLang === bcp47 || vLang.startsWith(prefix);
+          return vLang === bcp47 || vLang.startsWith(cleanCode);
         });
-
-        if (matchedVoice) {
-          utterance.voice = matchedVoice;
+        if (matched) {
+          utterance.voice = matched;
         }
       } catch (err) {}
 
-      window.speechSynthesis.speak(utterance);
+      // Keep-alive timer for speech synthesis in Chrome
+      const words = text.split(/\s+/).length;
+      const maxDuration = Math.max(3000, words * 450);
+      const timer = setTimeout(finish, maxDuration);
+
+      try {
+        window.speechSynthesis.speak(utterance);
+      } catch (speakErr) {
+        clearTimeout(timer);
+        finish();
+      }
     });
   }
 
-  /**
-   * Stops any ongoing speech synthesis.
-   */
   static stop(): void {
     if (typeof window !== "undefined" && "speechSynthesis" in window) {
-      window.speechSynthesis.cancel();
+      try {
+        window.speechSynthesis.cancel();
+      } catch (e) {}
     }
   }
 
-  /**
-   * Analyzes an affirmative/negative verbal response across ALL supported Indian languages.
-   * STRICT: Does not treat unclear speech as approval!
-   */
   static parseYesNo(text: string, lang?: string): "YES" | "NO" | "UNCLEAR" {
     if (!text || !text.trim()) return "UNCLEAR";
-
     const clean = text.toLowerCase().trim();
 
-    // Check specific language if provided
     if (lang) {
       const cleanLang = lang.toLowerCase().split("-")[0];
       const phrases = LANGUAGE_PHRASES[cleanLang];
@@ -426,7 +439,6 @@ export class TTSService {
       }
     }
 
-    // Check across all languages
     for (const key of Object.keys(LANGUAGE_PHRASES)) {
       for (const w of LANGUAGE_PHRASES[key].yesWords) {
         if (clean === w || clean.includes(w)) return "YES";
@@ -439,100 +451,28 @@ export class TTSService {
     return "UNCLEAR";
   }
 
-  /**
-   * Parse verbal response for repeat facility observation across languages.
-   */
-  static parseObservation(text: string): "UNCLEAN_CONFIRMED" | "CLEAN_REPORTED" | "WORSENED" | "RETURNED" | "UNCLEAR" {
-    if (!text || !text.trim()) return "UNCLEAR";
-    const clean = text.toLowerCase().trim();
-
-    // Check for "clean / resolved"
-    const cleanKeywords = [
-      "ಸ್ವಚ್ಛ", "ಕ್ಲೀನ್", "ಸರಿ", "ಪರಿಹಾರ", "ಸಾಫ್", "साफ़", "स्वच्छ", "ठीक", "हल", "శుభ్రంగా", "சுத்தமாக", "വൃത്തിയുള്ള", "clean", "fixed", "resolved", "good", "no"
-    ];
-    for (const kw of cleanKeywords) {
-      if (clean.includes(kw)) {
-        if (clean.includes("ಅಸ್ವಚ್ಛ") || clean.includes("अस्वच्छ") || clean.includes("శుభ్రంగా లేదు") || clean.includes("சுத்தமில்லை")) continue;
-        return "CLEAN_REPORTED";
-      }
-    }
-
-    // Check for "worsened"
-    const worsenedKeywords = [
-      "ಕೆಟ್ಟ", "ಇನ್ನೂ ಕೆಟ್ಟ", "ಹೆಚ್ಚಾಗಿದೆ", "बिगाड़", "खराब", "बदतर", "పాడైంది", "மோசமாக", "മോശമായി", "worse", "worsened"
-    ];
-    for (const kw of worsenedKeywords) {
-      if (clean.includes(kw)) return "WORSENED";
-    }
-
-    // Check for "returned"
-    const returnedKeywords = [
-      "ಮತ್ತೆ", "ಪುನಃ", "ಆಗಿದೆ", "फिर", "वापस", "दोबारा", "మళ్లీ", "மீண்டும்", "വീണ്ടും", "returned", "again", "back"
-    ];
-    for (const kw of returnedKeywords) {
-      if (clean.includes(kw)) return "RETURNED";
-    }
-
-    // Check for "still unclean / persisting"
-    const uncleanKeywords = [
-      "ಅಸ್ವಚ್ಛ", "ಕೊಳಕು", "ಗಲೀಜು", "ಹಾಗೆ ಇದೆ", "ಇನ್ನೂ ಇದೆ", "ಸಮಸ್ಯೆ", "अस्वच्छ", "गंदा", "खराब", "समस्या", "శుభ్రంగా లేదు", "சுத்தமில்லை", "വൃത്തിഹീനമാണ്", "unclean", "dirty", "still bad", "yes", "haudu", "haan", "avunu", "aam"
-    ];
-    for (const kw of uncleanKeywords) {
-      if (clean.includes(kw)) return "UNCLEAN_CONFIRMED";
-    }
-
-    return "UNCLEAR";
-  }
-
-  /**
-   * Parse verbal response for duration across languages.
-   */
-  static parseDuration(text: string): "Less than an hour" | "A few hours" | "Since morning" | "I don't know" | null {
-    if (!text || !text.trim()) return null;
-    const clean = text.toLowerCase().trim();
-
-    if (clean.includes("ಬೆಳಿಗ್ಗೆ") || clean.includes("morning") || clean.includes("सुबह") || clean.includes("ఉదయం") || clean.includes("காலை") || clean.includes("രാവിലെ")) {
-      return "Since morning";
-    }
-    if (clean.includes("ಕೆಲವು") || clean.includes("hours") || clean.includes("कुछ घंटे") || clean.includes("ಎರಡು ಗಂಟೆ") || clean.includes("కొన్ని గంటలు") || clean.includes("மணி நேரமாக") || clean.includes("മണിക്കൂറുകൾ") || clean.includes("few")) {
-      return "A few hours";
-    }
-    if (clean.includes("ಕಡಿಮೆ") || clean.includes("less") || clean.includes("एक घंटा") || clean.includes("ಒಂದು ಗಂಟೆ") || clean.includes("తక్కువ") || clean.includes("குறைவாக") || clean.includes("താഴെ") || clean.includes("one hour")) {
-      return "Less than an hour";
-    }
-    if (clean.includes("ಗೊತ್ತಿಲ್ಲ") || clean.includes("ತಿಳಿದಿಲ್ಲ") || clean.includes("पता नहीं") || clean.includes("తెలియదు") || clean.includes("தெரியாது") || clean.includes("അറിയില്ല") || clean.includes("don't know") || clean.includes("dont know")) {
-      return "I don't know";
-    }
-
-    return null;
-  }
-
-  /**
-   * Extracts spoken numeric digits from text (supports multiple Indian languages)
-   */
   static extractDigits(text: string): string {
-    if (!text) return "";
-    let result = text.replace(/\D/g, "");
-    if (result) return result;
-
-    const numMap: Record<string, string> = {
-      // English
-      zero: "0", one: "1", two: "2", three: "3", four: "4", five: "5", six: "6", seven: "7", eight: "8", nine: "9",
-      // Kannada
-      "ಸೊನ್ನೆ": "0", "ಒಂದು": "1", "ಎರಡು": "2", "ಮೂರು": "3", "ನಾಲ್ಕು": "4", "ಐದು": "5", "ಆರು": "6", "ಏಳು": "7", "ಎಂಟು": "8", "ಒಂಬತ್ತು": "9",
-      // Hindi
-      "शून्य": "0", "एक": "1", "दो": "2", "तीन": "3", "चार": "4", "पाँच": "5", "पांच": "5", "छह": "6", "सात": "7", "आठ": "8", "नौ": "9",
-      // Telugu
-      "సున్నా": "0", "ఒకటి": "1", "రెండు": "2", "మూడు": "3", "నాలుగు": "4", "ఐదు": "5", "ఆరు": "6", "ఏడు": "7", "ఎనిమిది": "8", "తొమ్మిది": "9",
+    const wordDigitMap: Record<string, string> = {
+      zero: "0", one: "1", two: "2", three: "3", four: "4",
+      five: "5", six: "6", seven: "7", eight: "8", nine: "9",
+      ek: "1", do: "2", teen: "3", chaar: "4", paanch: "5",
+      chhah: "6", saat: "7", aath: "8", nau: "9", shunya: "0",
+      ondu: "1", eradu: "2", mooru: "3", naalku: "4", aidu: "5",
+      aaru: "6", eelu: "7", entu: "8", ombattu: "9", sonne: "0",
     };
 
-    const words = text.toLowerCase().split(/\s+/);
-    let extracted = "";
-    for (const w of words) {
-      if (numMap[w]) {
-        extracted += numMap[w];
+    let result = "";
+    for (const char of text) {
+      if (/\d/.test(char)) result += char;
+    }
+
+    if (result.length < 10) {
+      const words = text.toLowerCase().split(/[\s,.-]+/);
+      for (const word of words) {
+        if (wordDigitMap[word]) result += wordDigitMap[word];
       }
     }
-    return extracted;
+
+    return result;
   }
 }

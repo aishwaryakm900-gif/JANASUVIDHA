@@ -5,6 +5,23 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export function normalizeDepartmentName(name?: string | null): string {
+  const value = (name || "")
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+
+  if (value.includes("hygiene") || value.includes("sanitation")) return "hygiene and sanitation";
+  if (value.includes("water") || value.includes("facilit")) return "water and facilities";
+  if (value.includes("pharmacy") || value.includes("medicine")) return "pharmacy and medicine availability";
+  if (value.includes("bed management") || value.includes("admission")) return "bed management";
+  if (value.includes("infrastructure") || value.includes("maintenance")) return "infrastructure maintenance";
+  if (value.includes("hospital service") || value.includes("staff service")) return "hospital services";
+
+  return value;
+}
+
 export function formatDateTime(date?: Date | string | null): string {
   if (!date) return "Recently";
   try {

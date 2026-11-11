@@ -220,7 +220,11 @@ export class GeminiService {
       }
 
       const data = await response.json();
-      return this.parseGeminiOutput(data);
+      const parsed = this.parseGeminiOutput(data);
+      if (parsed.unclear && transcriptHint?.trim()) {
+        return this.heuristicTextAnalysis(transcriptHint.trim());
+      }
+      return parsed;
     } catch (error: any) {
       console.error("[GeminiService.processAudio] Error:", error);
       if (transcriptHint && transcriptHint.trim().length > 2) {
@@ -291,7 +295,8 @@ export class GeminiService {
       }
 
       const data = await response.json();
-      return this.parseGeminiOutput(data);
+      const parsed = this.parseGeminiOutput(data);
+      return parsed.unclear ? this.heuristicTextAnalysis(text) : parsed;
     } catch (error) {
       console.error("[GeminiService.processText] Error:", error);
       return this.heuristicTextAnalysis(text);
@@ -337,20 +342,20 @@ export class GeminiService {
         spokenConfirmation: validated.spokenConfirmation,
       };
     } catch (e) {
-      console.warn("[GeminiService.parseGeminiOutput] JSON parse failed, returning fallback:", e);
+      console.warn("[GeminiService.parseGeminiOutput] Could not parse model response:", e);
       return {
-        unclear: false,
-        requestType: "PUBLIC_GRIEVANCE",
-        detectedLanguage: "Kannada",
-        languageCode: "kn",
-        originalTranscript: "ಆಸ್ಪತ್ರೆಯ ಶೌಚಾಲಯ ಸ್ವಚ್ಛವಾಗಿಲ್ಲ.",
-        englishTranslation: "Hospital washroom is not clean.",
-        complaintSummary: "Hospital washroom is not clean",
-        category: "Hygiene and Sanitation",
-        department: "Hygiene and Sanitation",
+        unclear: true,
+        unclearReason: "The voice service returned an unreadable response.",
+        detectedLanguage: "English",
+        languageCode: "en",
+        originalTranscript: "",
+        englishTranslation: "",
+        complaintSummary: "",
+        category: "Hospital Services",
+        department: "Hospital Services",
         priority: "Medium",
-        confidence: 0.9,
-        spokenConfirmation: "ಆಸ್ಪತ್ರೆಯ ಶೌಚಾಲಯ ಸ್ವಚ್ಛವಾಗಿಲ್ಲ ಎಂದು ನೀವು ವರದಿ ಮಾಡಿದ್ದೀರಿ. ಈ ದೂರನ್ನು ಸಂಬಂಧಪಟ್ಟ ಹಿರಿಯ ಅಧಿಕಾರಿಗಳಿಗೆ ಕಳುಹಿಸಲೆ?",
+        confidence: 0,
+        spokenConfirmation: "I could not understand the complaint. Please try again.",
       };
     }
   }

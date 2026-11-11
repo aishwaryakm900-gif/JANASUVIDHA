@@ -12,6 +12,7 @@ import {
   OfficialUser,
   PrivateAvailabilityRequest,
 } from "@/types";
+import { normalizeDepartmentName } from "@/lib/utils";
 
 const DATA_DIR = path.join(process.cwd(), "data");
 const DB_FILE = path.join(DATA_DIR, "janasuvidha-db.json");
@@ -477,11 +478,11 @@ export class DBService {
     // Hospital Administrator sees ALL complaints.
     // Department Officer and Supervisor see ONLY complaints for their department.
     if (filter?.officialDepartment && filter.designation !== "Hospital Administrator") {
-      const deptNormalized = filter.officialDepartment.trim().toLowerCase();
+      const deptNormalized = normalizeDepartmentName(filter.officialDepartment);
       list = list.filter(
         (c) =>
-          (c.departmentName && c.departmentName.toLowerCase() === deptNormalized) ||
-          (c.category && c.category.toLowerCase() === deptNormalized)
+          normalizeDepartmentName(c.departmentName) === deptNormalized ||
+          normalizeDepartmentName(c.category) === deptNormalized
       );
     }
 
@@ -589,13 +590,16 @@ export class DBService {
     const visibility = isMed ? "PRIVATE" : (params.visibility || "PUBLIC");
 
     // Identify responsible official in the department
-    const deptNormalized = (department || "Hospital Services").trim().toLowerCase();
+    const deptNormalized = normalizeDepartmentName(department || "Hospital Services");
+    const departmentRecord = (db.departments || []).find(
+      (item) => normalizeDepartmentName(item?.name) === deptNormalized
+    );
     const fallbackOfficial = {
-      id: "off-demo-officer",
+      id: `off-${departmentRecord?.id || deptNormalized.replace(/\s+/g, "-")}-default`,
       name: "Department Officer",
       officialId: "OFF-01",
       email: "officer@janasuvidha.gov.in",
-      departmentId: "dept-services",
+      departmentId: departmentRecord?.id || `dept-${deptNormalized.replace(/\s+/g, "-")}`,
       departmentName: department,
       designation: "Department Officer",
       hospitalId: "hosp-001",
@@ -607,13 +611,12 @@ export class DBService {
     const official =
       (Array.isArray(db.officials) && db.officials.find(
         (o) =>
-          o.departmentName?.toLowerCase() === deptNormalized &&
+          normalizeDepartmentName(o.departmentName) === deptNormalized &&
           o.designation === "Department Officer"
       )) ||
       (Array.isArray(db.officials) && db.officials.find(
-        (o) => o.departmentName?.toLowerCase() === deptNormalized
+        (o) => normalizeDepartmentName(o.departmentName) === deptNormalized
       )) ||
-      (Array.isArray(db.officials) && db.officials[0]) ||
       fallbackOfficial;
 
     const receipt: ComplaintReceipt = {
@@ -961,8 +964,8 @@ export class DBService {
     }));
 
     if (filter?.departmentName && filter.departmentName !== "All Departments") {
-      const targetDept = filter.departmentName.trim().toLowerCase();
-      list = list.filter((r) => (r.departmentName || "").toLowerCase() === targetDept);
+      const targetDept = normalizeDepartmentName(filter.departmentName);
+      list = list.filter((r) => normalizeDepartmentName(r.departmentName) === targetDept);
     }
 
     if (filter?.status && filter.status !== "ALL") {
@@ -1071,14 +1074,14 @@ export class DBService {
   }): Promise<ComplaintItem | null> {
     const db = this.ensureInitialized();
     const targetCat = params.category.trim().toLowerCase();
-    const targetDept = params.department?.trim().toLowerCase();
+    const targetDept = normalizeDepartmentName(params.department);
 
     // Look for active complaints that are not CLOSED and not yet officially VERIFIED
     return (
       db.complaints.find((c) => {
         const isActive = c.status !== "CLOSED" && c.status !== "VERIFIED";
         const catMatch = c.category.toLowerCase() === targetCat;
-        const deptMatch = targetDept ? c.departmentName?.toLowerCase() === targetDept : false;
+        const deptMatch = targetDept ? normalizeDepartmentName(c.departmentName) === targetDept : false;
         return isActive && (catMatch || deptMatch);
       }) || null
     );

@@ -29,7 +29,10 @@ export async function POST(req: NextRequest) {
       const arrayBuffer = audioFile ? await audioFile.arrayBuffer() : new ArrayBuffer(0);
       const buffer = Buffer.from(arrayBuffer);
 
-      const result = await GeminiService.processAudio(buffer, mimeType, liveTranscript);
+      let result = await GeminiService.processAudio(buffer, mimeType, liveTranscript);
+      if (result.unclear && liveTranscript.trim()) {
+        result = await GeminiService.processText(liveTranscript.trim());
+      }
       return NextResponse.json({
         success: !result.unclear,
         ...result,
