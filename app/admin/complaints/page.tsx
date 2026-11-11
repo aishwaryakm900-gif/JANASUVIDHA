@@ -112,7 +112,7 @@ export default function AdminComplaintsPage() {
       `"${c.citizenPhone || c.maskedCitizenPhone || ""}"`,
       `"${c.originalLanguage || ""}"`,
       `"${String(c.originalTranscript ?? "").replace(/"/g, '""')}"`,
-      `"${String(c.englishTranslation || c.translatedText ?? "").replace(/"/g, '""')}"`,
+      `"${String((c.englishTranslation || c.translatedText) ?? "").replace(/"/g, '""')}"`,
       `"${String(c.summary ?? "").replace(/"/g, '""')}"`,
       `"${c.category || ""}"`,
       `"${c.departmentName || ""}"`,

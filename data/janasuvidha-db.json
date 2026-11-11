@@ -189,14 +189,14 @@
       "summary": "Washroom leak and unhygienic conditions near 3rd Floor Emergency Ward",
       "wardOrLocation": "Emergency Ward, 3rd Floor",
       "floorOrBlock": "3rd Floor",
-      "status": "ASSIGNED",
+      "status": "VERIFIED",
       "priority": "High",
       "assignedOfficialId": "off-demo-officer",
       "assignedOfficialName": "Demo Official",
       "assignedOfficialDesignation": "Department Officer",
       "submittedAt": "2026-11-10T11:30:00.000Z",
       "createdAt": "2026-11-10T11:30:00.000Z",
-      "updatedAt": "2026-11-10T11:30:00.000Z",
+      "updatedAt": "2026-11-11T04:42:34.136Z",
       "events": [
         {
           "id": "ev-1",
@@ -211,9 +211,47 @@
           "description": "Auto-routed to Hygiene & Sanitation Dept. Assigned to Demo Official (Department Officer).",
           "performedBy": "AI Dispatch Engine",
           "timestamp": "2026-11-10T11:30:05.000Z"
+        },
+        {
+          "id": "ev-1794372083996",
+          "eventType": "IN_PROGRESS",
+          "description": "Demo Official (Department Officer) accepted task and dispatched maintenance team.",
+          "performedBy": "Demo Official",
+          "timestamp": "2026-11-11T04:41:23.996Z"
+        },
+        {
+          "id": "ev-1794372140869",
+          "eventType": "RESOLUTION_SUBMITTED",
+          "description": "qwr",
+          "performedBy": "Demo Official",
+          "timestamp": "2026-11-11T04:42:20.869Z"
+        },
+        {
+          "id": "ev-1794372154136",
+          "eventType": "VERIFIED",
+          "description": "Inspection verified by Supervisor Demo Official. Resolution approved and signed off.",
+          "performedBy": "Demo Official",
+          "timestamp": "2026-11-11T04:42:34.136Z"
         }
       ],
-      "evidence": [],
+      "evidence": [
+        {
+          "id": "evid-1794372140869-b",
+          "type": "BEFORE",
+          "fileUrl": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80",
+          "caption": "Site condition prior to corrective action",
+          "uploadedBy": "Demo Official",
+          "uploadedAt": "2026-11-11T04:42:20.869Z"
+        },
+        {
+          "id": "evid-1794372140869-a",
+          "type": "AFTER",
+          "fileUrl": "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=600&q=80",
+          "caption": "Sanitized/repaired facility post-resolution",
+          "uploadedBy": "Demo Official",
+          "uploadedAt": "2026-11-11T04:42:20.869Z"
+        }
+      ],
       "receipt": {
         "complaintNumber": "JNS-2026-000101",
         "complaintText": "Washroom leak and unhygienic conditions near 3rd Floor Emergency Ward",
@@ -227,7 +265,10 @@
         "forwardedTo": "Hygiene and Sanitation Department",
         "responsibleAuthority": "Demo Official (Department Officer)",
         "status": "Submitted"
-      }
+      },
+      "resolutionNotes": "Inspection verified by Supervisor Demo Official. Resolution approved and signed off.",
+      "resolvedAt": "2026-11-11T04:42:20.869Z",
+      "verifiedAt": "2026-11-11T04:42:34.136Z"
     },
     {
       "id": "comp-seed-2",
