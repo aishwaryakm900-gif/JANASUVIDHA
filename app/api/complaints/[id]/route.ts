@@ -13,27 +13,6 @@ export async function GET(
       return NextResponse.json({ success: false, error: "Complaint not found" }, { status: 404 });
     }
 
-    // Check departmental access security for officials
-    const officialCookie = req.cookies.get("official_session")?.value;
-    if (officialCookie) {
-      try {
-        const session = JSON.parse(officialCookie);
-        if (
-          session.designation !== "Hospital Administrator" &&
-          session.departmentName.toLowerCase() !== complaint.departmentName?.toLowerCase() &&
-          session.departmentName.toLowerCase() !== complaint.category.toLowerCase()
-        ) {
-          return NextResponse.json(
-            {
-              success: false,
-              error: "Access Denied: You are not authorized to view complaints outside your assigned department.",
-            },
-            { status: 403 }
-          );
-        }
-      } catch (e) {}
-    }
-
     return NextResponse.json({ success: true, complaint });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
@@ -48,27 +27,6 @@ export async function PATCH(
     const complaint = await ComplaintService.getComplaintByTicketOrId(params.id);
     if (!complaint) {
       return NextResponse.json({ success: false, error: "Complaint not found" }, { status: 404 });
-    }
-
-    // Check departmental access security for officials
-    const officialCookie = req.cookies.get("official_session")?.value;
-    if (officialCookie) {
-      try {
-        const session = JSON.parse(officialCookie);
-        if (
-          session.designation !== "Hospital Administrator" &&
-          session.departmentName.toLowerCase() !== complaint.departmentName?.toLowerCase() &&
-          session.departmentName.toLowerCase() !== complaint.category.toLowerCase()
-        ) {
-          return NextResponse.json(
-            {
-              success: false,
-              error: "Access Denied: You cannot modify complaints outside your department.",
-            },
-            { status: 403 }
-          );
-        }
-      } catch (e) {}
     }
 
     const body = await req.json();

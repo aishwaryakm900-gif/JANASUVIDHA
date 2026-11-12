@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Mic,
   Check,
@@ -14,6 +15,8 @@ import {
   Phone,
   Sparkles,
   Radio,
+  Building2,
+  BellRing,
 } from "lucide-react";
 import WebThreads from "@/components/WebThreads";
 import { ComplaintReceiptCard } from "@/components/ComplaintReceiptCard";
@@ -63,8 +66,8 @@ const UI_TEXT: Record<string, {
   en: {
     headerTitle: "JANASUVIDHA",
     publicBoard: "Public Grievance Board",
-    idlePrompt: "Tap to talk with Gemini 3.8 Live Voice Agent",
-    agentListening: "Gemini 3.8 Live is listening & speaking...",
+    idlePrompt: "Tap to Speak",
+    agentListening: "Listening... Speak now",
     doneButton: "✓ Finish & Review Complaint",
     detectedSpeech: "Recognized Speech",
     confirmYes: "Yes / OK (Submit)",
@@ -90,8 +93,8 @@ const UI_TEXT: Record<string, {
   kn: {
     headerTitle: "ಜನಸುವಿಧಾ",
     publicBoard: "ಸಾರ್ವಜನಿಕ ಕುಂದುಕೊರತೆ ಫಲಕ",
-    idlePrompt: "ಜೆಮಿನಿ 3.8 ಲೈವ್ ಧ್ವನಿ ಸಹಾಯಕನೊಂದಿಗೆ ಮಾತನಾಡಲು ಒತ್ತಿ",
-    agentListening: "ಜೆಮಿನಿ 3.8 ಲೈವ್ ಮಾತನಾಡುತ್ತಿದೆ ಮತ್ತು ಕೇಳಿಸಿಕೊಳ್ಳುತ್ತಿದೆ...",
+    idlePrompt: "ಮಾತನಾಡಲು ಒತ್ತಿರಿ",
+    agentListening: "ಕೇಳಿಸಿಕೊಳ್ಳುತ್ತಿದ್ದೇವೆ... ಈಗ ಮಾತನಾಡಿ",
     doneButton: "✓ ಮಾತನಾಡಿ ಮುಗಿದಿದೆ (ಪರಿಶೀಲಿಸಿ)",
     detectedSpeech: "ಗುರುತಿಸಲಾದ ಮಾತು",
     confirmYes: "ಹೌದು / OK (ದಾಖಲಿಸಿ)",
@@ -117,8 +120,8 @@ const UI_TEXT: Record<string, {
   hi: {
     headerTitle: "जनसुविधा",
     publicBoard: "सार्वजनिक शिकायत बोर्ड",
-    idlePrompt: "जेमिनी 3.8 लाइव वॉयस एजेंट से बात करने के लिए टैप करें",
-    agentListening: "जेमिनी 3.8 लाइव सुन रहा है और बोल रहा है...",
+    idlePrompt: "बोलने के लिए टैप करें",
+    agentListening: "सुन रहे हैं... कृपया बोलें",
     doneButton: "✓ बात समाप्त (दर्ज करें)",
     detectedSpeech: "पहचान की गई आवाज़",
     confirmYes: "हाँ / OK (दर्ज करें)",
@@ -144,8 +147,8 @@ const UI_TEXT: Record<string, {
   te: {
     headerTitle: "జనసువిధ",
     publicBoard: "ప్రజా ఫిర్యాదుల బోర్డు",
-    idlePrompt: "జెమిని 3.8 లైవ్ వాయిస్ ఏజెంట్‌తో మాట్లాడటానికి నొక్కండి",
-    agentListening: "జెమిని 3.8 లైవ్ వింటోంది మరియు మాట్లాడుతోంది...",
+    idlePrompt: "మాట్లాడటానికి నొక్కండి",
+    agentListening: "వింటున్నాము... మాట్లాడండి",
     doneButton: "✓ మాట్లాడటం పూర్తయింది",
     detectedSpeech: "గుర్తించిన మాట",
     confirmYes: "అవును / OK (నమోదు చేయి)",
@@ -171,8 +174,8 @@ const UI_TEXT: Record<string, {
   ta: {
     headerTitle: "ஜனசுவிதா",
     publicBoard: "பொது குறைதீர்ப்பு பலகை",
-    idlePrompt: "ஜெமினி 3.8 லைவ் உடன் பேச தட்டவும்",
-    agentListening: "ஜெமினி 3.8 லைவ் கேட்கிறது மற்றும் பேசுகிறது...",
+    idlePrompt: "பேச தட்டவும்",
+    agentListening: "கேட்கிறது... பேசவும்",
     doneButton: "✓ பேசி முடிந்தது",
     detectedSpeech: "அடையாளம் காணப்பட்ட பேச்சு",
     confirmYes: "ஆம் / OK (பதிவு செய்)",
@@ -198,8 +201,8 @@ const UI_TEXT: Record<string, {
   ml: {
     headerTitle: "ജനസുവിധ",
     publicBoard: "പൊതു പരാതി ബോർഡ്",
-    idlePrompt: "ജെമിനി 3.8 ലൈവ് വോയ്‌സ് ഏജന്റുമായി സംസാരിക്കുക",
-    agentListening: "ജെമിനി 3.8 ലൈവ് കേൾക്കുകയും സംസാരിക്കുകയും ചെയ്യുന്നു...",
+    idlePrompt: "സംസാരിക്കാൻ ടാപ്പ് ചെയ്യുക",
+    agentListening: "കേൾക്കുന്നു... സംസാരിക്കുക",
     doneButton: "✓ സംസാരിച്ചു കഴിഞ്ഞു",
     detectedSpeech: "തിരിച്ചറിഞ്ഞ ശബ്ദം",
     confirmYes: "അതെ / OK (രജിസ്റ്റർ ചെയ്യുക)",
@@ -225,6 +228,7 @@ const UI_TEXT: Record<string, {
 };
 
 export default function CitizenKioskPage() {
+  const router = useRouter();
   const [stage, setStage] = useState<KioskStage>("IDLE");
   const [transcript, setTranscript] = useState("");
   const [confirmationQuestion, setConfirmationQuestion] = useState("");
@@ -235,6 +239,7 @@ export default function CitizenKioskPage() {
   const [englishTranslationText, setEnglishTranslationText] = useState("");
   const [statusText, setStatusText] = useState("");
   const [receipt, setReceipt] = useState<ComplaintReceipt | null>(null);
+  const [createdComplaint, setCreatedComplaint] = useState<ComplaintItem | null>(null);
 
   // Multilingual State: Default English, switches dynamically when native speech is recognized
   const [currentLang, setCurrentLang] = useState<string>("en");
@@ -295,7 +300,7 @@ export default function CitizenKioskPage() {
     setPhoneInputVal("");
     setExistingRepeatComplaint(null);
     setStoredGeminiData(null);
-    setStatusText("Connecting directly to Gemini 3.8 Live Voice Agent...");
+    setStatusText("Connecting to voice assistant...");
 
     // Connect to Gemini 3.8 Live WebSocket
     let keyConfig: { token?: string; error?: string };
@@ -328,15 +333,15 @@ When you start, greet the patient and ask what complaint they want to register.
 When they speak in any language (Kannada, Hindi, etc.), respond immediately and fluently in that exact same language!
 If they need an unavailable medicine, politely ask which medicine and tell them we will notify them.`,
       onConnected: () => {
-        setStatusText("Gemini Live is speaking the welcome greeting...");
+        setStatusText("Speaking greeting...");
         geminiLive.sendInitialPrompt(`Speak this exact welcome message aloud in ${detectedLangName}: ${greetings[currentLangRef.current] || greetings.en}`);
       },
       onTurnComplete: () => {
         if (listeningStartedRef.current) return;
         listeningStartedRef.current = true;
-        setStatusText("Welcome finished. Starting the microphone...");
+        setStatusText("Listening... please speak (ಮಾತನಾಡಿ)");
         void geminiLive.startListening().then((started) => {
-          if (started) setStatusText("Gemini Live is listening...");
+          if (started) setStatusText("Listening... ಮಾತನಾಡಿ");
         });
       },
       onInputTranscript: (text) => {
@@ -369,7 +374,7 @@ If they need an unavailable medicine, politely ask which medicine and tell them 
     if (!geminiLive.isListening) return;
     geminiLive.disconnect();
     setStage("ANALYZING");
-    setStatusText("Structuring your complaint with Gemini...");
+    setStatusText("Processing your grievance...");
     await sendTranscriptToServer(liveTranscriptRef.current);
   };
 
@@ -653,43 +658,41 @@ If they need an unavailable medicine, politely ask which medicine and tell them 
       let receiptData: ComplaintReceipt | null = null;
 
       if (isMedicineComplaint) {
-        const response = await fetch("/api/availability-requests", {
+        const idempotencyKey = `kiosk-med-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+        submissionIdRef.current = idempotencyKey;
+
+        // Post to /api/complaints: saves to db.complaints, syncs db.privateRequests, dispatches official notification & SMS
+        const response = await fetch("/api/complaints", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            verifiedPhoneNumber: citizenPhone,
-            requestedResource: medicineName,
-            resourceType: "MEDICINE",
-            originalTranscript: transcript,
-            englishTranslation: englishTranslationText || summary,
+            idempotencyKey,
+            originalTranscript: transcript || `Medicine shortage reported: ${medicineName}`,
+            originalLanguage: detectedLangName,
             languageCode: langCode,
-            hospitalName: "Victoria District Hospital",
-            departmentName: "Pharmacy and Medicine Availability",
+            englishTranslation: englishTranslationText || summary || `Medicine unavailable: ${medicineName}`,
+            summary: `Medicine Unavailable: ${medicineName}`,
+            category: "Pharmacy and Medicine Availability",
+            department: "Pharmacy and Medicine Availability",
+            priority: "High",
+            location: "Outpatient Department, Ballari - Pharmacy Counter",
+            source: "VOICE_KIOSK",
+            medicineName: medicineName,
+            citizenPhone: citizenPhone,
+            isMedicineComplaint: true,
+            visibility: "PRIVATE",
           }),
         });
         const data = await response.json();
-        if (!response.ok || !data.success || !data.request) {
+        if (!response.ok || !data.success || !data.complaint) {
           throw new Error(data.error || "Could not register the medicine availability request.");
         }
 
-        ticket = data.request.requestNumber;
-        const now = new Date();
-        receiptData = {
-          complaintNumber: ticket,
-          complaintText: `${ui.medAvailability}: ${medicineName}`,
-          originalLanguage: detectedLangName,
-          hospitalName: "Victoria District Hospital",
-          location: "Victoria District Hospital - Kiosk #1",
-          submissionDate: now.toLocaleDateString("en-IN", { timeZone: "Asia/Kolkata" }),
-          submissionTime: now.toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata" }),
-          timeZone: "Asia/Kolkata (IST, UTC+05:30)",
-          category: "Pharmacy and Medicine Availability",
-          forwardedTo: "Pharmacy and Medicine Availability Department",
-          responsibleAuthority: "Pharmacy Department Officer",
-          status: data.request.status || "Pending",
-        };
+        setCreatedComplaint(data.complaint);
+        receiptData = data.complaint.receipt || null;
+        ticket = receiptData?.complaintNumber || data.complaint.complaintNumber || "";
       } else {
-        const idempotencyKey = submissionIdRef.current || `kiosk-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+        const idempotencyKey = `kiosk-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
         submissionIdRef.current = idempotencyKey;
         const response = await fetch("/api/complaints", {
           method: "POST",
@@ -704,7 +707,7 @@ If they need an unavailable medicine, politely ask which medicine and tell them 
             category: categoryName || "Hospital Services",
             department: departmentName || "Hospital Services",
             priority: priorityVal || "Medium",
-            location: "Victoria District Hospital - Kiosk #1",
+            location: "Outpatient Department, Ballari - Kiosk #1",
             source: "VOICE_KIOSK",
             visibility: "PUBLIC",
           }),
@@ -713,6 +716,7 @@ If they need an unavailable medicine, politely ask which medicine and tell them 
         if (!response.ok || !data.success || !data.complaint) {
           throw new Error(data.error || "We could not register the complaint. Please try again.");
         }
+        setCreatedComplaint(data.complaint);
         receiptData = data.complaint.receipt || null;
         ticket = receiptData?.complaintNumber || data.complaint.complaintNumber || "";
       }
@@ -779,28 +783,47 @@ If they need an unavailable medicine, politely ask which medicine and tell them 
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F8F7] flex flex-col justify-between p-6 sm:p-12 select-none relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-[#F3F7F6] via-[#EDF5F3] to-[#F5F8F7] flex flex-col justify-between p-6 sm:p-12 select-none relative overflow-hidden">
+      {/* HIGH-TECH CIVIC AMBIENT BACKGROUND & MESH */}
+      <div
+        className="absolute inset-0 pointer-events-none -z-10 opacity-70"
+        style={{
+          backgroundImage: "radial-gradient(#147D78 0.85px, transparent 0.85px)",
+          backgroundSize: "28px 28px",
+          maskImage: "radial-gradient(ellipse 75% 65% at 50% 50%, black 25%, transparent 80%)",
+          WebkitMaskImage: "radial-gradient(ellipse 75% 65% at 50% 50%, black 25%, transparent 80%)",
+        }}
+      />
+      {/* Center glowing teal-mint radial bloom behind waves & mic */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[740px] h-[520px] rounded-full pointer-events-none -z-10 blur-3xl opacity-35"
+        style={{
+          background: "radial-gradient(circle, rgba(20, 125, 120, 0.22) 0%, rgba(45, 212, 191, 0.09) 45%, transparent 72%)",
+        }}
+      />
+      {/* Top-left ambient orb */}
+      <div className="absolute -top-36 -left-36 w-[420px] h-[420px] rounded-full bg-gradient-to-br from-teal-200/25 to-emerald-100/10 blur-3xl pointer-events-none -z-10" />
+      {/* Bottom-right ambient orb */}
+      <div className="absolute -bottom-36 -right-36 w-[420px] h-[420px] rounded-full bg-gradient-to-tl from-cyan-200/25 to-teal-100/15 blur-3xl pointer-events-none -z-10" />
+
       {/* TOP BAR: MINIMAL CLEAN HEADER WITH DYNAMIC NATIVE LANGUAGE */}
-      <header className="flex items-center justify-between w-full max-w-5xl mx-auto">
+      <header className="flex items-center justify-between w-full max-w-5xl mx-auto relative z-10">
         <div className="flex items-center gap-2">
           <Link
             href="/"
-            className="text-xs font-semibold text-[#607477] hover:text-[#12343B] transition-colors"
+            className="text-sm font-bold text-[#12343B] hover:text-[#147D78] transition-colors flex items-center gap-2"
           >
+            <span className="w-2 h-2 rounded-full bg-[#147D78]" />
             {ui.headerTitle}
           </Link>
-          <span className="text-[10px] bg-emerald-100 text-[#147D78] font-bold px-2 py-0.5 rounded-full border border-[#147D78]/20 flex items-center gap-1">
-            <Radio className="w-2.5 h-2.5 animate-pulse" />
-            Gemini 3.8 Live Voice
-          </span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-[11px] font-bold text-[#147D78] bg-[#E8F4F1] px-3 py-1 rounded-full border border-[#147D78]/20">
+          <span className="text-[11px] font-bold text-[#147D78] bg-white/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-[#147D78]/20 shadow-xs">
             {detectedLangName} ({(currentLang || "en").toUpperCase()})
           </span>
           <Link
             href="/citizen/kiosk/report"
-            className="text-xs sm:text-sm font-semibold text-[#147D78] hover:text-[#0e5e5a] transition-colors bg-[#E8F4F1] px-4 py-2 rounded-full border border-[#147D78]/20"
+            className="text-xs sm:text-sm font-semibold text-[#147D78] hover:text-[#0e5e5a] transition-colors bg-white/80 backdrop-blur-md px-4 py-2 rounded-full border border-[#147D78]/20 shadow-xs"
           >
             {ui.publicBoard}
           </Link>
@@ -847,7 +870,7 @@ If they need an unavailable medicine, politely ask which medicine and tell them 
               <button
                 type="button"
                 onClick={resetKiosk}
-                className="inline-flex items-center gap-2 bg-[#147D78] hover:bg-[#0e5e5a] text-white text-xs font-semibold px-6 py-3 rounded-xl shadow-xs transition-colors cursor-pointer"
+                className="inline-flex items-center gap-2 bg-transparent hover:bg-[#E8F4F1] text-[#147D78] border border-[#147D78]/30 text-xs font-semibold px-6 py-2.5 rounded-xl shadow-xs transition-colors cursor-pointer"
               >
                 <RotateCcw className="w-4 h-4" />
                 <span>{ui.reportAnother}</span>
@@ -1018,32 +1041,37 @@ If they need an unavailable medicine, politely ask which medicine and tell them 
         ) : (
           /* INITIAL CLEAN SCREEN (IDLE) OR GEMINI 3.8 LIVE CONVERSATION */
           <div className="space-y-8 flex flex-col items-center">
-            {/* GEMINI 3.8 LIVE REAL-TIME VOICE AGENT BUTTON */}
-            <div className="relative flex items-center justify-center w-full min-h-[220px] sm:min-h-[260px]">
-              {stage === "GEMINI_LIVE_CONVERSATION" && (
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-auto">
-                  <div className="w-full h-full max-w-2xl relative animate-in fade-in zoom-in-95 duration-500">
-                    <WebThreads
-                      colors={["#147D78", "#2DD4BF", "#12343B", "#48d265"]}
-                      coreColor="#147D78"
-                      threadCount={8}
-                      spread={0.22}
-                      speed={0.25}
-                      frequency={5}
-                      lightMode={true}
-                      thickness={1.3}
-                      glow={0.03}
-                      shimmer={true}
-                      pulses={0.3}
-                      mouseInteraction={true}
-                      pulseOnClick={true}
-                      backgroundColor="transparent"
-                    />
-                  </div>
+            {/* GEMINI 3.8 LIVE REAL-TIME VOICE AGENT BUTTON & HORIZONTAL FULL-SCREEN WAVES */}
+            <div className="relative flex items-center justify-center w-full min-h-[240px] sm:min-h-[300px]">
+              {/* Waves covering the ENTIRE SCREEN HORIZONTALLY behind the microphone */}
+              <div className="absolute left-1/2 -translate-x-1/2 w-screen h-[280px] sm:h-[360px] pointer-events-none flex items-center justify-center z-0 overflow-hidden">
+                <div className="w-full h-full relative pointer-events-auto">
+                  <WebThreads
+                    colors={
+                      stage === "GEMINI_LIVE_CONVERSATION"
+                        ? ["#147D78", "#2DD4BF", "#12343B", "#10B981"]
+                        : ["#147D78", "#5EEAD4", "#12343B", "#34D399"]
+                    }
+                    coreColor="#147D78"
+                    threadCount={stage === "GEMINI_LIVE_CONVERSATION" ? 10 : 7}
+                    spread={stage === "GEMINI_LIVE_CONVERSATION" ? 0.32 : 0.22}
+                    speed={stage === "GEMINI_LIVE_CONVERSATION" ? 0.28 : 0.16}
+                    frequency={stage === "GEMINI_LIVE_CONVERSATION" ? 4.8 : 3.6}
+                    lightMode={true}
+                    thickness={stage === "GEMINI_LIVE_CONVERSATION" ? 1.5 : 1.15}
+                    glow={stage === "GEMINI_LIVE_CONVERSATION" ? 0.04 : 0.02}
+                    shimmer={true}
+                    pulses={stage === "GEMINI_LIVE_CONVERSATION" ? 0.4 : 0.12}
+                    mouseInteraction={true}
+                    pulseOnClick={true}
+                    fade={0}
+                    backgroundColor="transparent"
+                  />
                 </div>
-              )}
+              </div>
+
               {stage === "GEMINI_LIVE_CONVERSATION" && (
-                <div className="absolute w-44 h-44 rounded-full bg-[#147D78]/20 animate-ping pointer-events-none" />
+                <div className="absolute w-44 h-44 rounded-full bg-[#147D78]/20 animate-ping pointer-events-none z-0" />
               )}
               <button
                 type="button"
@@ -1059,36 +1087,45 @@ If they need an unavailable medicine, politely ask which medicine and tell them 
                   stage === "SUBMITTING" ||
                   (stage === "GEMINI_LIVE_CONVERSATION" && !geminiLive.isListening)
                 }
-                aria-label="Talk to Gemini 3.8 Live Voice Agent"
-                className={`relative z-10 flex flex-col items-center justify-center w-36 h-36 sm:w-44 sm:h-44 rounded-full transition-all duration-300 shadow-md ${
+                aria-label="Tap to speak"
+                className={`relative z-10 flex flex-col items-center justify-center w-36 h-36 sm:w-44 sm:h-44 rounded-full transition-all duration-300 shadow-lg ${
                   stage === "GEMINI_LIVE_CONVERSATION"
-                    ? "bg-[#147D78] text-white scale-105 shadow-xl ring-8 ring-[#147D78]/20 cursor-pointer"
-                    : "bg-[#147D78] hover:bg-[#0e5e5a] text-white hover:scale-105 active:scale-95 cursor-pointer"
+                    ? "bg-[#147D78] text-white scale-105 shadow-2xl ring-8 ring-[#147D78]/25 cursor-pointer"
+                    : "bg-[#147D78] hover:bg-[#0e5e5a] text-white hover:scale-105 active:scale-95 cursor-pointer hover:shadow-xl hover:shadow-[#147D78]/25"
                 }`}
               >
                 <div className="relative">
                   <Mic className="w-14 h-14 sm:w-16 sm:h-16" />
                   <Sparkles className="w-4 h-4 text-emerald-200 absolute -top-1 -right-1 animate-spin" />
                 </div>
-                <span className="text-[10px] font-bold tracking-wider uppercase mt-1 opacity-90">
-                  {stage === "GEMINI_LIVE_CONVERSATION" ? "Finish" : "Gemini 3.8 Live"}
+                <span className="text-[11px] font-bold tracking-wider uppercase mt-1 opacity-95">
+                  {stage === "GEMINI_LIVE_CONVERSATION" ? "Finish" : "Tap to Speak"}
                 </span>
               </button>
             </div>
 
             {/* INSTRUCTION & STATUS */}
             <div className="space-y-3">
-              <p className="text-lg sm:text-xl font-medium text-[#12343B]">
-                {stage === "IDLE"
-                  ? statusText || ui.idlePrompt
-                  : stage === "GEMINI_LIVE_CONVERSATION"
-                  ? geminiLive.isSpeaking
-                    ? "Gemini 3.8 Live is speaking aloud to you..."
-                    : geminiLive.isListening
-                    ? ui.agentListening
-                    : statusText || "Connecting to Gemini Live..."
-                  : statusText}
-              </p>
+              {stage === "IDLE" ? (
+                <div className="space-y-1.5 animate-in fade-in duration-300">
+                  <p className="text-xl sm:text-2xl font-bold text-[#12343B] tracking-tight">
+                    Tap to Speak <span className="text-[#147D78]/50 font-light mx-2">|</span> ಮಾತನಾಡಲು ಒತ್ತಿರಿ
+                  </p>
+                  <p className="text-xs sm:text-sm text-[#607477] font-medium">
+                    Speak in Kannada, English, Hindi, or any native language
+                  </p>
+                </div>
+              ) : (
+                <p className="text-lg sm:text-xl font-medium text-[#12343B]">
+                  {stage === "GEMINI_LIVE_CONVERSATION"
+                    ? geminiLive.isSpeaking
+                      ? "Speaking... / ಮಾತನಾಡುತ್ತಿದೆ..."
+                      : geminiLive.isListening
+                      ? ui.agentListening
+                      : statusText || "Connecting..."
+                    : statusText}
+                </p>
+              )}
 
               {/* Citizen completion button during live conversation */}
               {stage === "GEMINI_LIVE_CONVERSATION" && (
@@ -1110,10 +1147,10 @@ If they need an unavailable medicine, politely ask which medicine and tell them 
       </main>
 
       {/* BOTTOM: Hospital Context Footer */}
-      <footer className="text-center text-xs text-[#607477]/60 no-print flex flex-col items-center gap-1">
+      <footer className="text-center text-xs text-[#607477]/70 no-print flex flex-col items-center gap-1 relative z-10">
         <span>{ui.headerTitle} • Hospital Grievance System</span>
         <span className="text-[11px] font-medium text-[#147D78]/80">
-          Powered by Google Gemini 3.8 Live Multilingual Voice Engine
+          AI Multilingual Voice Assistance • Kannada, English, Hindi & More
         </span>
       </footer>
     </div>

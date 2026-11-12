@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
       departmentId: official.departmentId,
       departmentName: official.departmentName,
       designation: official.designation,
-      hospitalName: official.hospitalName || "Victoria District Hospital",
+      hospitalName: official.hospitalName || "Outpatient Department, Ballari",
       role: official.role,
       isSupervisor: official.designation === "Department Supervisor",
     };

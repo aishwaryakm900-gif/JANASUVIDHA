@@ -11,19 +11,33 @@ export async function GET(req: NextRequest) {
     const status = searchParams.get("status") as any;
     const onlyMedicine = searchParams.get("onlyMedicine") === "true";
     const publicOnly = searchParams.get("publicOnly") === "true";
-    let officialDepartment = searchParams.get("department") || undefined;
+    const rawDept = searchParams.get("department");
+    const isAdmin =
+      searchParams.get("admin") === "true" ||
+      Boolean(req.cookies.get("admin_session")?.value) ||
+      Boolean(req.headers.get("referer")?.includes("/admin"));
+
+    let officialDepartment: string | undefined = undefined;
+    if (rawDept && rawDept !== "All Departments" && rawDept !== "ALL") {
+      officialDepartment = rawDept;
+    }
+
     let designation = searchParams.get("designation") || undefined;
 
-    // Read official session cookie if present
-    const officialCookie = req.cookies.get("official_session")?.value;
-    if (officialCookie) {
-      try {
-        const session = JSON.parse(officialCookie);
-        if (session.designation !== "Hospital Administrator") {
-          officialDepartment = session.departmentName;
-          designation = session.designation;
-        }
-      } catch (e) {}
+    // Only apply official session cookie if:
+    // 1) NOT an admin request
+    // 2) The caller did NOT explicitly specify a department in query params
+    if (!isAdmin && rawDept === null) {
+      const officialCookie = req.cookies.get("official_session")?.value;
+      if (officialCookie) {
+        try {
+          const session = JSON.parse(officialCookie);
+          if (session.designation !== "Hospital Administrator" && session.departmentName) {
+            officialDepartment = session.departmentName;
+            designation = session.designation;
+          }
+        } catch (e) {}
+      }
     }
 
     const complaints = await ComplaintService.getComplaints({
@@ -70,7 +84,7 @@ export async function POST(req: NextRequest) {
       category: isMed ? "Pharmacy and Medicine Availability" : (body.category || "Hospital Services"),
       department: isMed ? "Pharmacy and Medicine Availability" : (body.department || "Hospital Services"),
       priority: body.priority,
-      location: body.location || "Victoria District Hospital - Kiosk #1",
+      location: body.location || "Outpatient Department, Ballari - Kiosk #1",
       source: body.source || "VOICE_KIOSK",
       medicineName: body.medicineName,
       citizenPhone: body.citizenPhone,

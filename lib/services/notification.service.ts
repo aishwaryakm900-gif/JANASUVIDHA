@@ -13,7 +13,7 @@ export class NotificationService {
   }): Promise<NotificationItem> {
     const { request, resourceName } = params;
     const phone = request.verifiedPhoneNumber;
-    const hosp = params.hospitalName || request.hospitalName || "Victoria District Hospital";
+    const hosp = params.hospitalName || request.hospitalName || "Outpatient Department, Ballari";
     const dept = params.departmentName || request.departmentName || "Hospital Pharmacy";
 
     const message = `JANASUVIDHA UPDATE: The resource "${resourceName}" requested by you is now AVAILABLE at ${hosp} (${dept}). Please present Reference ID: ${request.requestNumber} at the counter.`;
@@ -31,7 +31,7 @@ export class NotificationService {
     hospitalName?: string;
   }): Promise<NotificationItem> {
     const { phone, medicineName, complaintId } = params;
-    const hosp = params.hospitalName || "Victoria District Hospital";
+    const hosp = params.hospitalName || "Outpatient Department, Ballari";
 
     const message = `JANASUVIDHA UPDATE: The prescribed medicine "${medicineName}" is now AVAILABLE at ${hosp} Pharmacy. Reference Complaint ID: ${complaintId}. Please collect your medicine from Pharmacy Counter #2.`;
 
@@ -48,7 +48,7 @@ export class NotificationService {
     hospitalName?: string;
   }): Promise<NotificationItem> {
     const { phone, medicineName, complaintId } = params;
-    const hosp = params.hospitalName || "Victoria District Hospital";
+    const hosp = params.hospitalName || "Outpatient Department, Ballari";
 
     const message = `JANASUVIDHA: Your request for unavailable medicine "${medicineName}" has been registered at ${hosp} Pharmacy. Complaint ID: ${complaintId}. We will notify you via SMS when fresh stock arrives.`;
 

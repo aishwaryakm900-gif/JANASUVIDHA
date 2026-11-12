@@ -7,9 +7,9 @@ export async function POST(req: NextRequest) {
 
     const adminSession = {
       name: "Dr. R. Narayana",
-      email: email || "admin.victoria@janasuvidha.gov.in",
+      email: email || "admin.ballari@janasuvidha.gov.in",
       role: "MEDICAL_SUPERINTENDENT",
-      hospital: "Victoria District Hospital, Bengaluru",
+      hospital: "Outpatient Department, Ballari",
     };
 
     cookies().set({

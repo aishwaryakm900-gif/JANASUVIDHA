@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
       password,
       department,
       designation,
-      hospital: hospital || "Victoria District Hospital",
+      hospital: hospital || "Outpatient Department, Ballari",
       registeredByAdmin: false,
     });
 

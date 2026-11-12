@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
       originalTranscript: originalTranscript || requestedResource,
       englishTranslation: englishTranslation || requestedResource,
       languageCode: languageCode || "kn",
-      hospitalName: hospitalName || "Victoria District Hospital",
+      hospitalName: hospitalName || "Outpatient Department, Ballari",
       departmentName: departmentName || "Pharmacy and Medicine Availability",
     });
 

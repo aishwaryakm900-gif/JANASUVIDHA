@@ -35,23 +35,45 @@ export default function AdminComplaintsPage() {
   const [updatingId, setUpdatingId] = useState<string | null>(null);
   const [notificationMsg, setNotificationMsg] = useState<string | null>(null);
 
-  const loadData = async () => {
-    setLoading(true);
+  const loadData = async (showLoading: any = true) => {
+    const shouldShow = typeof showLoading === "boolean" ? showLoading : true;
+    if (shouldShow) setLoading(true);
     try {
-      const res = await fetch("/api/complaints");
+      const res = await fetch("/api/complaints?admin=true", { cache: "no-store" });
       const data = await res.json();
-      if (data.success) {
+      if (data.success && Array.isArray(data.complaints)) {
         setComplaints(data.complaints);
       }
     } catch (e) {
       console.error(e);
     } finally {
-      setLoading(false);
+      if (shouldShow) setLoading(false);
     }
   };
 
   useEffect(() => {
     loadData();
+    const interval = setInterval(() => {
+      loadData(false);
+    }, 3000);
+
+    let eventSource: EventSource | null = null;
+    try {
+      eventSource = new EventSource("/api/complaints/stream");
+      eventSource.addEventListener("update", (e) => {
+        try {
+          const data = JSON.parse(e.data);
+          if (data.complaints && Array.isArray(data.complaints)) {
+            setComplaints(data.complaints);
+          }
+        } catch {}
+      });
+    } catch {}
+
+    return () => {
+      clearInterval(interval);
+      if (eventSource) eventSource.close();
+    };
   }, []);
 
   const handleMarkMedicineAvailable = async (complaint: ComplaintItem) => {
@@ -207,7 +229,7 @@ export default function AdminComplaintsPage() {
             Citizen Grievance Records
           </h1>
           <p className="text-xs text-[#607477]">
-            Complete canonical repository of grievances and medicine availability requests captured across Victoria District Hospital.
+            Complete canonical repository of grievances and medicine availability requests captured across Outpatient Department, Ballari.
           </p>
         </div>
 
@@ -304,6 +326,7 @@ export default function AdminComplaintsPage() {
                   <th className="py-3 px-4">Language</th>
                   <th className="py-3 px-4">Summary</th>
                   <th className="py-3 px-4">Department</th>
+                  <th className="py-3 px-4">Delivery Sync</th>
                   <th className="py-3 px-4">Status</th>
                   <th className="py-3 px-4 text-right">Actions</th>
                 </tr>
@@ -367,6 +390,41 @@ export default function AdminComplaintsPage() {
                         <span className="text-[10px] text-[#607477]">
                           {c.assignedOfficialName || "Assigned Officer"}
                         </span>
+                      </td>
+
+                      <td className="py-3 px-4 whitespace-nowrap">
+                        <div className="flex flex-col gap-1 text-[10px]">
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                            <span className="font-semibold text-emerald-800">
+                              Admin: {c.deliveryTracking?.adminPortal?.status || "DELIVERED"}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <span
+                              className={`w-1.5 h-1.5 rounded-full ${
+                                c.deliveryTracking?.departmentPortal?.status === "FAILED"
+                                  ? "bg-rose-500"
+                                  : "bg-emerald-500"
+                              }`}
+                            ></span>
+                            <span
+                              className={`font-semibold ${
+                                c.deliveryTracking?.departmentPortal?.status === "FAILED"
+                                  ? "text-rose-700"
+                                  : "text-emerald-800"
+                              }`}
+                            >
+                              Dept: {c.deliveryTracking?.departmentPortal?.status || "DELIVERED"}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+                            <span className="font-medium text-slate-500">
+                              Gov: {c.deliveryTracking?.externalGovPortal?.status || "NOT_CONFIGURED"}
+                            </span>
+                          </div>
+                        </div>
                       </td>
 
                       <td className="py-3 px-4 whitespace-nowrap">
@@ -549,6 +607,64 @@ export default function AdminComplaintsPage() {
                     <p className="font-semibold text-[#12343B]">
                       "{activeComplaint.englishTranslation || activeComplaint.translatedText}"
                     </p>
+                  </div>
+                </div>
+
+                {/* Multi-Destination Notification & Delivery Tracking Card */}
+                <div className="p-3.5 bg-white border border-[#E2EBE8] rounded-2xl space-y-2">
+                  <span className="text-[10px] uppercase font-bold text-[#607477] tracking-wider block">
+                    Multi-Destination Portal Delivery Audit
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    <div className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200">
+                      <div className="text-[10px] text-emerald-800 font-bold uppercase">Admin Portal</div>
+                      <div className="text-xs font-extrabold text-emerald-900 mt-0.5">
+                        ✓ {activeComplaint.deliveryTracking?.adminPortal?.status || "DELIVERED"}
+                      </div>
+                      <div className="text-[9px] text-emerald-700 mt-0.5">Real-time sync confirmed</div>
+                    </div>
+
+                    <div
+                      className={`p-2.5 rounded-xl ${
+                        activeComplaint.deliveryTracking?.departmentPortal?.status === "FAILED"
+                          ? "bg-rose-50 border border-rose-200"
+                          : "bg-emerald-50 border border-emerald-200"
+                      }`}
+                    >
+                      <div
+                        className={`text-[10px] font-bold uppercase ${
+                          activeComplaint.deliveryTracking?.departmentPortal?.status === "FAILED"
+                            ? "text-rose-800"
+                            : "text-emerald-800"
+                        }`}
+                      >
+                        Department Queue
+                      </div>
+                      <div
+                        className={`text-xs font-extrabold mt-0.5 ${
+                          activeComplaint.deliveryTracking?.departmentPortal?.status === "FAILED"
+                            ? "text-rose-900"
+                            : "text-emerald-900"
+                        }`}
+                      >
+                        {activeComplaint.deliveryTracking?.departmentPortal?.status === "FAILED"
+                          ? "✗ FAILED"
+                          : `✓ ${activeComplaint.deliveryTracking?.departmentPortal?.status || "DELIVERED"}`}
+                      </div>
+                      <div className="text-[9px] text-[#607477] mt-0.5">
+                        {activeComplaint.departmentName}
+                      </div>
+                    </div>
+
+                    <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                      <div className="text-[10px] text-slate-600 font-bold uppercase">Gov Integration</div>
+                      <div className="text-xs font-extrabold text-slate-700 mt-0.5">
+                        {activeComplaint.deliveryTracking?.externalGovPortal?.status || "NOT_CONFIGURED"}
+                      </div>
+                      <div className="text-[9px] text-slate-500 mt-0.5">
+                        Unconfigured external credentials
+                      </div>
+                    </div>
                   </div>
                 </div>
 
