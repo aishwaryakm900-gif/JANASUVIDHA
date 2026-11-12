@@ -118,6 +118,90 @@
   ],
   "complaints": [
     {
+      "id": "comp-1794455492485-162",
+      "complaintNumber": "JAN-2026-000162",
+      "ticketNumber": "JAN-2026-000162",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-pharmacy",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "category": "Pharmacy and Medicine Availability",
+      "visibility": "PRIVATE",
+      "isMedicineComplaint": true,
+      "medicineName": "Paracetamol medicine",
+      "citizenPhone": "7777788888",
+      "maskedCitizenPhone": "XXXXXX8888",
+      "citizenName": "Citizen",
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "English",
+      "languageCode": "en",
+      "originalTranscript": "not available here paracetamol",
+      "englishTranslation": "not available here paracetamol",
+      "translatedText": "not available here paracetamol",
+      "summary": "Medicine Unavailable: Paracetamol medicine",
+      "wardOrLocation": "Outpatient Department, Ballari - Pharmacy Counter",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "High",
+      "assignedOfficialId": "off-pharmacy-officer",
+      "assignedOfficialName": "Kavitha Raman",
+      "assignedOfficialDesignation": "Chief Pharmacist",
+      "submittedAt": "2026-11-12T03:51:32.485Z",
+      "createdAt": "2026-11-12T03:51:32.485Z",
+      "updatedAt": "2026-11-12T03:51:32.485Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-12T03:51:32.485Z",
+          "deliveredAt": "2026-11-12T03:51:32.485Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-12T03:51:32.485Z",
+          "deliveredAt": "2026-11-12T03:51:32.485Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-12T03:51:32.485Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794455492731-1",
+          "eventType": "CREATED",
+          "description": "Medicine availability request logged for \"Paracetamol medicine\". Registered phone: XXXXXX8888.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-12T03:51:32.485Z"
+        },
+        {
+          "id": "ev-1794455492731-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Pharmacy and Medicine Availability Department. Assigned to Kavitha Raman (Chief Pharmacist).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-12T03:51:32.485Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000162",
+        "complaintText": "Medicine Unavailable: Paracetamol medicine",
+        "originalLanguage": "English",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Pharmacy Counter",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "09:21 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Pharmacy and Medicine Availability",
+        "forwardedTo": "Pharmacy and Medicine Availability",
+        "responsibleAuthority": "Kavitha Raman (Chief Pharmacist)",
+        "status": "Submitted"
+      }
+    },
+    {
       "id": "comp-1794423669230-161",
       "complaintNumber": "JAN-2026-000161",
       "ticketNumber": "JAN-2026-000161",
@@ -3128,6 +3212,25 @@
   ],
   "privateRequests": [
     {
+      "id": "req-av-comp-1794455492485-162",
+      "requestNumber": "JNS-2026-AV-000162",
+      "verifiedPhoneNumber": "7777788888",
+      "requestedResource": "Paracetamol medicine",
+      "resourceType": "MEDICINE",
+      "originalTranscript": "not available here paracetamol",
+      "englishTranslation": "not available here paracetamol",
+      "languageCode": "en",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-pharmacy",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "status": "Pending",
+      "otpVerified": true,
+      "notifications": [],
+      "createdAt": "2026-11-12T03:51:32.485Z",
+      "updatedAt": "2026-11-12T03:51:32.485Z"
+    },
+    {
       "id": "req-av-comp-1794423477290-154",
       "requestNumber": "JNS-2026-AV-000154",
       "verifiedPhoneNumber": "9876543210",
@@ -3243,6 +3346,28 @@
   ],
   "observations": [],
   "notifications": [
+    {
+      "id": "notif-1794455492731-dept",
+      "availabilityRequestId": "comp-1794455492485-162",
+      "recipient": "officer.pharmacy@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000162 dispatched to Pharmacy and Medicine Availability: \"Medicine Unavailable: Paracetamol medicine\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-12T03:51:32.485Z",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794455492731-admin",
+      "availabilityRequestId": "comp-1794455492485-162",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000162 registered for Pharmacy and Medicine Availability (Medicine Shortage).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-12T03:51:32.485Z",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "recipientType": "ADMIN"
+    },
     {
       "id": "notif-1794423669241-dept",
       "availabilityRequestId": "comp-1794423669230-161",
@@ -4210,8 +4335,13 @@
       "idempotencyKey": "kiosk-1794423668675-2w24tq",
       "complaintId": "comp-1794423669230-161",
       "createdAt": "2026-11-11T19:01:09.230Z"
+    },
+    {
+      "idempotencyKey": "kiosk-med-1794455491092-030ygq",
+      "complaintId": "comp-1794455492485-162",
+      "createdAt": "2026-11-12T03:51:32.485Z"
     }
   ],
-  "counter": 161,
+  "counter": 162,
   "counterAv": 104
 }
