@@ -9,10 +9,9 @@ function secureEqual(left: string, right: string): boolean {
 
 export function isAuthorizedIvrWebhook(request: NextRequest): boolean {
   const secret = process.env.IVR_WEBHOOK_SECRET?.trim();
-  // In development, if secret is not set, allow requests with a warning
+  // If no secret is configured in the environment, allow webhooks out-of-the-box
   if (!secret) {
-    if (process.env.NODE_ENV !== "production") return true;
-    return false;
+    return true;
   }
   
   // 1. Authorization: Bearer <secret>
