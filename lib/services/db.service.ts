@@ -20,6 +20,7 @@ import {
   routeComplaintDepartment,
   forwardToExternalGovernmentPortal,
 } from "@/lib/config/routing";
+import { SupabaseSyncService } from "./supabase-sync.service";
 
 const DATA_DIR = path.join(process.cwd(), "data");
 const DB_FILE = path.join(DATA_DIR, "janasuvidha-db.json");
@@ -1110,6 +1111,11 @@ export class DBService {
       db.privateRequests.unshift(avReq);
     }
 
+    // Realtime Supabase Sync (persists simultaneously to Supabase if configured)
+    void SupabaseSyncService.upsertComplaint(newComplaint);
+    void SupabaseSyncService.insertNotification(deptNotif);
+    void SupabaseSyncService.insertNotification(adminNotif);
+
     return newComplaint;
   }
 
@@ -1233,6 +1239,10 @@ export class DBService {
     }
 
     this.writeData(db);
+
+    // Sync status change to Supabase in real-time
+    void SupabaseSyncService.upsertComplaint(complaint);
+
     return complaint;
   }
 
@@ -1372,6 +1382,10 @@ export class DBService {
 
     db.privateRequests.unshift(newRequest);
     this.writeData(db);
+
+    // Sync private request to Supabase in real-time
+    void SupabaseSyncService.upsertAvailabilityRequest(newRequest);
+
     return newRequest;
   }
 
@@ -1610,6 +1624,11 @@ export class DBService {
     });
 
     this.writeData(db);
+
+    // Sync observation and updated complaint to Supabase in real-time
+    void SupabaseSyncService.insertObservation(observation);
+    void SupabaseSyncService.upsertComplaint(complaint);
+
     return { complaint, observation };
   }
 
@@ -1719,7 +1738,10 @@ export class DBService {
       if (notif) {
         notif.deliveryStatus = "DELIVERED";
         notif.sentAt = nowIso;
+        void SupabaseSyncService.insertNotification(notif);
       }
+
+      void SupabaseSyncService.upsertComplaint(complaint);
 
       return { success: true, complaint };
     });

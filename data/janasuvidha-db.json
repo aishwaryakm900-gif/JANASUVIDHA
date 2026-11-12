@@ -118,6 +118,166 @@
   ],
   "complaints": [
     {
+      "id": "comp-1794467502825-164",
+      "complaintNumber": "JAN-2026-000164",
+      "ticketNumber": "JAN-2026-000164",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-water",
+      "departmentName": "Water and Facilities",
+      "category": "Water and Facilities",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "Kannada nalli matanaduve. illegale ಇಲ್ಲಿ ನೀರಿನ ಸಮಸ್ಯೆ ಇದೆ. ಇದು ವಾರ್ಡ್ ನಂಬರ್ 14 ಅಲ್ಲಿ ಇದೆ. क्या आप क्या आप हिंदी में बात कर सकते हो? Aap Telugu mein Telugu mein baat kar sakte hain? ನೀರಿನ ಸಮಸ್ಯೆ ಇದೆ.",
+      "englishTranslation": "I will speak in Kannada. There is a water problem here. It is in ward number 14. Can you speak in Hindi? Can you speak in Telugu? There is a water problem.",
+      "translatedText": "I will speak in Kannada. There is a water problem here. It is in ward number 14. Can you speak in Hindi? Can you speak in Telugu? There is a water problem.",
+      "summary": "ವಾರ್ಡ್ 14 ರಲ್ಲಿ ನೀರಿನ ಸಮಸ್ಯೆ.",
+      "wardOrLocation": "Outpatient Department, Ballari - Kiosk #1",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "off-water-officer",
+      "assignedOfficialName": "Dr. Ananya Sharma",
+      "assignedOfficialDesignation": "Department Officer",
+      "submittedAt": "2026-11-12T07:11:42.825Z",
+      "createdAt": "2026-11-12T07:11:42.825Z",
+      "updatedAt": "2026-11-12T07:11:42.825Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-12T07:11:42.825Z",
+          "deliveredAt": "2026-11-12T07:11:42.825Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-12T07:11:42.825Z",
+          "deliveredAt": "2026-11-12T07:11:42.825Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-12T07:11:42.825Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794467502905-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in Kannada at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-12T07:11:42.825Z"
+        },
+        {
+          "id": "ev-1794467502905-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Water and Facilities Department. Assigned to Dr. Ananya Sharma (Department Officer).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-12T07:11:42.825Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000164",
+        "complaintText": "ವಾರ್ಡ್ 14 ರಲ್ಲಿ ನೀರಿನ ಸಮಸ್ಯೆ.",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Kiosk #1",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:41 pm IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Water and Facilities",
+        "forwardedTo": "Water and Facilities",
+        "responsibleAuthority": "Dr. Ananya Sharma (Department Officer)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794465717827-163",
+      "complaintNumber": "JAN-2026-000163",
+      "ticketNumber": "JAN-2026-000163",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-water",
+      "departmentName": "Water and Facilities",
+      "category": "Water and Facilities",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "source": "VOICE_KIOSK",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ಸಮಸ್ಯೆ ಇದೆ ನೀರು ಇಲ್ಲ.",
+      "englishTranslation": "There is a problem, no water.",
+      "translatedText": "There is a problem, no water.",
+      "summary": "ಆಸ್ಪತ್ರೆಯಲ್ಲಿ ನೀರು ಇಲ್ಲ",
+      "wardOrLocation": "Outpatient Department, Ballari - Kiosk #1",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "High",
+      "assignedOfficialId": "off-water-officer",
+      "assignedOfficialName": "Dr. Ananya Sharma",
+      "assignedOfficialDesignation": "Department Officer",
+      "submittedAt": "2026-11-12T06:41:57.827Z",
+      "createdAt": "2026-11-12T06:41:57.827Z",
+      "updatedAt": "2026-11-12T06:41:57.827Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-12T06:41:57.827Z",
+          "deliveredAt": "2026-11-12T06:41:57.827Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-12T06:41:57.827Z",
+          "deliveredAt": "2026-11-12T06:41:57.827Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-12T06:41:57.827Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794465718124-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in Kannada at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-12T06:41:57.827Z"
+        },
+        {
+          "id": "ev-1794465718124-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Water and Facilities Department. Assigned to Dr. Ananya Sharma (Department Officer).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-12T06:41:57.827Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000163",
+        "complaintText": "ಆಸ್ಪತ್ರೆಯಲ್ಲಿ ನೀರು ಇಲ್ಲ",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Kiosk #1",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "12:11 pm IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Water and Facilities",
+        "forwardedTo": "Water and Facilities",
+        "responsibleAuthority": "Dr. Ananya Sharma (Department Officer)",
+        "status": "Submitted"
+      }
+    },
+    {
       "id": "comp-1794455492485-162",
       "complaintNumber": "JAN-2026-000162",
       "ticketNumber": "JAN-2026-000162",
@@ -3347,6 +3507,50 @@
   "observations": [],
   "notifications": [
     {
+      "id": "notif-1794467502905-dept",
+      "availabilityRequestId": "comp-1794467502825-164",
+      "recipient": "officer.water@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000164 dispatched to Water and Facilities: \"ವಾರ್ಡ್ 14 ರಲ್ಲಿ ನೀರಿನ ಸಮಸ್ಯೆ.\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-12T07:11:42.825Z",
+      "departmentName": "Water and Facilities",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794467502905-admin",
+      "availabilityRequestId": "comp-1794467502825-164",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000164 registered for Water and Facilities (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-12T07:11:42.825Z",
+      "departmentName": "Water and Facilities",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794465718124-dept",
+      "availabilityRequestId": "comp-1794465717827-163",
+      "recipient": "officer.water@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000163 dispatched to Water and Facilities: \"ಆಸ್ಪತ್ರೆಯಲ್ಲಿ ನೀರು ಇಲ್ಲ\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-12T06:41:57.827Z",
+      "departmentName": "Water and Facilities",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794465718124-admin",
+      "availabilityRequestId": "comp-1794465717827-163",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000163 registered for Water and Facilities (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-12T06:41:57.827Z",
+      "departmentName": "Water and Facilities",
+      "recipientType": "ADMIN"
+    },
+    {
       "id": "notif-1794455492731-dept",
       "availabilityRequestId": "comp-1794455492485-162",
       "recipient": "officer.pharmacy@janasuvidha.gov.in",
@@ -4340,8 +4544,18 @@
       "idempotencyKey": "kiosk-med-1794455491092-030ygq",
       "complaintId": "comp-1794455492485-162",
       "createdAt": "2026-11-12T03:51:32.485Z"
+    },
+    {
+      "idempotencyKey": "kiosk-1794465717341-9irore",
+      "complaintId": "comp-1794465717827-163",
+      "createdAt": "2026-11-12T06:41:57.827Z"
+    },
+    {
+      "idempotencyKey": "kiosk-1794467502177-6h4fww",
+      "complaintId": "comp-1794467502825-164",
+      "createdAt": "2026-11-12T07:11:42.825Z"
     }
   ],
-  "counter": 162,
+  "counter": 164,
   "counterAv": 104
 }
