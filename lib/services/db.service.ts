@@ -13,6 +13,7 @@ import {
   OfficialDesignation,
   OfficialUser,
   PrivateAvailabilityRequest,
+  SubmissionSource,
 } from "@/types";
 import { normalizeDepartmentName } from "@/lib/utils";
 import {
@@ -882,7 +883,7 @@ export class DBService {
       department: string;
       priority?: "Low" | "Medium" | "High" | "Critical";
       location?: string;
-      source?: "VOICE_KIOSK" | "QR_PORTAL" | "CITIZEN_WEB" | "PHONE_IVR";
+      source?: SubmissionSource;
       medicineName?: string;
       citizenPhone?: string;
       citizenName?: string;
@@ -1009,16 +1010,20 @@ export class DBService {
       isMedicineComplaint: isMed,
       medicineName: params.medicineName,
       citizenPhone: params.citizenPhone,
+      customerPhone: params.citizenPhone,
       maskedCitizenPhone: maskedPhone,
       citizenName: params.citizenName || (isMed ? "Citizen" : undefined),
-      source: params.source || "VOICE_KIOSK",
+      customerName: params.citizenName || (isMed ? "Citizen" : undefined),
+      source: (params.source as any) || "VOICE_KIOSK",
       originalLanguage: params.originalLanguage || "Kannada",
       languageCode: params.languageCode || "kn",
       originalTranscript: params.originalTranscript || "",
       englishTranslation: params.englishTranslation || params.originalTranscript || "",
       translatedText: params.englishTranslation || params.originalTranscript || "",
       summary: params.summary || "Hospital grievance",
+      description: params.summary || params.englishTranslation || params.originalTranscript || "Hospital grievance",
       wardOrLocation: params.location || "Outpatient Department, Ballari - Kiosk #1",
+      location: params.location || "Outpatient Department, Ballari - Kiosk #1",
       floorOrBlock: "Ground Floor",
       status: "ASSIGNED",
       priority: params.priority || "Medium",
@@ -1132,7 +1137,7 @@ export class DBService {
     department: string;
     priority?: "Low" | "Medium" | "High" | "Critical";
     location?: string;
-    source?: "VOICE_KIOSK" | "QR_PORTAL" | "CITIZEN_WEB" | "PHONE_IVR";
+    source?: SubmissionSource;
     medicineName?: string;
     citizenPhone?: string;
     citizenName?: string;
@@ -1651,7 +1656,7 @@ export class DBService {
     department: string;
     priority?: "Low" | "Medium" | "High" | "Critical";
     location?: string;
-    source?: "VOICE_KIOSK" | "QR_PORTAL" | "CITIZEN_WEB" | "PHONE_IVR";
+    source?: SubmissionSource;
     medicineName?: string;
     citizenPhone?: string;
     citizenName?: string;

@@ -118,6 +118,354 @@
   ],
   "complaints": [
     {
+      "id": "comp-1794475856096-168",
+      "complaintNumber": "JAN-2026-000168",
+      "ticketNumber": "JAN-2026-000168",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-infra",
+      "departmentName": "Medical Equipment / Maintenance",
+      "category": "Infrastructure Maintenance",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "citizenPhone": "+919876543210",
+      "customerPhone": "+919876543210",
+      "maskedCitizenPhone": "XXXXXX3210",
+      "citizenName": "Sunitha Rao",
+      "customerName": "Sunitha Rao",
+      "source": "ivr",
+      "originalLanguage": "English",
+      "languageCode": "en",
+      "originalTranscript": "Hello, the digital X-ray machine in radiology has an error code and technicians cannot take scans.",
+      "englishTranslation": "Hello, the digital X-ray machine in radiology has an error code and technicians cannot take scans.",
+      "translatedText": "Hello, the digital X-ray machine in radiology has an error code and technicians cannot take scans.",
+      "summary": "Hello, the digital X-ray machine in radiology has an error c...",
+      "description": "Hello, the digital X-ray machine in radiology has an error c...",
+      "wardOrLocation": "Outpatient Department, Ballari - Radiology Room 12",
+      "location": "Outpatient Department, Ballari - Radiology Room 12",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "MEDIUM",
+      "assignedOfficialId": "dept-equipment",
+      "assignedOfficialName": "Dr. Prabhakar Rao",
+      "assignedOfficialDesignation": "Biomedical Engineer & Facilities In-charge",
+      "submittedAt": "2026-11-12T09:30:56.096Z",
+      "createdAt": "2026-11-12T09:30:56.096Z",
+      "updatedAt": "2026-11-12T09:30:56.096Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-12T09:30:56.096Z",
+          "deliveredAt": "2026-11-12T09:30:56.096Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-12T09:30:56.096Z",
+          "deliveredAt": "2026-11-12T09:30:56.096Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-12T09:30:56.096Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794475856097-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in English at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-12T09:30:56.096Z"
+        },
+        {
+          "id": "ev-1794475856097-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Medical Equipment / Maintenance Department. Assigned to Dr. Prabhakar Rao (Biomedical Engineer & Facilities In-charge).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-12T09:30:56.096Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000168",
+        "complaintText": "Hello, the digital X-ray machine in radiology has an error c...",
+        "originalLanguage": "English",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Radiology Room 12",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "03:00 pm IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Infrastructure Maintenance",
+        "forwardedTo": "Medical Equipment / Maintenance",
+        "responsibleAuthority": "Dr. Prabhakar Rao (Biomedical Engineer & Facilities In-charge)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794475856071-167",
+      "complaintNumber": "JAN-2026-000167",
+      "ticketNumber": "JAN-2026-000167",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-water",
+      "departmentName": "Water and Facilities",
+      "category": "Water and Facilities",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "citizenPhone": "+919845012345",
+      "customerPhone": "+919845012345",
+      "maskedCitizenPhone": "XXXXXX2345",
+      "citizenName": "Anand Murthy",
+      "customerName": "Anand Murthy",
+      "source": "kiosk",
+      "originalLanguage": "English",
+      "languageCode": "en",
+      "originalTranscript": "The bathroom near OPD Room 4 on the first floor is dirty and has no running water.",
+      "englishTranslation": "Drinking water facility is not available or broken.",
+      "translatedText": "Drinking water facility is not available or broken.",
+      "summary": "Drinking water or plumbing system failure",
+      "description": "Drinking water or plumbing system failure",
+      "wardOrLocation": "Outpatient Department, Ballari - 1st Floor OPD 4",
+      "location": "Outpatient Department, Ballari - 1st Floor OPD 4",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "HIGH",
+      "assignedOfficialId": "off-water-officer",
+      "assignedOfficialName": "Dr. Ananya Sharma",
+      "assignedOfficialDesignation": "Department Officer",
+      "submittedAt": "2026-11-12T09:30:56.071Z",
+      "createdAt": "2026-11-12T09:30:56.071Z",
+      "updatedAt": "2026-11-12T09:30:56.071Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-12T09:30:56.071Z",
+          "deliveredAt": "2026-11-12T09:30:56.071Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-12T09:30:56.071Z",
+          "deliveredAt": "2026-11-12T09:30:56.071Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-12T09:30:56.071Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794475856089-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in English at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-12T09:30:56.071Z"
+        },
+        {
+          "id": "ev-1794475856089-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Water and Facilities Department. Assigned to Dr. Ananya Sharma (Department Officer).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-12T09:30:56.071Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000167",
+        "complaintText": "Drinking water or plumbing system failure",
+        "originalLanguage": "English",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - 1st Floor OPD 4",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "03:00 pm IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Water and Facilities",
+        "forwardedTo": "Water and Facilities",
+        "responsibleAuthority": "Dr. Ananya Sharma (Department Officer)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794475747638-166",
+      "complaintNumber": "JAN-2026-000166",
+      "ticketNumber": "JAN-2026-000166",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-infra",
+      "departmentName": "Medical Equipment / Maintenance",
+      "category": "Infrastructure Maintenance",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "citizenPhone": "+919876543210",
+      "customerPhone": "+919876543210",
+      "maskedCitizenPhone": "XXXXXX3210",
+      "citizenName": "Sunitha Rao",
+      "customerName": "Sunitha Rao",
+      "source": "ivr",
+      "originalLanguage": "English",
+      "languageCode": "en",
+      "originalTranscript": "Hello, the digital X-ray machine in radiology has an error code and technicians cannot take scans.",
+      "englishTranslation": "Hello, the digital X-ray machine in radiology has an error code and technicians cannot take scans.",
+      "translatedText": "Hello, the digital X-ray machine in radiology has an error code and technicians cannot take scans.",
+      "summary": "Hello, the digital X-ray machine in radiology has an error c...",
+      "description": "Hello, the digital X-ray machine in radiology has an error c...",
+      "wardOrLocation": "Outpatient Department, Ballari - Radiology Room 12",
+      "location": "Outpatient Department, Ballari - Radiology Room 12",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "MEDIUM",
+      "assignedOfficialId": "dept-equipment",
+      "assignedOfficialName": "Dr. Prabhakar Rao",
+      "assignedOfficialDesignation": "Biomedical Engineer & Facilities In-charge",
+      "submittedAt": "2026-11-12T09:29:07.638Z",
+      "createdAt": "2026-11-12T09:29:07.638Z",
+      "updatedAt": "2026-11-12T09:29:07.638Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-12T09:29:07.638Z",
+          "deliveredAt": "2026-11-12T09:29:07.638Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-12T09:29:07.638Z",
+          "deliveredAt": "2026-11-12T09:29:07.638Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-12T09:29:07.638Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794475747638-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in English at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-12T09:29:07.638Z"
+        },
+        {
+          "id": "ev-1794475747638-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Medical Equipment / Maintenance Department. Assigned to Dr. Prabhakar Rao (Biomedical Engineer & Facilities In-charge).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-12T09:29:07.638Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000166",
+        "complaintText": "Hello, the digital X-ray machine in radiology has an error c...",
+        "originalLanguage": "English",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Radiology Room 12",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "02:59 pm IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Infrastructure Maintenance",
+        "forwardedTo": "Medical Equipment / Maintenance",
+        "responsibleAuthority": "Dr. Prabhakar Rao (Biomedical Engineer & Facilities In-charge)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794475747614-165",
+      "complaintNumber": "JAN-2026-000165",
+      "ticketNumber": "JAN-2026-000165",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-water",
+      "departmentName": "Water and Facilities",
+      "category": "Water and Facilities",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "citizenPhone": "+919845012345",
+      "customerPhone": "+919845012345",
+      "maskedCitizenPhone": "XXXXXX2345",
+      "citizenName": "Anand Murthy",
+      "customerName": "Anand Murthy",
+      "source": "kiosk",
+      "originalLanguage": "English",
+      "languageCode": "en",
+      "originalTranscript": "The bathroom near OPD Room 4 on the first floor is dirty and has no running water.",
+      "englishTranslation": "Drinking water facility is not available or broken.",
+      "translatedText": "Drinking water facility is not available or broken.",
+      "summary": "Drinking water or plumbing system failure",
+      "description": "Drinking water or plumbing system failure",
+      "wardOrLocation": "Outpatient Department, Ballari - 1st Floor OPD 4",
+      "location": "Outpatient Department, Ballari - 1st Floor OPD 4",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "HIGH",
+      "assignedOfficialId": "off-water-officer",
+      "assignedOfficialName": "Dr. Ananya Sharma",
+      "assignedOfficialDesignation": "Department Officer",
+      "submittedAt": "2026-11-12T09:29:07.614Z",
+      "createdAt": "2026-11-12T09:29:07.614Z",
+      "updatedAt": "2026-11-12T09:29:07.614Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-12T09:29:07.614Z",
+          "deliveredAt": "2026-11-12T09:29:07.614Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-12T09:29:07.614Z",
+          "deliveredAt": "2026-11-12T09:29:07.614Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-12T09:29:07.614Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794475747632-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in English at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-12T09:29:07.614Z"
+        },
+        {
+          "id": "ev-1794475747632-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Water and Facilities Department. Assigned to Dr. Ananya Sharma (Department Officer).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-12T09:29:07.614Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000165",
+        "complaintText": "Drinking water or plumbing system failure",
+        "originalLanguage": "English",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - 1st Floor OPD 4",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "02:59 pm IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Water and Facilities",
+        "forwardedTo": "Water and Facilities",
+        "responsibleAuthority": "Dr. Ananya Sharma (Department Officer)",
+        "status": "Submitted"
+      }
+    },
+    {
       "id": "comp-1794467502825-164",
       "complaintNumber": "JAN-2026-000164",
       "ticketNumber": "JAN-2026-000164",
@@ -3507,6 +3855,94 @@
   "observations": [],
   "notifications": [
     {
+      "id": "notif-1794475856097-dept",
+      "availabilityRequestId": "comp-1794475856096-168",
+      "recipient": "equipment.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000168 dispatched to Medical Equipment / Maintenance: \"Hello, the digital X-ray machine in radiology has an error c...\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-12T09:30:56.096Z",
+      "departmentName": "Medical Equipment / Maintenance",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794475856097-admin",
+      "availabilityRequestId": "comp-1794475856096-168",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000168 registered for Medical Equipment / Maintenance (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-12T09:30:56.096Z",
+      "departmentName": "Medical Equipment / Maintenance",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794475856089-dept",
+      "availabilityRequestId": "comp-1794475856071-167",
+      "recipient": "officer.water@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000167 dispatched to Water and Facilities: \"Drinking water or plumbing system failure\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-12T09:30:56.071Z",
+      "departmentName": "Water and Facilities",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794475856089-admin",
+      "availabilityRequestId": "comp-1794475856071-167",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000167 registered for Water and Facilities (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-12T09:30:56.071Z",
+      "departmentName": "Water and Facilities",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794475747638-dept",
+      "availabilityRequestId": "comp-1794475747638-166",
+      "recipient": "equipment.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000166 dispatched to Medical Equipment / Maintenance: \"Hello, the digital X-ray machine in radiology has an error c...\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-12T09:29:07.638Z",
+      "departmentName": "Medical Equipment / Maintenance",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794475747638-admin",
+      "availabilityRequestId": "comp-1794475747638-166",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000166 registered for Medical Equipment / Maintenance (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-12T09:29:07.638Z",
+      "departmentName": "Medical Equipment / Maintenance",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794475747632-dept",
+      "availabilityRequestId": "comp-1794475747614-165",
+      "recipient": "officer.water@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000165 dispatched to Water and Facilities: \"Drinking water or plumbing system failure\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-12T09:29:07.614Z",
+      "departmentName": "Water and Facilities",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794475747632-admin",
+      "availabilityRequestId": "comp-1794475747614-165",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000165 registered for Water and Facilities (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-12T09:29:07.614Z",
+      "departmentName": "Water and Facilities",
+      "recipientType": "ADMIN"
+    },
+    {
       "id": "notif-1794467502905-dept",
       "availabilityRequestId": "comp-1794467502825-164",
       "recipient": "officer.water@janasuvidha.gov.in",
@@ -4554,8 +4990,28 @@
       "idempotencyKey": "kiosk-1794467502177-6h4fww",
       "complaintId": "comp-1794467502825-164",
       "createdAt": "2026-11-12T07:11:42.825Z"
+    },
+    {
+      "idempotencyKey": "test-kiosk-1794475747608",
+      "complaintId": "comp-1794475747614-165",
+      "createdAt": "2026-11-12T09:29:07.614Z"
+    },
+    {
+      "idempotencyKey": "ivr:CA-TEST-1794475747637",
+      "complaintId": "comp-1794475747638-166",
+      "createdAt": "2026-11-12T09:29:07.638Z"
+    },
+    {
+      "idempotencyKey": "test-kiosk-1794475856065",
+      "complaintId": "comp-1794475856071-167",
+      "createdAt": "2026-11-12T09:30:56.071Z"
+    },
+    {
+      "idempotencyKey": "ivr:CA-TEST-1794475856095",
+      "complaintId": "comp-1794475856096-168",
+      "createdAt": "2026-11-12T09:30:56.096Z"
     }
   ],
-  "counter": 164,
+  "counter": 168,
   "counterAv": 104
 }

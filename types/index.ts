@@ -87,7 +87,30 @@ export interface ComplaintDeliveryTracking {
 
 export type Visibility = "PUBLIC" | "PRIVATE";
 
-export type SubmissionSource = "VOICE_KIOSK" | "QR_PORTAL" | "CITIZEN_WEB" | "PHONE_IVR";
+export type SubmissionSource =
+  | "VOICE_KIOSK"
+  | "QR_PORTAL"
+  | "CITIZEN_WEB"
+  | "PHONE_IVR"
+  | "kiosk"
+  | "ivr";
+
+export interface CallLogItem {
+  id?: string;
+  callSid?: string;
+  conversationId?: string;
+  callerNumber?: string;
+  toNumber?: string;
+  agentId?: string;
+  complaintId?: string | null;
+  transcript?: string;
+  recordingUrl?: string;
+  duration?: number;
+  status?: "in_progress" | "completed" | "failed" | "cancelled" | string;
+  callMetadata?: Record<string, any>;
+  createdAt?: string;
+  updatedAt?: string;
+}
 
 export interface EvidenceItem {
   id: string;
@@ -153,13 +176,17 @@ export interface ComplaintItem {
   summary: string;
   
   wardOrLocation: string;
+  location?: string;
   floorOrBlock?: string;
   
   status: ComplaintStatus;
   priority: Priority;
   maskedCitizenPhone?: string;
   citizenPhone?: string;
+  customerPhone?: string;
   citizenName?: string;
+  customerName?: string;
+  description?: string;
   medicineName?: string;
   isMedicineComplaint?: boolean;
   

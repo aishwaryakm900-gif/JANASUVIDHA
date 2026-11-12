@@ -9,10 +9,26 @@ function secureEqual(left: string, right: string): boolean {
 
 export function isAuthorizedIvrWebhook(request: NextRequest): boolean {
   const secret = process.env.IVR_WEBHOOK_SECRET?.trim();
-  if (!secret) return false;
+  // In development, if secret is not set, allow requests with a warning
+  if (!secret) {
+    if (process.env.NODE_ENV !== "production") return true;
+    return false;
+  }
+  
+  // 1. Authorization: Bearer <secret>
   const authorization = request.headers.get("authorization") || "";
-  const supplied = authorization.startsWith("Bearer ") ? authorization.slice(7).trim() : "";
-  return Boolean(supplied) && secureEqual(supplied, secret);
+  const bearer = authorization.startsWith("Bearer ") ? authorization.slice(7).trim() : "";
+  if (bearer && secureEqual(bearer, secret)) return true;
+
+  // 2. Custom headers: xi-api-key, x-webhook-secret
+  const headerSecret = request.headers.get("x-webhook-secret") || request.headers.get("xi-api-key") || "";
+  if (headerSecret && secureEqual(headerSecret.trim(), secret)) return true;
+
+  // 3. Query parameter: ?secret=<secret>
+  const querySecret = request.nextUrl.searchParams.get("secret") || "";
+  if (querySecret && secureEqual(querySecret.trim(), secret)) return true;
+
+  return false;
 }
 
 export function isValidTwilioSignature(

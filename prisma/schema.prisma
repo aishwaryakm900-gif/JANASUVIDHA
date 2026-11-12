@@ -230,3 +230,15 @@ model Notification {
   @@index([availabilityRequestId])
   @@index([recipient])
 }
+
+model IvrCall {
+  callSid      String   @id
+  transcript   String?  @db.Text
+  languageCode String   @default("en")
+  status       String   @default("COLLECTING")
+  complaintId  String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([status])
+}

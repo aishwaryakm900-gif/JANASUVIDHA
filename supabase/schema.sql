@@ -176,11 +176,42 @@ CREATE TABLE IF NOT EXISTS app_metadata (
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- 10. CALL LOGS TABLE (Twilio + ElevenLabs IVR Conversations & Transcripts)
+CREATE TABLE IF NOT EXISTS call_logs (
+    id TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
+    call_sid TEXT UNIQUE,
+    conversation_id TEXT,
+    caller_number TEXT,
+    to_number TEXT,
+    agent_id TEXT,
+    complaint_id TEXT REFERENCES complaints(id) ON DELETE SET NULL,
+    transcript TEXT,
+    recording_url TEXT,
+    duration INTEGER,
+    status TEXT DEFAULT 'completed',
+    call_metadata JSONB DEFAULT '{}'::jsonb,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_call_logs_call_sid ON call_logs(call_sid);
+CREATE INDEX IF NOT EXISTS idx_call_logs_conversation_id ON call_logs(conversation_id);
+CREATE INDEX IF NOT EXISTS idx_call_logs_complaint_id ON call_logs(complaint_id);
+CREATE INDEX IF NOT EXISTS idx_call_logs_caller_number ON call_logs(caller_number);
+CREATE INDEX IF NOT EXISTS idx_call_logs_created_at ON call_logs(created_at DESC);
+
+-- Ensure complaints table has unified column aliases for kiosk & IVR
+ALTER TABLE complaints ADD COLUMN IF NOT EXISTS customer_name TEXT;
+ALTER TABLE complaints ADD COLUMN IF NOT EXISTS customer_phone TEXT;
+ALTER TABLE complaints ADD COLUMN IF NOT EXISTS description TEXT;
+ALTER TABLE complaints ADD COLUMN IF NOT EXISTS location TEXT;
+
 -- Enable Row Level Security (RLS) - Permissive public read for public complaints, authenticated write
 ALTER TABLE hospitals ENABLE ROW LEVEL SECURITY;
 ALTER TABLE departments ENABLE ROW LEVEL SECURITY;
 ALTER TABLE officials ENABLE ROW LEVEL SECURITY;
 ALTER TABLE complaints ENABLE ROW LEVEL SECURITY;
+ALTER TABLE call_logs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE private_availability_requests ENABLE ROW LEVEL SECURITY;
 ALTER TABLE complaint_observations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE notifications ENABLE ROW LEVEL SECURITY;
@@ -198,6 +229,9 @@ BEGIN
 
     DROP POLICY IF EXISTS "Public Update Complaints" ON complaints;
     CREATE POLICY "Public Update Complaints" ON complaints FOR UPDATE USING (true);
+
+    DROP POLICY IF EXISTS "Allow All Call Logs" ON call_logs;
+    CREATE POLICY "Allow All Call Logs" ON call_logs FOR ALL USING (true);
 
     DROP POLICY IF EXISTS "Allow All Hospitals" ON hospitals;
     CREATE POLICY "Allow All Hospitals" ON hospitals FOR ALL USING (true);

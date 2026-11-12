@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/services/prisma";
 import { isValidTwilioSignature } from "@/lib/services/ivr-auth";
 import { ComplaintService } from "@/lib/services/complaint.service";
+import { SupabaseSyncService } from "@/lib/services/supabase-sync.service";
 
 export const dynamic = "force-dynamic";
 
@@ -38,6 +39,36 @@ function isNo(text: string) {
     ["ಇಲ್ಲ", "ಬೇಡ", "नहीं", "नही", "రద్దు", "కాదు", "இல்லை", "வேண்டாம்", "അല്ല", "വേണ്ട"].some((word) => value.includes(word));
 }
 
+// In-memory session cache for active multi-turn IVR calls
+const ivrCallMemoryCache = new Map<string, { transcript: string; languageCode: string; status: string; complaintId?: string }>();
+
+async function saveCallTurn(callSid: string, data: { transcript: string; languageCode: string; status: string; complaintId?: string }) {
+  ivrCallMemoryCache.set(callSid, data);
+  try {
+    const client = prisma as any;
+    if (client && client.ivrCall && typeof client.ivrCall.upsert === "function") {
+      await client.ivrCall.upsert({
+        where: { callSid },
+        update: data,
+        create: { callSid, ...data },
+      });
+    }
+  } catch {}
+}
+
+async function getCallTurn(callSid: string): Promise<{ transcript: string; languageCode: string; status: string; complaintId?: string } | null> {
+  const cached = ivrCallMemoryCache.get(callSid);
+  if (cached) return cached;
+  try {
+    const client = prisma as any;
+    if (client && client.ivrCall && typeof client.ivrCall.findUnique === "function") {
+      const record = await client.ivrCall.findUnique({ where: { callSid } });
+      if (record) return record;
+    }
+  } catch {}
+  return null;
+}
+
 export async function POST(request: NextRequest) {
   const formData = await request.formData();
   const form = new URLSearchParams();
@@ -56,6 +87,26 @@ export async function POST(request: NextRequest) {
   const caller = form.get("From")?.trim();
 
   if (!speech) {
+    // If an ElevenLabs conversational agent ID is configured, connect call directly via media stream
+    if (!step && process.env.ELEVENLABS_AGENT_ID) {
+      const agentId = process.env.ELEVENLABS_AGENT_ID.trim();
+      void SupabaseSyncService.upsertCallLog({
+        callSid,
+        callerNumber: caller || undefined,
+        status: "in_progress",
+        callMetadata: { provider: "twilio_stream", agentId, startedAt: new Date().toISOString() },
+      });
+
+      return twiml(
+        `<Connect>` +
+        `<Stream url="wss://api.elevenlabs.io/v1/convai/conversation?agent_id=${xmlEscape(agentId)}">` +
+        `<Parameter name="call_sid" value="${xmlEscape(callSid)}"/>` +
+        `<Parameter name="caller_number" value="${xmlEscape(caller || "")}"/>` +
+        `</Stream>` +
+        `</Connect>`
+      );
+    }
+
     if (step === "confirm") {
       return twiml(
         say("Sorry, I did not hear your answer. Please say yes to submit this complaint, or no to cancel.", configuredLanguage) +
@@ -71,10 +122,10 @@ export async function POST(request: NextRequest) {
   }
 
   if (step !== "confirm") {
-    await prisma.ivrCall.upsert({
-      where: { callSid },
-      update: { transcript: speech.slice(0, 12000), languageCode: code, status: "AWAITING_CONFIRMATION" },
-      create: { callSid, transcript: speech.slice(0, 12000), languageCode: code, status: "AWAITING_CONFIRMATION" },
+    await saveCallTurn(callSid, {
+      transcript: speech.slice(0, 12000),
+      languageCode: code,
+      status: "AWAITING_CONFIRMATION",
     });
     return twiml(
       say(`I heard: ${speech.slice(0, 450)}. If this is correct and you agree to send it to the hospital authorities, say yes. Otherwise say no.`, configuredLanguage) +
@@ -83,10 +134,14 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const call = await prisma.ivrCall.findUnique({ where: { callSid } });
+  const call = await getCallTurn(callSid);
   if (!call?.transcript) return twiml(say("I could not find the complaint from this call. Please call again.", configuredLanguage) + "<Hangup/>");
   if (isNo(speech)) {
-    await prisma.ivrCall.update({ where: { callSid }, data: { status: "CANCELLED" } });
+    await saveCallTurn(callSid, {
+      transcript: call.transcript,
+      languageCode: call.languageCode,
+      status: "CANCELLED",
+    });
     return twiml(say("Your complaint was cancelled. Thank you for calling JanaSuvidha.", configuredLanguage) + "<Hangup/>");
   }
   if (!isYes(speech)) {
@@ -103,10 +158,32 @@ export async function POST(request: NextRequest) {
       transcript: call.transcript,
       languageCode: call.languageCode,
       location: process.env.IVR_LOCATION || "Outpatient Department, Ballari - Phone IVR",
-      source: "PHONE_IVR",
+      source: "ivr",
       citizenPhone: caller,
+      customerPhone: caller,
+      visibility: "PUBLIC",
     });
-    await prisma.ivrCall.update({ where: { callSid }, data: { status: "COMPLETED", complaintId: result.complaint.id } });
+
+    await saveCallTurn(callSid, {
+      transcript: call.transcript,
+      languageCode: call.languageCode,
+      status: "COMPLETED",
+      complaintId: result.complaint.id,
+    });
+
+    // Link and persist call record in Supabase call_logs table
+    void SupabaseSyncService.upsertCallLog({
+      callSid,
+      callerNumber: caller || undefined,
+      transcript: call.transcript,
+      complaintId: result.complaint.id,
+      status: "completed",
+      callMetadata: {
+        provider: "twilio_speech",
+        complaintNumber: result.complaint.complaintNumber,
+        department: result.complaint.departmentName,
+      },
+    });
     const ticket = result.complaint.complaintNumber || result.complaint.ticketNumber || "";
     return twiml(say(`Thank you. Your complaint has been registered. Your complaint number is ${ticket}.`, configuredLanguage) + "<Hangup/>");
   } catch (error) {

@@ -317,7 +317,21 @@ export class SupabaseSyncService {
     if (!supabase) return false;
 
     try {
-      const row = {
+      const rawSource = String(complaint.source || "").toLowerCase();
+      const normSource =
+        rawSource.includes("ivr") ||
+        rawSource.includes("phone") ||
+        rawSource.includes("twilio") ||
+        rawSource.includes("elevenlabs")
+          ? "ivr"
+          : "kiosk";
+
+      const customerName = complaint.citizenName || complaint.customerName || null;
+      const customerPhone = complaint.citizenPhone || complaint.customerPhone || null;
+      const description = complaint.summary || complaint.englishTranslation || complaint.originalTranscript;
+      const location = complaint.wardOrLocation || complaint.location || "Outpatient Department, Ballari";
+
+      const baseRow: Record<string, any> = {
         id: complaint.id,
         complaint_number: complaint.complaintNumber || complaint.ticketNumber,
         ticket_number: complaint.ticketNumber || complaint.complaintNumber,
@@ -327,19 +341,19 @@ export class SupabaseSyncService {
         department_name: complaint.departmentName,
         category: complaint.category,
         visibility: complaint.visibility || "PUBLIC",
-        source: complaint.source || "VOICE_KIOSK",
+        source: normSource,
         original_language: complaint.originalLanguage,
         language_code: complaint.languageCode,
         original_transcript: complaint.originalTranscript,
         english_translation: complaint.englishTranslation,
         translated_text: complaint.translatedText || complaint.englishTranslation,
         summary: complaint.summary,
-        ward_or_location: complaint.wardOrLocation,
+        ward_or_location: location,
         floor_or_block: complaint.floorOrBlock || "Ground Floor",
         status: complaint.status || "ASSIGNED",
         priority: complaint.priority || "Medium",
-        citizen_name: complaint.citizenName || null,
-        citizen_phone: complaint.citizenPhone || null,
+        citizen_name: customerName,
+        citizen_phone: customerPhone,
         masked_citizen_phone: complaint.maskedCitizenPhone || null,
         medicine_name: complaint.medicineName || null,
         is_medicine_complaint: Boolean(complaint.isMedicineComplaint),
@@ -360,7 +374,30 @@ export class SupabaseSyncService {
         updated_at: complaint.updatedAt,
       };
 
-      const { error } = await supabase.from("complaints").upsert(row, { onConflict: "id" });
+      // Extended row with customer_name, customer_phone, description, location columns
+      const fullRow: Record<string, any> = {
+        ...baseRow,
+        customer_name: customerName,
+        customer_phone: customerPhone,
+        description: description,
+        location: location,
+      };
+
+      // Try upserting with extended columns first
+      let { error } = await supabase.from("complaints").upsert(fullRow, { onConflict: "id" });
+
+      // If schema doesn't yet have the extended alias columns, fall back to baseRow
+      if (
+        error &&
+        error.message &&
+        (error.message.includes("column") ||
+          error.message.includes("schema cache") ||
+          error.message.includes("does not exist"))
+      ) {
+        const retry = await supabase.from("complaints").upsert(baseRow, { onConflict: "id" });
+        error = retry.error;
+      }
+
       if (error) {
         console.warn("[Supabase Realtime] Complaint upsert warning:", error.message);
         return false;
@@ -368,6 +405,46 @@ export class SupabaseSyncService {
       return true;
     } catch (e: any) {
       console.warn("[Supabase Realtime] Exception:", e.message);
+      return false;
+    }
+  }
+
+  /**
+   * Real-time upsert of a call log (IVR Twilio + ElevenLabs) to Supabase
+   */
+  static async upsertCallLog(log: import("@/types").CallLogItem): Promise<boolean> {
+    const supabase = getSupabaseServerClient();
+    if (!supabase) return false;
+
+    try {
+      const row: Record<string, any> = {
+        id: log.id || `call-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+        call_sid: log.callSid || null,
+        conversation_id: log.conversationId || null,
+        caller_number: log.callerNumber || null,
+        to_number: log.toNumber || null,
+        agent_id: log.agentId || null,
+        complaint_id: log.complaintId || null,
+        transcript: log.transcript || null,
+        recording_url: log.recordingUrl || null,
+        duration: typeof log.duration === "number" ? log.duration : null,
+        status: log.status || "completed",
+        call_metadata: log.callMetadata || {},
+        created_at: log.createdAt || new Date().toISOString(),
+        updated_at: log.updatedAt || new Date().toISOString(),
+      };
+
+      const { error } = await supabase.from("call_logs").upsert(row, {
+        onConflict: log.callSid ? "call_sid" : "id",
+      });
+
+      if (error) {
+        console.warn("[Supabase CallLog] Upsert warning:", error.message);
+        return false;
+      }
+      return true;
+    } catch (e: any) {
+      console.warn("[Supabase CallLog] Exception:", e.message);
       return false;
     }
   }

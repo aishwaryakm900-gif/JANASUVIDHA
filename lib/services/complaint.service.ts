@@ -26,7 +26,9 @@ export interface CreateComplaintDTO {
   visibility?: Visibility;
   source?: SubmissionSource;
   citizenPhone?: string;
+  customerPhone?: string;
   citizenName?: string;
+  customerName?: string;
   medicineName?: string;
   isMedicineComplaint?: boolean;
   language?: Language;
