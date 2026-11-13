@@ -417,8 +417,45 @@ export class SupabaseSyncService {
     if (!supabase) return false;
 
     try {
+      let targetId = log.id;
+      // If no ID is provided, check if a row with this conversation_id or call_sid already exists
+      if (!targetId && log.conversationId) {
+        const { data: existing } = await supabase
+          .from("call_logs")
+          .select("id, caller_number, call_sid")
+          .eq("conversation_id", log.conversationId)
+          .limit(1)
+          .maybeSingle();
+        if (existing?.id) {
+          targetId = existing.id;
+          if (!log.callerNumber && existing.caller_number) {
+            log.callerNumber = existing.caller_number;
+          }
+          if (!log.callSid && existing.call_sid) {
+            log.callSid = existing.call_sid;
+          }
+        }
+      }
+      if (!targetId && log.callSid) {
+        const { data: existing } = await supabase
+          .from("call_logs")
+          .select("id, caller_number, conversation_id")
+          .eq("call_sid", log.callSid)
+          .limit(1)
+          .maybeSingle();
+        if (existing?.id) {
+          targetId = existing.id;
+          if (!log.callerNumber && existing.caller_number) {
+            log.callerNumber = existing.caller_number;
+          }
+          if (!log.conversationId && existing.conversation_id) {
+            log.conversationId = existing.conversation_id;
+          }
+        }
+      }
+
       const row: Record<string, any> = {
-        id: log.id || `call-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+        id: targetId || `call-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
         call_sid: log.callSid || null,
         conversation_id: log.conversationId || null,
         caller_number: log.callerNumber || null,
@@ -430,12 +467,14 @@ export class SupabaseSyncService {
         duration: typeof log.duration === "number" ? log.duration : null,
         status: log.status || "completed",
         call_metadata: log.callMetadata || {},
-        created_at: log.createdAt || new Date().toISOString(),
-        updated_at: log.updatedAt || new Date().toISOString(),
+        updated_at: new Date().toISOString(),
       };
+      if (log.createdAt) {
+        row.created_at = log.createdAt;
+      }
 
       const { error } = await supabase.from("call_logs").upsert(row, {
-        onConflict: log.callSid ? "call_sid" : "id",
+        onConflict: "id",
       });
 
       if (error) {

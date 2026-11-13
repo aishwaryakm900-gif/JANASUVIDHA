@@ -118,6 +118,114 @@
   ],
   "complaints": [
     {
+      "id": "comp-1794550018880-171",
+      "complaintNumber": "JAN-2026-000171",
+      "ticketNumber": "JAN-2026-000171",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-water",
+      "departmentName": "Water and Facilities",
+      "category": "Water and Facilities",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "citizenName": "Citizen",
+      "customerName": "Citizen",
+      "source": "kiosk",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "14 ನಲ್ಲಿ ನೀರಿನ ಸಮಸ್ಯೆ ಇದೆ. ನೀರು ಕಳೆದ ಮೂರು ದಿನಗಳಿಂದ ಇಲ್ಲ. Ward 14alli neerina samasye. Kaleda mooru dinagalinda neerilla.",
+      "englishTranslation": "Drinking water facility is broken or water cooler is not working.",
+      "translatedText": "Drinking water facility is broken or water cooler is not working.",
+      "summary": "Drinking water facility malfunctioning",
+      "description": "Drinking water facility malfunctioning",
+      "wardOrLocation": "Outpatient Department, Ballari - Kiosk #1",
+      "location": "Outpatient Department, Ballari - Kiosk #1",
+      "floorOrBlock": "Ground Floor",
+      "status": "VERIFIED",
+      "priority": "Medium",
+      "assignedOfficialId": "off-water-officer",
+      "assignedOfficialName": "Dr. Ananya Sharma",
+      "assignedOfficialDesignation": "Department Officer",
+      "submittedAt": "2026-11-13T06:06:58.880Z",
+      "createdAt": "2026-11-13T06:06:58.880Z",
+      "updatedAt": "2026-11-13T06:46:08.438Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-13T06:06:58.880Z",
+          "deliveredAt": "2026-11-13T06:06:58.880Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-13T06:06:58.880Z",
+          "deliveredAt": "2026-11-13T06:06:58.880Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-13T06:06:58.880Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794550018897-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in Kannada at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-13T06:06:58.880Z"
+        },
+        {
+          "id": "ev-1794550018897-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Water and Facilities Department. Assigned to Dr. Ananya Sharma (Department Officer).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-13T06:06:58.880Z"
+        },
+        {
+          "id": "ev-1794552329734",
+          "eventType": "IN_PROGRESS",
+          "description": "Dr. Ananya Sharma (Department Officer) accepted task and dispatched maintenance team.",
+          "performedBy": "Dr. Ananya Sharma",
+          "timestamp": "2026-11-13T06:45:29.734Z"
+        },
+        {
+          "id": "ev-1794552359804",
+          "eventType": "RESOLUTION_SUBMITTED",
+          "description": "dfg",
+          "performedBy": "Dr. Ananya Sharma",
+          "timestamp": "2026-11-13T06:45:59.804Z"
+        },
+        {
+          "id": "ev-1794552368438",
+          "eventType": "VERIFIED",
+          "description": "Inspection verified by Supervisor Dr. Ananya Sharma. Resolution approved and signed off.",
+          "performedBy": "Dr. Ananya Sharma",
+          "timestamp": "2026-11-13T06:46:08.438Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000171",
+        "complaintText": "Drinking water facility malfunctioning",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Kiosk #1",
+        "submissionDate": "13 Nov 2026",
+        "submissionTime": "11:36 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Water and Facilities",
+        "forwardedTo": "Water and Facilities",
+        "responsibleAuthority": "Dr. Ananya Sharma (Department Officer)",
+        "status": "Submitted"
+      },
+      "resolutionNotes": "Inspection verified by Supervisor Dr. Ananya Sharma. Resolution approved and signed off.",
+      "resolvedAt": "2026-11-13T06:45:59.804Z",
+      "verifiedAt": "2026-11-13T06:46:08.438Z"
+    },
+    {
       "id": "comp-1794544762896-170",
       "complaintNumber": "JAN-2026-000170",
       "ticketNumber": "JAN-2026-000170",
@@ -665,14 +773,14 @@
       "summary": "ವಾರ್ಡ್ 14 ರಲ್ಲಿ ನೀರಿನ ಸಮಸ್ಯೆ.",
       "wardOrLocation": "Outpatient Department, Ballari - Kiosk #1",
       "floorOrBlock": "Ground Floor",
-      "status": "ASSIGNED",
+      "status": "REOPENED",
       "priority": "Medium",
       "assignedOfficialId": "off-water-officer",
       "assignedOfficialName": "Dr. Ananya Sharma",
       "assignedOfficialDesignation": "Department Officer",
       "submittedAt": "2026-11-12T07:11:42.825Z",
       "createdAt": "2026-11-12T07:11:42.825Z",
-      "updatedAt": "2026-11-12T07:11:42.825Z",
+      "updatedAt": "2026-11-13T06:48:21.180Z",
       "deliveryTracking": {
         "adminPortal": {
           "status": "DELIVERED",
@@ -707,6 +815,48 @@
           "description": "Automatically routed to Water and Facilities Department. Assigned to Dr. Ananya Sharma (Department Officer).",
           "performedBy": "AI Workflow Dispatcher",
           "timestamp": "2026-11-12T07:11:42.825Z"
+        },
+        {
+          "id": "ev-1794552479414",
+          "eventType": "IN_PROGRESS",
+          "description": "Dr. Ananya Sharma (Department Officer) accepted task and dispatched maintenance team.",
+          "performedBy": "Dr. Ananya Sharma",
+          "timestamp": "2026-11-13T06:47:59.414Z"
+        },
+        {
+          "id": "ev-1794552485013",
+          "eventType": "RESOLUTION_SUBMITTED",
+          "description": "regf",
+          "performedBy": "Dr. Ananya Sharma",
+          "timestamp": "2026-11-13T06:48:05.013Z"
+        },
+        {
+          "id": "ev-1794552487071",
+          "eventType": "REOPENED",
+          "description": "Resolution rejected by Supervisor Dr. Ananya Sharma. Insufficient evidence or ongoing issue.",
+          "performedBy": "Dr. Ananya Sharma",
+          "timestamp": "2026-11-13T06:48:07.071Z"
+        },
+        {
+          "id": "ev-1794552495412",
+          "eventType": "IN_PROGRESS",
+          "description": "Dr. Ananya Sharma (Department Officer) accepted task and dispatched maintenance team.",
+          "performedBy": "Dr. Ananya Sharma",
+          "timestamp": "2026-11-13T06:48:15.412Z"
+        },
+        {
+          "id": "ev-1794552499482",
+          "eventType": "RESOLUTION_SUBMITTED",
+          "description": "regf",
+          "performedBy": "Dr. Ananya Sharma",
+          "timestamp": "2026-11-13T06:48:19.482Z"
+        },
+        {
+          "id": "ev-1794552501180",
+          "eventType": "REOPENED",
+          "description": "Resolution rejected by Supervisor Dr. Ananya Sharma. Insufficient evidence or ongoing issue.",
+          "performedBy": "Dr. Ananya Sharma",
+          "timestamp": "2026-11-13T06:48:21.180Z"
         }
       ],
       "evidence": [],
@@ -723,7 +873,9 @@
         "forwardedTo": "Water and Facilities",
         "responsibleAuthority": "Dr. Ananya Sharma (Department Officer)",
         "status": "Submitted"
-      }
+      },
+      "resolutionNotes": "Resolution rejected by Supervisor Dr. Ananya Sharma. Insufficient evidence or ongoing issue.",
+      "resolvedAt": "2026-11-13T06:48:19.482Z"
     },
     {
       "id": "comp-1794465717827-163",
@@ -4054,6 +4206,28 @@
   "observations": [],
   "notifications": [
     {
+      "id": "notif-1794550018897-dept",
+      "availabilityRequestId": "comp-1794550018880-171",
+      "recipient": "officer.water@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000171 dispatched to Water and Facilities: \"Drinking water facility malfunctioning\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-13T06:06:58.880Z",
+      "departmentName": "Water and Facilities",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794550018897-admin",
+      "availabilityRequestId": "comp-1794550018880-171",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000171 registered for Water and Facilities (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-13T06:06:58.880Z",
+      "departmentName": "Water and Facilities",
+      "recipientType": "ADMIN"
+    },
+    {
       "id": "notif-1794544763188-dept",
       "availabilityRequestId": "comp-1794544762896-170",
       "recipient": "officer.hygiene@janasuvidha.gov.in",
@@ -5263,8 +5437,13 @@
       "idempotencyKey": "kiosk-1794544761871-zygsgl",
       "complaintId": "comp-1794544762896-170",
       "createdAt": "2026-11-13T04:39:22.896Z"
+    },
+    {
+      "idempotencyKey": "kiosk-1794550018617-irnjyt",
+      "complaintId": "comp-1794550018880-171",
+      "createdAt": "2026-11-13T06:06:58.880Z"
     }
   ],
-  "counter": 170,
+  "counter": 171,
   "counterAv": 104
 }
