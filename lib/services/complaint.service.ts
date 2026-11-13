@@ -10,6 +10,7 @@ import { DBService } from "./db.service";
 import { AIService } from "./ai.service";
 import { TranslationService } from "./translation.service";
 import { routeComplaintDepartment } from "@/lib/config/routing";
+import { SupabaseSyncService } from "./supabase-sync.service";
 
 export interface CreateComplaintDTO {
   idempotencyKey?: string;
@@ -36,7 +37,9 @@ export interface CreateComplaintDTO {
 
 export class ComplaintService {
   /**
-   * Retrieves complaints with optional department security filtering
+   * Retrieves complaints with optional department security filtering.
+   * Supabase PostgreSQL is the primary authoritative store for production (Vercel).
+   * Automatically falls back to DBService for offline or local development.
    */
   static async getComplaints(filter?: {
     officialDepartment?: string;
@@ -49,6 +52,24 @@ export class ComplaintService {
     onlyMedicine?: boolean;
     excludePrivateMedicine?: boolean;
   }): Promise<ComplaintItem[]> {
+    try {
+      const fromSupabase = await SupabaseSyncService.getComplaints({
+        officialDepartment: filter?.officialDepartment,
+        designation: filter?.designation,
+        category: filter?.category,
+        status: filter?.status,
+        search: filter?.search,
+        visibility: filter?.visibility,
+        onlyMedicine: filter?.onlyMedicine,
+        excludePrivateMedicine: filter?.excludePrivateMedicine,
+      });
+      if (fromSupabase !== null) {
+        return fromSupabase;
+      }
+    } catch (err) {
+      console.warn("[ComplaintService] Supabase getComplaints fallback:", err);
+    }
+
     return DBService.getComplaints({
       officialDepartment: filter?.officialDepartment,
       designation: filter?.designation,
@@ -62,9 +83,16 @@ export class ComplaintService {
   }
 
   /**
-   * Finds a single complaint by complaint number or UUID
+   * Finds a single complaint by complaint number, ticket number, or UUID
    */
   static async getComplaintByTicketOrId(ticketOrId: string): Promise<ComplaintItem | null> {
+    try {
+      const fromSupabase = await SupabaseSyncService.getComplaintById(ticketOrId);
+      if (fromSupabase) return fromSupabase;
+    } catch (err) {
+      console.warn("[ComplaintService] Supabase getComplaintById fallback:", err);
+    }
+
     return DBService.getComplaintById(ticketOrId);
   }
 
@@ -162,9 +190,15 @@ export class ComplaintService {
    * Increases recurrence count when another citizen confirms an existing issue
    */
   static async upvoteRecurrence(ticketNumber: string): Promise<ComplaintItem | null> {
-    const complaint = await DBService.getComplaintById(ticketNumber);
+    const complaint = await this.getComplaintByTicketOrId(ticketNumber);
     if (!complaint) return null;
     complaint.recurrenceCount = (complaint.recurrenceCount || 1) + 1;
+    complaint.updatedAt = new Date().toISOString();
+    try {
+      await SupabaseSyncService.upsertComplaint(complaint);
+    } catch (e) {
+      console.warn("[ComplaintService] Supabase upvote sync warning:", e);
+    }
     return complaint;
   }
 
@@ -177,7 +211,7 @@ export class ComplaintService {
     comment?: string,
     isResolved: boolean = true
   ): Promise<ComplaintItem | null> {
-    const complaint = await DBService.getComplaintById(complaintId);
+    const complaint = await this.getComplaintByTicketOrId(complaintId);
     if (!complaint) return null;
     if (!complaint.feedbacks) complaint.feedbacks = [];
     complaint.feedbacks.push({
@@ -187,6 +221,12 @@ export class ComplaintService {
       isResolved,
       createdAt: new Date().toISOString(),
     });
+    complaint.updatedAt = new Date().toISOString();
+    try {
+      await SupabaseSyncService.upsertComplaint(complaint);
+    } catch (e) {
+      console.warn("[ComplaintService] Supabase addFeedback sync warning:", e);
+    }
     return complaint;
   }
 }

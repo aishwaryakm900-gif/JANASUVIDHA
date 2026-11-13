@@ -38,8 +38,8 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["Gilroy", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "sans-serif"],
-        gilroy: ["Gilroy", "sans-serif"],
+        sans: ["var(--font-gilroy)", "Gilroy", "system-ui", "sans-serif"],
+        gilroy: ["var(--font-gilroy)", "Gilroy", "system-ui", "sans-serif"],
       },
       boxShadow: {
         card: "0 2px 8px -2px rgba(18, 52, 59, 0.05), 0 1px 3px -1px rgba(18, 52, 59, 0.03)",

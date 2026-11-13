@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
-import { ComplaintItem, ComplaintObservation, NotificationItem, OfficialUser, PrivateAvailabilityRequest } from "@/types";
+import { ComplaintItem, ComplaintObservation, ComplaintReceipt, NotificationItem, OfficialUser, PrivateAvailabilityRequest } from "@/types";
 
 const DATA_DIR = path.join(process.cwd(), "data");
 const DB_FILE = path.join(DATA_DIR, "janasuvidha-db.json");
@@ -572,6 +572,197 @@ export class SupabaseSyncService {
       return !error;
     } catch {
       return false;
+    }
+  }
+
+  /**
+   * Translates a Supabase complaints table row into a canonical ComplaintItem
+   */
+  static rowToComplaintItem(row: any): ComplaintItem {
+    const complaintNumber = row.complaint_number || row.ticket_number || row.id;
+    const ticketNumber = row.ticket_number || row.complaint_number || row.id;
+    const dateObj = new Date(row.submitted_at || row.created_at || Date.now());
+
+    let formattedDate = "";
+    let formattedTime = "";
+    try {
+      formattedDate = new Intl.DateTimeFormat("en-IN", {
+        timeZone: "Asia/Kolkata",
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      }).format(dateObj);
+      formattedTime = new Intl.DateTimeFormat("en-IN", {
+        timeZone: "Asia/Kolkata",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      }).format(dateObj);
+    } catch {
+      formattedDate = dateObj.toLocaleDateString();
+      formattedTime = dateObj.toLocaleTimeString();
+    }
+
+    const receipt: ComplaintReceipt = row.receipt || {
+      complaintNumber: ticketNumber,
+      complaintText: row.summary || row.description || row.original_transcript || "Hospital grievance",
+      originalLanguage: row.original_language || "Kannada",
+      hospitalName: row.hospital_name || "Outpatient Department, Ballari",
+      location: row.ward_or_location || row.location || "Outpatient Department, Ballari",
+      submissionDate: formattedDate,
+      submissionTime: `${formattedTime} IST`,
+      timeZone: "Asia/Kolkata (IST, UTC+05:30)",
+      category: row.category || "Hospital Services",
+      forwardedTo: `${row.department_name || row.category || "Hospital Services"} Department`,
+      responsibleAuthority: row.assigned_official_name
+        ? `${row.assigned_official_name} (${row.assigned_official_designation || "Department Officer"})`
+        : `${row.department_name || "Department"} Officer`,
+      status: row.status === "PENDING" ? "Submitted" : row.status || "Submitted",
+    };
+
+    return {
+      id: row.id,
+      complaintNumber,
+      ticketNumber,
+      hospitalId: row.hospital_id || "hosp-001",
+      hospitalName: row.hospital_name || "Outpatient Department, Ballari",
+      departmentId: row.department_id || undefined,
+      departmentName: row.department_name || row.category || "Hospital Services",
+      category: row.category || "Hospital Services",
+      visibility: row.visibility || "PUBLIC",
+      source: row.source || "kiosk",
+      originalLanguage: row.original_language || "Kannada",
+      languageCode: row.language_code || "kn",
+      originalTranscript: row.original_transcript || "",
+      englishTranslation: row.english_translation || row.original_transcript || "",
+      translatedText: row.translated_text || row.english_translation || "",
+      summary: row.summary || row.description || row.original_transcript || "",
+      wardOrLocation: row.ward_or_location || row.location || "Outpatient Department, Ballari",
+      floorOrBlock: row.floor_or_block || "Ground Floor",
+      status: row.status || "ASSIGNED",
+      priority: row.priority || "Medium",
+      citizenName: row.citizen_name || row.customer_name || "Citizen",
+      citizenPhone: row.citizen_phone || row.customer_phone || "",
+      maskedCitizenPhone: row.masked_citizen_phone || (row.citizen_phone ? `XXXXXX${String(row.citizen_phone).slice(-4)}` : undefined),
+      medicineName: row.medicine_name || undefined,
+      isMedicineComplaint: Boolean(row.is_medicine_complaint),
+      assignedOfficialId: row.assigned_official_id || undefined,
+      assignedOfficialName: row.assigned_official_name || undefined,
+      assignedOfficialDesignation: row.assigned_official_designation || undefined,
+      resolutionNotes: row.resolution_notes || undefined,
+      resolvedAt: row.resolved_at || undefined,
+      verifiedAt: row.verified_at || undefined,
+      recurrenceCount: typeof row.recurrence_count === "number" ? row.recurrence_count : 1,
+      idempotencyKey: row.idempotency_key || undefined,
+      deliveryTracking: row.delivery_tracking || {},
+      events: Array.isArray(row.events) ? row.events : [],
+      evidence: Array.isArray(row.evidence) ? row.evidence : [],
+      receipt,
+      submittedAt: row.submitted_at || row.created_at || new Date().toISOString(),
+      createdAt: row.created_at || row.submitted_at || new Date().toISOString(),
+      updatedAt: row.updated_at || row.created_at || new Date().toISOString(),
+    };
+  }
+
+  /**
+   * Retrieves complaints directly from Supabase PostgreSQL with filtering
+   */
+  static async getComplaints(filter?: {
+    officialDepartment?: string;
+    designation?: string;
+    category?: string;
+    status?: string;
+    search?: string;
+    visibility?: "PUBLIC" | "PRIVATE";
+    onlyMedicine?: boolean;
+    excludePrivateMedicine?: boolean;
+  }): Promise<ComplaintItem[] | null> {
+    const supabase = getSupabaseServerClient();
+    if (!supabase) return null;
+
+    try {
+      let query = supabase.from("complaints").select("*").order("created_at", { ascending: false });
+
+      if (filter?.officialDepartment && filter.officialDepartment !== "All Departments" && filter.officialDepartment !== "ALL") {
+        query = query.eq("department_name", filter.officialDepartment);
+      }
+
+      if (filter?.category && filter.category !== "All" && filter.category !== "ALL") {
+        query = query.eq("category", filter.category);
+      }
+
+      if (filter?.status && filter.status !== "All" && filter.status !== "ALL") {
+        query = query.eq("status", filter.status);
+      }
+
+      if (filter?.visibility === "PUBLIC" || filter?.excludePrivateMedicine) {
+        query = query.neq("visibility", "PRIVATE").eq("is_medicine_complaint", false);
+      }
+
+      if (filter?.onlyMedicine) {
+        query = query.eq("is_medicine_complaint", true);
+      }
+
+      if (filter?.search && filter.search.trim()) {
+        const s = filter.search.trim();
+        query = query.or(`ticket_number.ilike.%${s}%,complaint_number.ilike.%${s}%,summary.ilike.%${s}%,original_transcript.ilike.%${s}%,citizen_name.ilike.%${s}%,ward_or_location.ilike.%${s}%`);
+      }
+
+      const { data, error } = await query;
+      if (error) {
+        console.warn("[Supabase] getComplaints query warning:", error.message);
+        return null;
+      }
+
+      return (data || []).map(this.rowToComplaintItem);
+    } catch (e: any) {
+      console.warn("[Supabase] getComplaints exception:", e.message);
+      return null;
+    }
+  }
+
+  /**
+   * Finds a single complaint directly from Supabase by ticket number, complaint number, or UUID
+   */
+  static async getComplaintById(ticketOrId: string): Promise<ComplaintItem | null> {
+    const supabase = getSupabaseServerClient();
+    if (!supabase) return null;
+
+    try {
+      const clean = ticketOrId.trim();
+      const { data, error } = await supabase
+        .from("complaints")
+        .select("*")
+        .or(`id.eq.${clean},ticket_number.eq.${clean},complaint_number.eq.${clean}`)
+        .limit(1)
+        .maybeSingle();
+
+      if (error || !data) return null;
+      return this.rowToComplaintItem(data);
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * Checks if an idempotency key is already registered in Supabase
+   */
+  static async getComplaintByIdempotencyKey(key: string): Promise<ComplaintItem | null> {
+    const supabase = getSupabaseServerClient();
+    if (!supabase) return null;
+
+    try {
+      const { data, error } = await supabase
+        .from("complaints")
+        .select("*")
+        .eq("idempotency_key", key)
+        .limit(1)
+        .maybeSingle();
+
+      if (error || !data) return null;
+      return this.rowToComplaintItem(data);
+    } catch {
+      return null;
     }
   }
 }

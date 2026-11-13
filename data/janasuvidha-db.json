@@ -118,6 +118,114 @@
   ],
   "complaints": [
     {
+      "id": "comp-1794555569667-172",
+      "complaintNumber": "JAN-2026-000172",
+      "ticketNumber": "JAN-2026-000172",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-water",
+      "departmentName": "Water and Facilities",
+      "category": "Water and Facilities",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "citizenName": "Citizen",
+      "customerName": "Citizen",
+      "source": "kiosk",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ಇಲ್ಲಿ ನೀರಿನ ಸಮಸ್ಯೆ ಇದೆ.",
+      "englishTranslation": "There is a water problem here.",
+      "translatedText": "There is a water problem here.",
+      "summary": "ನೀರಿನ ಸಮಸ್ಯೆ",
+      "description": "ನೀರಿನ ಸಮಸ್ಯೆ",
+      "wardOrLocation": "Outpatient Department, Ballari - Kiosk #1",
+      "location": "Outpatient Department, Ballari - Kiosk #1",
+      "floorOrBlock": "Ground Floor",
+      "status": "VERIFIED",
+      "priority": "Medium",
+      "assignedOfficialId": "off-water-officer",
+      "assignedOfficialName": "Dr. Ananya Sharma",
+      "assignedOfficialDesignation": "Department Officer",
+      "submittedAt": "2026-11-13T07:39:29.667Z",
+      "createdAt": "2026-11-13T07:39:29.667Z",
+      "updatedAt": "2026-11-13T07:40:43.066Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-13T07:39:29.667Z",
+          "deliveredAt": "2026-11-13T07:39:29.667Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-13T07:39:29.667Z",
+          "deliveredAt": "2026-11-13T07:39:29.667Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-13T07:39:29.667Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794555569987-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in Kannada at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-13T07:39:29.667Z"
+        },
+        {
+          "id": "ev-1794555569987-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Water and Facilities Department. Assigned to Dr. Ananya Sharma (Department Officer).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-13T07:39:29.667Z"
+        },
+        {
+          "id": "ev-1794555634514",
+          "eventType": "IN_PROGRESS",
+          "description": "Dr. R. Narayana (Hospital Administrator) accepted task and dispatched maintenance team.",
+          "performedBy": "Dr. R. Narayana",
+          "timestamp": "2026-11-13T07:40:34.514Z"
+        },
+        {
+          "id": "ev-1794555640832",
+          "eventType": "RESOLUTION_SUBMITTED",
+          "description": "3456f",
+          "performedBy": "Dr. R. Narayana",
+          "timestamp": "2026-11-13T07:40:40.832Z"
+        },
+        {
+          "id": "ev-1794555643066",
+          "eventType": "VERIFIED",
+          "description": "Inspection verified by Supervisor Dr. R. Narayana. Resolution approved and signed off.",
+          "performedBy": "Dr. R. Narayana",
+          "timestamp": "2026-11-13T07:40:43.066Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000172",
+        "complaintText": "ನೀರಿನ ಸಮಸ್ಯೆ",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Kiosk #1",
+        "submissionDate": "13 Nov 2026",
+        "submissionTime": "01:09 pm IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Water and Facilities",
+        "forwardedTo": "Water and Facilities",
+        "responsibleAuthority": "Dr. Ananya Sharma (Department Officer)",
+        "status": "Submitted"
+      },
+      "resolutionNotes": "Inspection verified by Supervisor Dr. R. Narayana. Resolution approved and signed off.",
+      "resolvedAt": "2026-11-13T07:40:40.832Z",
+      "verifiedAt": "2026-11-13T07:40:43.066Z"
+    },
+    {
       "id": "comp-1794550018880-171",
       "complaintNumber": "JAN-2026-000171",
       "ticketNumber": "JAN-2026-000171",
@@ -4206,6 +4314,28 @@
   "observations": [],
   "notifications": [
     {
+      "id": "notif-1794555569987-dept",
+      "availabilityRequestId": "comp-1794555569667-172",
+      "recipient": "officer.water@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000172 dispatched to Water and Facilities: \"ನೀರಿನ ಸಮಸ್ಯೆ\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-13T07:39:29.667Z",
+      "departmentName": "Water and Facilities",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794555569987-admin",
+      "availabilityRequestId": "comp-1794555569667-172",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000172 registered for Water and Facilities (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-13T07:39:29.667Z",
+      "departmentName": "Water and Facilities",
+      "recipientType": "ADMIN"
+    },
+    {
       "id": "notif-1794550018897-dept",
       "availabilityRequestId": "comp-1794550018880-171",
       "recipient": "officer.water@janasuvidha.gov.in",
@@ -5442,8 +5572,13 @@
       "idempotencyKey": "kiosk-1794550018617-irnjyt",
       "complaintId": "comp-1794550018880-171",
       "createdAt": "2026-11-13T06:06:58.880Z"
+    },
+    {
+      "idempotencyKey": "kiosk-1794555568958-c8bnoi",
+      "complaintId": "comp-1794555569667-172",
+      "createdAt": "2026-11-13T07:39:29.667Z"
     }
   ],
-  "counter": 171,
+  "counter": 172,
   "counterAv": 104
 }

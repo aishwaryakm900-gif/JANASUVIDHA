@@ -316,8 +316,12 @@ export class DBService {
   }
 
   private static ensureInitialized(): DatabaseSchema {
-    if (!fs.existsSync(DATA_DIR)) {
-      fs.mkdirSync(DATA_DIR, { recursive: true });
+    try {
+      if (!fs.existsSync(DATA_DIR)) {
+        fs.mkdirSync(DATA_DIR, { recursive: true });
+      }
+    } catch (dirErr: any) {
+      console.warn("[DBService] Could not create DATA_DIR in read-only environment:", dirErr?.message);
     }
 
     if (!fs.existsSync(DB_FILE)) {
@@ -369,7 +373,11 @@ export class DBService {
         counter: 124,
         counterAv: 101,
       };
-      fs.writeFileSync(DB_FILE, JSON.stringify(initialData, null, 2), "utf8");
+      try {
+        fs.writeFileSync(DB_FILE, JSON.stringify(initialData, null, 2), "utf8");
+      } catch (writeErr: any) {
+        console.warn("[DBService] Could not write seed file in read-only environment; returning in-memory schema.");
+      }
       return initialData;
     }
 
@@ -447,16 +455,33 @@ export class DBService {
         counter: 124,
         counterAv: 101,
       };
-      fs.writeFileSync(DB_FILE, JSON.stringify(initialData, null, 2), "utf8");
+      try {
+        fs.writeFileSync(DB_FILE, JSON.stringify(initialData, null, 2), "utf8");
+      } catch (writeErr: any) {
+        console.warn("[DBService] Read-only environment: cannot write defaults to file.");
+      }
       return initialData;
     }
   }
 
   private static writeData(data: DatabaseSchema) {
-    if (!fs.existsSync(DATA_DIR)) {
-      fs.mkdirSync(DATA_DIR, { recursive: true });
+    try {
+      if (!fs.existsSync(DATA_DIR)) {
+        fs.mkdirSync(DATA_DIR, { recursive: true });
+      }
+      fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), "utf8");
+    } catch (fsErr: any) {
+      if (
+        fsErr?.code === "EROFS" ||
+        fsErr?.message?.includes("read-only") ||
+        process.env.VERCEL ||
+        process.env.AWS_LAMBDA_FUNCTION_NAME
+      ) {
+        console.warn("[DBService] Read-only filesystem detected (Vercel). Local JSON write bypassed safely; Supabase PostgreSQL is the authoritative store.");
+        return;
+      }
+      throw fsErr;
     }
-    fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), "utf8");
   }
 
   /**
@@ -1116,10 +1141,14 @@ export class DBService {
       db.privateRequests.unshift(avReq);
     }
 
-    // Realtime Supabase Sync (persists simultaneously to Supabase if configured)
-    void SupabaseSyncService.upsertComplaint(newComplaint);
-    void SupabaseSyncService.insertNotification(deptNotif);
-    void SupabaseSyncService.insertNotification(adminNotif);
+    // Realtime Supabase Sync (persists simultaneously to Supabase as authoritative store)
+    try {
+      await SupabaseSyncService.upsertComplaint(newComplaint);
+      void SupabaseSyncService.insertNotification(deptNotif);
+      void SupabaseSyncService.insertNotification(adminNotif);
+    } catch (syncErr) {
+      console.error("[DBService] Supabase persistence error in createComplaintInternal:", syncErr);
+    }
 
     return newComplaint;
   }
@@ -1246,7 +1275,11 @@ export class DBService {
     this.writeData(db);
 
     // Sync status change to Supabase in real-time
-    void SupabaseSyncService.upsertComplaint(complaint);
+    try {
+      await SupabaseSyncService.upsertComplaint(complaint);
+    } catch (syncErr) {
+      console.warn("[DBService] Supabase update status sync warning:", syncErr);
+    }
 
     return complaint;
   }
@@ -1631,8 +1664,12 @@ export class DBService {
     this.writeData(db);
 
     // Sync observation and updated complaint to Supabase in real-time
-    void SupabaseSyncService.insertObservation(observation);
-    void SupabaseSyncService.upsertComplaint(complaint);
+    try {
+      void SupabaseSyncService.insertObservation(observation);
+      await SupabaseSyncService.upsertComplaint(complaint);
+    } catch (syncErr) {
+      console.warn("[DBService] Supabase observation sync warning:", syncErr);
+    }
 
     return { complaint, observation };
   }
@@ -1664,8 +1701,20 @@ export class DBService {
     visibility?: "PUBLIC" | "PRIVATE";
     simulateDeptFailure?: boolean;
   }): Promise<{ complaint: ComplaintItem; isDuplicate: boolean }> {
+    // 0. Check Supabase authoritative store for idempotency in serverless/distributed environments
+    if (params.idempotencyKey) {
+      try {
+        const existingInSupabase = await SupabaseSyncService.getComplaintByIdempotencyKey(params.idempotencyKey);
+        if (existingInSupabase) {
+          return { complaint: existingInSupabase, isDuplicate: true };
+        }
+      } catch (err) {
+        console.warn("[DBService] Supabase idempotency check fallback:", err);
+      }
+    }
+
     return this.runInTransaction(async (db) => {
-      // 1. Check idempotency key if provided
+      // 1. Check local db idempotency key if provided
       if (params.idempotencyKey) {
         if (!db.submissions) db.submissions = [];
         const existingSub = db.submissions.find((s) => s.idempotencyKey === params.idempotencyKey);

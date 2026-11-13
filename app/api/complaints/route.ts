@@ -93,12 +93,16 @@ export async function POST(req: NextRequest) {
       visibility: isMed ? "PRIVATE" : (body.visibility || "PUBLIC"),
     });
 
-    return NextResponse.json({
-      success: true,
-      complaint: result.complaint,
-      receipt: result.complaint.receipt,
-      isDuplicate: result.isDuplicateDetected,
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        complaint: result.complaint,
+        receipt: result.complaint.receipt,
+        isDuplicate: result.isDuplicateDetected,
+        duplicateInfo: (result as any).duplicateInfo,
+      },
+      { status: result.isDuplicateDetected ? 200 : 201 }
+    );
   } catch (error: any) {
     console.error("[api/complaints POST Error]", error);
     return NextResponse.json(
