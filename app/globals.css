@@ -1,9 +1,67 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+@import url('https://fonts.cdnfonts.com/css/gilroy-bold');
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/gilroy/Gilroy-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/gilroy/Gilroy-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/gilroy/Gilroy-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/gilroy/Gilroy-Bold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/gilroy/Gilroy-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/gilroy/Gilroy-Heavy.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/gilroy/Gilroy-Heavy.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
+  --font-gilroy: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --deep-teal: #12343B;
   --primary-teal: #147D78;
   --soft-mint: #E8F4F1;
@@ -13,10 +71,10 @@
   --white: #FFFFFF;
 }
 
-body {
+html, body {
   color: var(--main-text);
   background-color: var(--background);
-  font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
