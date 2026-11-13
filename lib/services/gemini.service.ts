@@ -4,7 +4,9 @@ import { GeminiProcessResult } from "@/types";
 export const GeminiVoiceResponseSchema = z.object({
   unclear: z.boolean().default(false),
   unclearReason: z.string().optional(),
-  requestType: z.enum(["PUBLIC_GRIEVANCE", "PRIVATE_AVAILABILITY", "LANGUAGE_SWITCH"]).default("PUBLIC_GRIEVANCE"),
+  isGrievance: z.boolean().default(true),
+  isOffTopic: z.boolean().default(false),
+  requestType: z.enum(["PUBLIC_GRIEVANCE", "PRIVATE_AVAILABILITY", "LANGUAGE_SWITCH", "OFF_TOPIC", "GENERAL_QUERY"]).default("PUBLIC_GRIEVANCE"),
   requestedResource: z.string().default(""),
   detectedLanguage: z.string().default("Unknown"),
   languageCode: z.string().default("en"),
@@ -95,6 +97,29 @@ CORE PRINCIPLES:
         * IF TAMIL: "மருத்துவமனையில் [பிரச்சனையின் சுருக்கம்] பற்றி புகார் அளித்துள்ளீர்கள். இந்த புகாரை அதிகாரிகளுக்கு அனுப்பலாமா?"
         * IF MALAYALAM: "ആശുപത്രിയിൽ [പ്രശ്നത്തിന്റെ ചുരുക്കം] സംബന്ധിച്ച് താങ്കൾ പരാതി നൽകിയിട്ടുണ്ട്. ഈ പരാതി ബന്ധപ്പെട്ട ഉദ്യോഗസ്ഥർക്ക് അയക്കട്ടെ?"
         * IF ENGLISH: "You have reported that [summary of problem]. Shall I forward this complaint to the hospital authorities?"
+
+   C. OFF_TOPIC / NON_GRIEVANCE (CRITICAL RULE):
+      If the citizen's speech is NOT an actual hospital complaint or medicine request, but instead asks about:
+      - Sports, cricket, football, match scores, IPL, players (e.g. Kohli, Rohit, Dhoni)
+      - Movies, cinema, actors, songs, jokes, entertainment
+      - Weather, politics, news, elections, general trivia
+      - Casual chit-chat or greetings without any hospital grievance ("hi", "hello", "how are you", "who are you")
+      
+      YOU MUST SET:
+      - "isGrievance": false
+      - "isOffTopic": true
+      - "requestType": "OFF_TOPIC"
+      - "category": "None"
+      - "department": "None"
+      - "complaintSummary": "Off-topic query (not a hospital grievance)"
+      - "spokenConfirmation" in the user's language politely explaining that JanaSuvidha is only for hospital grievances:
+        * Kannada: "ಕ್ಷಮಿಸಿ, ಜನಸುವಿಧಾ ಕೇವಲ ಆಸ್ಪತ್ರೆಯ ದೂರುಗಳು ಮತ್ತು ಔಷಧ ಲಭ್ಯತೆಗೆ ಮಾತ್ರ. ಕ್ರಿಕೆಟ್ ಅಥವಾ ಸಾಮಾನ್ಯ ವಿಷಯಗಳಿಗೆ ದೂರು ದಾಖಲಿಸಲಾಗುವುದಿಲ್ಲ."
+        * Hindi: "क्षमा करें, जनसुविधा केवल अस्पताल की शिकायतों और दवा की उपलब्धता के लिए है। सामान्य या खेल संबंधी प्रश्नों के लिए शिकायत दर्ज नहीं की जा सकती।"
+        * English: "JanaSuvidha is only for hospital complaints and medicine requests. General questions like cricket cannot be registered as a grievance."
+        * Telugu: "క్షమించండి, జనసువిధ కేవలం ఆసుపత్రి సమస్యలు మరియు మందుల కొరకు మాత్రమే. సాధారణ ప్రశ్నలకు ఫిర్యాదు నమోదు చేయలేము."
+        * Tamil: "மன்னிக்கவும், ஜனசுவிதா மருத்துவமனை புகார்கள் மற்றும் மருந்துகளுக்கு மட்டுமே. பொதுவான கேள்விகளுக்கு புகார் பதிவு செய்ய முடியாது."
+        * Malayalam: "ക്ഷമിക്കുക, ജനസുവിധ ആശുപത്രി പരാതികൾക്കും മരുന്നുകൾക്കും മാത്രമുള്ളതാണ്. പൊതുവായ ചോദ്യങ്ങൾക്ക് പരാതി നൽകാനാകില്ല."
+      DO NOT CLASSIFY OFF-TOPIC QUERIES AS 'Hospital Services'. NEVER GENERATE A COMPLAINT FOR THEM.
 
 6. GENERAL EXTRACTION:
    - Identify language ("Kannada", "Hindi", "English", "Telugu", "Tamil", "Malayalam", etc.) & code ("kn", "hi", "en", "te", "ta", "ml", etc.).
@@ -328,6 +353,8 @@ export class GeminiService {
       return {
         unclear: validated.unclear,
         unclearReason: validated.unclearReason,
+        isGrievance: validated.isGrievance,
+        isOffTopic: validated.isOffTopic,
         requestType: validated.requestType,
         requestedResource: validated.requestedResource,
         detectedLanguage: validated.detectedLanguage,
@@ -526,6 +553,112 @@ export class GeminiService {
         priority: "Low",
         confidence: 1.0,
         spokenConfirmation: "నమస్కారం! మీరు తెలుగులో మాట్లాడవచ్చు. దయచేసి మీ సమస్యను తెలియజేయండి.",
+      };
+    }
+
+    // 2.5 Off-topic / Non-grievance detection (Cricket, weather, movies, jokes, general chit-chat)
+    const isOffTopic =
+      lower.includes("cricket") ||
+      lower.includes("match") ||
+      lower.includes("score") ||
+      lower.includes("ipl") ||
+      lower.includes("kohli") ||
+      lower.includes("rohit") ||
+      lower.includes("dhoni") ||
+      lower.includes("football") ||
+      lower.includes("movie") ||
+      lower.includes("cinema") ||
+      lower.includes("song") ||
+      lower.includes("joke") ||
+      lower.includes("weather") ||
+      lower.includes("actor") ||
+      lower.includes("who are you") ||
+      lower.includes("how are you") ||
+      lower.includes("what is your name") ||
+      lower.includes("ಕ್ರಿಕೆಟ್") ||
+      lower.includes("ಮ್ಯಾಚ್") ||
+      lower.includes("ಸ್ಕೋರ್") ||
+      lower.includes("ಸಿನಿಮಾ") ||
+      lower.includes("ಹಾಡು") ||
+      lower.includes("ಕ್ರಿಕೆಟ") ||
+      lower.includes("क्रिकेट") ||
+      lower.includes("मैच") ||
+      lower.includes("स्कोर") ||
+      lower.includes("फिल्म") ||
+      lower.includes("सिनेमा") ||
+      lower.includes("मौसम") ||
+      lower.includes("క్రికిట్") ||
+      lower.includes("సినిమా") ||
+      lower.includes("கிரிக்கெட்");
+
+    // Pure casual greetings without hospital context
+    const isGreetingOnly =
+      (lower.trim() === "hi" ||
+        lower.trim() === "hello" ||
+        lower.trim() === "hey" ||
+        lower.trim() === "namaste" ||
+        lower.trim() === "namaskara" ||
+        lower.trim() === "ನಮಸ್ಕಾರ" ||
+        lower.trim() === "ನಮಸ್ತೆ" ||
+        lower.trim() === "नमस्ते" ||
+        lower.trim() === "నమస్కారం" ||
+        lower.trim() === "வணக்கம்") &&
+      !lower.includes("toilet") &&
+      !lower.includes("water") &&
+      !lower.includes("medicine") &&
+      !lower.includes("doctor");
+
+    if (isOffTopic || isGreetingOnly) {
+      let spokenConfirmation = "";
+      let summary = "";
+      if (languageCode === "kn") {
+        spokenConfirmation = isGreetingOnly
+          ? "ನಮಸ್ಕಾರ! ಜನಸುವಿಧಾ ಆಸ್ಪತ್ರೆ ದೂರು ಪರಿಹಾರ ಸಹಾಯವಾಣಿಗೆ ಸ್ವಾಗತ. ದಯವಿಟ್ಟು ನಿಮ್ಮ ಆಸ್ಪತ್ರೆಯ ಸಮಸ್ಯೆ ಅಥವಾ ಔಷಧಿಯ ಅಗತ್ಯವನ್ನು ತಿಳಿಸಿ."
+          : "ಕ್ಷಮಿಸಿ, ಜನಸುವಿಧಾ ಕೇವಲ ಆಸ್ಪತ್ರೆಯ ದೂರುಗಳು ಮತ್ತು ಔಷಧ ಲಭ್ಯತೆಗೆ ಮಾತ್ರ. ಕ್ರಿಕೆಟ್ ಅಥವಾ ಸಾಮಾನ್ಯ ವಿಷಯಗಳಿಗೆ ದೂರು ದಾಖಲಿಸಲಾಗುವುದಿಲ್ಲ.";
+        summary = isGreetingOnly ? "ಆರಂಭಿಕ ಶುಭಾಶಯ (ದೂರು ಅಲ್ಲ)" : "ಅಸಂಬಂಧಿತ ಪ್ರಶ್ನೆ (ದೂರು ಅಲ್ಲ)";
+      } else if (languageCode === "hi") {
+        spokenConfirmation = isGreetingOnly
+          ? "नमस्ते! जनसुविधा अस्पताल शिकायत निवारण केंद्र में आपका स्वागत है। कृपया अपनी अस्पताल संबंधी समस्या या दवा की आवश्यकता बताएं।"
+          : "क्षमा करें, जनसुविधा केवल अस्पताल की शिकायतों और दवा की उपलब्धता के लिए है। सामान्य या खेल संबंधी प्रश्नों के लिए शिकायत दर्ज नहीं की जा सकती।";
+        summary = isGreetingOnly ? "सामान्य अभिवादन (शिकायत नहीं)" : "असंबंधित प्रश्न (शिकायत नहीं)";
+      } else if (languageCode === "te") {
+        spokenConfirmation = isGreetingOnly
+          ? "నమస్కారం! జనసువిధ ఆసుపత్రి సహాయ కేంద్రానికి స్వాగతం. దయచేసి మీ సమస్యను తెలియజేయండి."
+          : "క్షమించండి, జనసువిధ కేవలం ఆసుపత్రి సమస్యలు మరియు మందుల కొరకు మాత్రమే. సాధారణ ప్రశ్నలకు ఫిర్యాదు నమోదు చేయలేము.";
+        summary = isGreetingOnly ? "సాధారణ నమస్కారం (ఫిర్యాదు కాదు)" : "సంబంధం లేని ప్రశ్న (ఫిర్యాదు కాదు)";
+      } else if (languageCode === "ta") {
+        spokenConfirmation = isGreetingOnly
+          ? "வணக்கம்! ஜனசுவிதா மருத்துவமனை உதவி மையத்திற்கு வரவேற்கிறோம். தயவுசெய்து உங்கள் புகாரைக் கூறுங்கள்."
+          : "மன்னிக்கவும், ஜனசுவிதா மருத்துவமனை புகார்கள் மற்றும் மருந்துகளுக்கு மட்டுமே. பொதுவான கேள்விகளுக்கு புகார் பதிவு செய்ய முடியாது.";
+        summary = isGreetingOnly ? "பொதுவான வணக்கம் (புகார் இல்லை)" : "தொடர்பற்ற கேள்வி (புகார் இல்லை)";
+      } else if (languageCode === "ml") {
+        spokenConfirmation = isGreetingOnly
+          ? "നമസ്കാരം! ജനസുവിധ ആശുപത്രി സഹായ കേന്ദ്രത്തിലേക്ക് സ്വാഗതം. ദയവായി നിങ്ങളുടെ പരാതി പറയുക."
+          : "ക്ഷമിക്കണം, ജനസുവിധ ആശുപത്രി പരാതികൾക്കും മരുന്നുകൾക്കും മാത്രമുള്ളതാണ്. മറ്റ് വിഷയങ്ങളിൽ പരാതി രജിസ്റ്റർ ചെയ്യാൻ കഴിയില്ല.";
+        summary = isGreetingOnly ? "അഭിവാദനം (പരാതി അല്ല)" : "അപ്രസക്തമായ ചോദ്യം (പരാതി അല്ല)";
+      } else {
+        spokenConfirmation = isGreetingOnly
+          ? "Hello! Welcome to JanaSuvidha hospital redressal system. Please state your hospital grievance or medicine request."
+          : "JanaSuvidha is only for hospital complaints and medicine requests. General questions like cricket cannot be registered as a grievance.";
+        summary = isGreetingOnly ? "General greeting (not a grievance)" : "Off-topic query (not a grievance)";
+      }
+
+      return {
+        unclear: false,
+        isGrievance: false,
+        isOffTopic: true,
+        requestType: isGreetingOnly ? "GENERAL_QUERY" : "OFF_TOPIC",
+        requestedResource: "",
+        detectedLanguage,
+        languageCode,
+        originalTranscript: text,
+        englishTranslation: isGreetingOnly ? "User initiated greeting." : "User asked an off-topic query.",
+        complaintSummary: summary,
+        category: "None",
+        department: "None",
+        priority: "Low",
+        confidence: 1.0,
+        spokenConfirmation,
       };
     }
 
@@ -810,6 +943,8 @@ export class GeminiService {
 
     return {
       unclear: false,
+      isGrievance: true,
+      isOffTopic: false,
       requestType: "PUBLIC_GRIEVANCE",
       detectedLanguage,
       languageCode,
@@ -827,6 +962,8 @@ export class GeminiService {
   private static fallbackAudioSimulation(buffer: Buffer): GeminiProcessResult {
     return {
       unclear: false,
+      isGrievance: true,
+      isOffTopic: false,
       requestType: "PUBLIC_GRIEVANCE",
       detectedLanguage: "Kannada",
       languageCode: "kn",

@@ -289,7 +289,9 @@ export interface NotificationItem {
 export interface GeminiProcessResult {
   unclear: boolean;
   unclearReason?: string;
-  requestType?: "PUBLIC_GRIEVANCE" | "PRIVATE_AVAILABILITY" | "LANGUAGE_SWITCH" | string;
+  isGrievance?: boolean;
+  isOffTopic?: boolean;
+  requestType?: "PUBLIC_GRIEVANCE" | "PRIVATE_AVAILABILITY" | "LANGUAGE_SWITCH" | "OFF_TOPIC" | "GENERAL_QUERY" | string;
   requestedResource?: string;
   detectedLanguage: string;
   languageCode: string;

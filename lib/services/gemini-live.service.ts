@@ -22,11 +22,27 @@ export function useGemini38LiveVoice() {
   const audioContextRef = useRef<AudioContext | null>(null);
   const mediaStreamRef = useRef<MediaStream | null>(null);
   const processorRef = useRef<ScriptProcessorNode | null>(null);
+  const currentSourceRef = useRef<AudioBufferSourceNode | null>(null);
   const audioQueueRef = useRef<Float32Array[]>([]);
   const isPlayingAudioRef = useRef(false);
   const setupReadyRef = useRef(false);
   const pendingTurnCompleteRef = useRef(false);
   const optionsRef = useRef<LiveVoiceOptions | null>(null);
+
+  // Stop active audio playback immediately (barge-in / interruption)
+  const stopPlayback = useCallback(() => {
+    if (currentSourceRef.current) {
+      try {
+        currentSourceRef.current.stop();
+        currentSourceRef.current.disconnect();
+      } catch {}
+      currentSourceRef.current = null;
+    }
+    audioQueueRef.current = [];
+    isPlayingAudioRef.current = false;
+    pendingTurnCompleteRef.current = false;
+    setIsSpeaking(false);
+  }, []);
 
   // Convert Float32Array to 16-bit PCM Linear Base64
   const floatTo16BitPCM = (input: Float32Array): string => {
@@ -96,7 +112,11 @@ export function useGemini38LiveVoice() {
     const source = ctx.createBufferSource();
     source.buffer = audioBuffer;
     source.connect(ctx.destination);
+    currentSourceRef.current = source;
     source.onended = () => {
+      if (currentSourceRef.current === source) {
+        currentSourceRef.current = null;
+      }
       drainQueue(sampleRate);
     };
     source.start();
@@ -175,6 +195,13 @@ export function useGemini38LiveVoice() {
             options.onConnected?.();
             resolveSetup();
           }
+
+          // Handle server-side barge-in interruption (user spoke while model was responding)
+          if (response.serverContent?.interrupted) {
+            console.log("[Gemini 3.8 Live] User interrupted agent playback (barge-in detected)");
+            stopPlayback();
+          }
+
           if (response.error) {
             const message = response.error.message || "Gemini Live rejected the session setup.";
             setError(message);
@@ -302,7 +329,36 @@ export function useGemini38LiveVoice() {
       processorRef.current = processor;
       processor.onaudioprocess = (event) => {
         if (socket.readyState !== WebSocket.OPEN || !setupReadyRef.current) return;
-        const data = floatTo16BitPCM(event.inputBuffer.getChannelData(0));
+        const channelData = event.inputBuffer.getChannelData(0);
+
+        // Compute RMS volume for Voice Activity Detection (VAD)
+        let sum = 0;
+        for (let i = 0; i < channelData.length; i++) {
+          sum += channelData[i] * channelData[i];
+        }
+        const rms = Math.sqrt(sum / channelData.length);
+
+        // If the AI is currently playing audio output:
+        if (isPlayingAudioRef.current) {
+          // If citizen speaks into the microphone (RMS > 0.032):
+          // Interrupt agent immediately like a real person listening!
+          if (rms > 0.032) {
+            console.log("[Gemini 3.8 Live] Citizen spoke -> interrupting AI playback");
+            stopPlayback();
+
+            const data = floatTo16BitPCM(channelData);
+            socket.send(JSON.stringify({
+              realtimeInput: {
+                audio: { mimeType: "audio/pcm;rate=16000", data },
+              },
+            }));
+          }
+          // If RMS <= 0.032, mute chunk so kiosk speaker output doesn't echo into Gemini and cause endless monologues
+          return;
+        }
+
+        // Citizen is speaking normally while AI is listening
+        const data = floatTo16BitPCM(channelData);
         socket.send(JSON.stringify({
           realtimeInput: {
             audio: { mimeType: "audio/pcm;rate=16000", data },
@@ -344,6 +400,7 @@ export function useGemini38LiveVoice() {
 
   const disconnect = useCallback(() => {
     try {
+      stopPlayback();
       if (wsRef.current) {
         wsRef.current.close();
         wsRef.current = null;
@@ -386,6 +443,7 @@ export function useGemini38LiveVoice() {
     connect,
     sendInitialPrompt,
     startListening,
+    stopPlayback,
     disconnect,
   };
 }

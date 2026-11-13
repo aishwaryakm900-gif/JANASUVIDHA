@@ -326,12 +326,21 @@ export default function CitizenKioskPage() {
     let connectionError = "";
     const connected = await geminiLive.connect({
       apiKey: keyConfig.token,
-      systemInstruction: `You are JanaSuvidha, a warm, polite and highly empathetic hospital grievance voice assistant in an Indian government hospital.
-You understand and speak Kannada, Hindi, English, Tamil, Telugu, and other Indian languages natively.
-Speak naturally like a caring nurse or hospital guide.
-When you start, greet the patient and ask what complaint they want to register.
-When they speak in any language (Kannada, Hindi, etc.), respond immediately and fluently in that exact same language!
-If they need an unavailable medicine, politely ask which medicine and tell them we will notify them.`,
+      systemInstruction: `You are JanaSuvidha, an official Indian government hospital grievance voice assistant.
+CRITICAL RULES:
+1. BREVITY & HUMAN-PACED TURNS:
+   - Speak ONLY 1-2 SHORT sentences at a time (under 20 words).
+   - NEVER monologue or give long continuous explanations.
+   - After speaking 1 short sentence, immediately PAUSE and listen attentively to the citizen, like a real human assistant.
+2. STRICT HOSPITAL GRIEVANCE FOCUS:
+   - You ONLY assist with hospital complaints (cleanliness, washrooms, drinking water, doctors, beds, maintenance) and medicine requests.
+   - If the citizen asks off-topic questions (e.g. cricket, IPL, match scores, movies, songs, jokes, weather, politics, or casual chit-chat), politely decline in ONE short sentence:
+     * English: "JanaSuvidha is only for hospital complaints and medicine requests. What problem are you facing in the hospital?"
+     * Kannada: "ಜನಸುವಿಧಾ ಕೇವಲ ಆಸ್ಪತ್ರೆಯ ದೂರುಗಳು ಮತ್ತು ಔಷಧಿಗೆ ಮಾತ್ರ. ನಿಮ್ಮ ಆಸ್ಪತ್ರೆಯ ಸಮಸ್ಯೆ ಏನು?"
+     * Hindi: "जनसुविधा केवल अस्पताल की शिकायतों और दवा के लिए है। आपकी अस्पताल में क्या समस्या है?"
+   - Do NOT answer off-topic queries or sports questions.
+3. LANGUAGE MATCHING:
+   - Understand and speak Kannada, Hindi, English, Telugu, Tamil, and Malayalam natively. Always respond fluently in the EXACT same language spoken by the citizen.`,
       onConnected: () => {
         setStatusText("Speaking greeting...");
         geminiLive.sendInitialPrompt(`Speak this exact welcome message aloud in ${detectedLangName}: ${greetings[currentLangRef.current] || greetings.en}`);
@@ -441,6 +450,29 @@ If they need an unavailable medicine, politely ask which medicine and tell them 
     setDepartmentName(department);
     setCategoryName(category);
     setPriorityVal(result.priority || "Medium");
+
+    // REJECT OFF-TOPIC OR NON-GRIEVANCE QUERIES (NO SLIP, NO RECORD CREATION)
+    if (
+      result.isOffTopic ||
+      result.requestType === "OFF_TOPIC" ||
+      result.requestType === "GENERAL_QUERY" ||
+      result.isGrievance === false
+    ) {
+      const declinePrompts: Record<string, string> = {
+        en: result.spokenConfirmation || "JanaSuvidha is only for hospital complaints and medicine requests. What problem are you facing in the hospital?",
+        kn: result.spokenConfirmation || "ಕ್ಷಮಿಸಿ, ಜನಸುವಿಧಾ ಕೇವಲ ಆಸ್ಪತ್ರೆಯ ದೂರುಗಳು ಮತ್ತು ಔಷಧಿಗೆ ಮಾತ್ರ. ದಯವಿಟ್ಟು ಆಸ್ಪತ್ರೆಯ ಸಮಸ್ಯೆಯನ್ನು ತಿಳಿಸಿ.",
+        hi: result.spokenConfirmation || "क्षमा करें, जनसुविधा केवल अस्पताल की शिकायतों और दवा के लिए है। कृपया अस्पताल की समस्या बताएं।",
+        te: result.spokenConfirmation || "క్షమించండి, జనసువిధ కేవలం ఆసుపత్రి సమస్యలు మరియు మందుల కొరకు మాత్రమే. దయచేసి సమస్యను తెలియజేయండి.",
+        ta: result.spokenConfirmation || "மன்னிக்கவும், ஜனசுவிதா மருத்துவமனை புகார்கள் மற்றும் மருந்துகளுக்கு மட்டுமே. தயவுசெய்து புகாரைக் கூறவும்.",
+        ml: result.spokenConfirmation || "ക്ഷമിക്കണം, ജനസുവിധ ആശുപത്രി പരാതികൾക്കും മരുന്നുകൾക്കും മാത്രമുള്ളതാണ്. ദയവായി പ്രശ്നം പറയുക.",
+      };
+      const declineMsg = declinePrompts[langCode] || declinePrompts.en;
+      setStage("IDLE");
+      setConfirmationQuestion(declineMsg);
+      setStatusText(declineMsg);
+      void TTSService.speak(declineMsg, langCode);
+      return;
+    }
 
     if (result.requestType === "LANGUAGE_SWITCH") {
       const prompts: Record<string, string> = {
