@@ -118,6 +118,186 @@
   ],
   "complaints": [
     {
+      "id": "comp-1794544762896-170",
+      "complaintNumber": "JAN-2026-000170",
+      "ticketNumber": "JAN-2026-000170",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-hygiene",
+      "departmentName": "Hygiene and Sanitation",
+      "category": "Hygiene and Sanitation",
+      "visibility": "PUBLIC",
+      "isMedicineComplaint": false,
+      "citizenName": "Citizen",
+      "customerName": "Citizen",
+      "source": "kiosk",
+      "originalLanguage": "English",
+      "languageCode": "en",
+      "originalTranscript": "The washrooms are not clean.",
+      "englishTranslation": "The washrooms are not clean.",
+      "translatedText": "The washrooms are not clean.",
+      "summary": "Unclean washrooms",
+      "description": "Unclean washrooms",
+      "wardOrLocation": "Outpatient Department, Ballari - Kiosk #1",
+      "location": "Outpatient Department, Ballari - Kiosk #1",
+      "floorOrBlock": "Ground Floor",
+      "status": "ASSIGNED",
+      "priority": "Medium",
+      "assignedOfficialId": "off-demo-officer",
+      "assignedOfficialName": "Demo Official",
+      "assignedOfficialDesignation": "Department Officer",
+      "submittedAt": "2026-11-13T04:39:22.896Z",
+      "createdAt": "2026-11-13T04:39:22.896Z",
+      "updatedAt": "2026-11-13T04:39:22.896Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-13T04:39:22.896Z",
+          "deliveredAt": "2026-11-13T04:39:22.896Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-13T04:39:22.896Z",
+          "deliveredAt": "2026-11-13T04:39:22.896Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-13T04:39:22.896Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794544763188-1",
+          "eventType": "CREATED",
+          "description": "Grievance registered in English at Citizen Voice Kiosk.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-13T04:39:22.896Z"
+        },
+        {
+          "id": "ev-1794544763188-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Hygiene and Sanitation Department. Assigned to Demo Official (Department Officer).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-13T04:39:22.896Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000170",
+        "complaintText": "Unclean washrooms",
+        "originalLanguage": "English",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Kiosk #1",
+        "submissionDate": "13 Nov 2026",
+        "submissionTime": "10:09 am IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Hygiene and Sanitation",
+        "forwardedTo": "Hygiene and Sanitation",
+        "responsibleAuthority": "Demo Official (Department Officer)",
+        "status": "Submitted"
+      }
+    },
+    {
+      "id": "comp-1794477192419-169",
+      "complaintNumber": "JAN-2026-000169",
+      "ticketNumber": "JAN-2026-000169",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-pharmacy",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "category": "Pharmacy and Medicine Availability",
+      "visibility": "PRIVATE",
+      "isMedicineComplaint": true,
+      "medicineName": "Paracetamol medicine",
+      "citizenPhone": "6677789909",
+      "customerPhone": "6677789909",
+      "maskedCitizenPhone": "XXXXXX9909",
+      "citizenName": "Citizen",
+      "customerName": "Citizen",
+      "source": "kiosk",
+      "originalLanguage": "Kannada",
+      "languageCode": "kn",
+      "originalTranscript": "ಪ್ಯಾರಾಸಿಟಮಾಲ್ ಔಷಧಿ ಸಿಗುತ್ತಿಲ್ಲ. ಪ್ಯಾರಾಸಿಟಮಾಲ್.",
+      "englishTranslation": "Paracetamol medicine is not available. Paracetamol.",
+      "translatedText": "Paracetamol medicine is not available. Paracetamol.",
+      "summary": "Medicine Unavailable: Paracetamol medicine",
+      "description": "Medicine Unavailable: Paracetamol medicine",
+      "wardOrLocation": "Outpatient Department, Ballari - Pharmacy Counter",
+      "location": "Outpatient Department, Ballari - Pharmacy Counter",
+      "floorOrBlock": "Ground Floor",
+      "status": "IN_PROGRESS",
+      "priority": "High",
+      "assignedOfficialId": "off-pharmacy-officer",
+      "assignedOfficialName": "Kavitha Raman",
+      "assignedOfficialDesignation": "Chief Pharmacist",
+      "submittedAt": "2026-11-12T09:53:12.419Z",
+      "createdAt": "2026-11-12T09:53:12.419Z",
+      "updatedAt": "2026-11-13T04:05:25.166Z",
+      "deliveryTracking": {
+        "adminPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-12T09:53:12.419Z",
+          "deliveredAt": "2026-11-12T09:53:12.419Z",
+          "attempts": 1
+        },
+        "departmentPortal": {
+          "status": "DELIVERED",
+          "updatedAt": "2026-11-12T09:53:12.419Z",
+          "deliveredAt": "2026-11-12T09:53:12.419Z",
+          "attempts": 1
+        },
+        "externalGovPortal": {
+          "status": "NOT_CONFIGURED",
+          "updatedAt": "2026-11-12T09:53:12.419Z",
+          "attempts": 0,
+          "lastError": "External government integration endpoint or credentials not configured in environment."
+        }
+      },
+      "events": [
+        {
+          "id": "ev-1794477192429-1",
+          "eventType": "CREATED",
+          "description": "Medicine availability request logged for \"Paracetamol medicine\". Registered phone: XXXXXX9909.",
+          "performedBy": "Citizen Voice Kiosk",
+          "timestamp": "2026-11-12T09:53:12.419Z"
+        },
+        {
+          "id": "ev-1794477192429-2",
+          "eventType": "ASSIGNED",
+          "description": "Automatically routed to Pharmacy and Medicine Availability Department. Assigned to Kavitha Raman (Chief Pharmacist).",
+          "performedBy": "AI Workflow Dispatcher",
+          "timestamp": "2026-11-12T09:53:12.419Z"
+        },
+        {
+          "id": "ev-1794542725166",
+          "eventType": "IN_PROGRESS",
+          "description": "Dr. Ananya Sharma accepted medicine request. Initiated hospital pharmacy stock verification.",
+          "performedBy": "Dr. Ananya Sharma",
+          "timestamp": "2026-11-13T04:05:25.166Z"
+        }
+      ],
+      "evidence": [],
+      "receipt": {
+        "complaintNumber": "JAN-2026-000169",
+        "complaintText": "Medicine Unavailable: Paracetamol medicine",
+        "originalLanguage": "Kannada",
+        "hospitalName": "Outpatient Department, Ballari",
+        "location": "Outpatient Department, Ballari - Pharmacy Counter",
+        "submissionDate": "12 Nov 2026",
+        "submissionTime": "03:23 pm IST",
+        "timeZone": "Asia/Kolkata (IST, UTC+05:30)",
+        "category": "Pharmacy and Medicine Availability",
+        "forwardedTo": "Pharmacy and Medicine Availability",
+        "responsibleAuthority": "Kavitha Raman (Chief Pharmacist)",
+        "status": "Submitted"
+      },
+      "resolutionNotes": "Dr. Ananya Sharma accepted medicine request. Initiated hospital pharmacy stock verification."
+    },
+    {
       "id": "comp-1794475856096-168",
       "complaintNumber": "JAN-2026-000168",
       "ticketNumber": "JAN-2026-000168",
@@ -3720,6 +3900,25 @@
   ],
   "privateRequests": [
     {
+      "id": "req-av-comp-1794477192419-169",
+      "requestNumber": "JNS-2026-AV-000169",
+      "verifiedPhoneNumber": "6677789909",
+      "requestedResource": "Paracetamol medicine",
+      "resourceType": "MEDICINE",
+      "originalTranscript": "ಪ್ಯಾರಾಸಿಟಮಾಲ್ ಔಷಧಿ ಸಿಗುತ್ತಿಲ್ಲ. ಪ್ಯಾರಾಸಿಟಮಾಲ್.",
+      "englishTranslation": "Paracetamol medicine is not available. Paracetamol.",
+      "languageCode": "kn",
+      "hospitalId": "hosp-001",
+      "hospitalName": "Outpatient Department, Ballari",
+      "departmentId": "dept-pharmacy",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "status": "Pending",
+      "otpVerified": true,
+      "notifications": [],
+      "createdAt": "2026-11-12T09:53:12.419Z",
+      "updatedAt": "2026-11-12T09:53:12.419Z"
+    },
+    {
       "id": "req-av-comp-1794455492485-162",
       "requestNumber": "JNS-2026-AV-000162",
       "verifiedPhoneNumber": "7777788888",
@@ -3854,6 +4053,50 @@
   ],
   "observations": [],
   "notifications": [
+    {
+      "id": "notif-1794544763188-dept",
+      "availabilityRequestId": "comp-1794544762896-170",
+      "recipient": "officer.hygiene@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000170 dispatched to Hygiene and Sanitation: \"Unclean washrooms\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-13T04:39:22.896Z",
+      "departmentName": "Hygiene and Sanitation",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794544763188-admin",
+      "availabilityRequestId": "comp-1794544762896-170",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000170 registered for Hygiene and Sanitation (Facility).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-13T04:39:22.896Z",
+      "departmentName": "Hygiene and Sanitation",
+      "recipientType": "ADMIN"
+    },
+    {
+      "id": "notif-1794477192429-dept",
+      "availabilityRequestId": "comp-1794477192419-169",
+      "recipient": "officer.pharmacy@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000169 dispatched to Pharmacy and Medicine Availability: \"Medicine Unavailable: Paracetamol medicine\"",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-12T09:53:12.419Z",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "recipientType": "OFFICIAL"
+    },
+    {
+      "id": "notif-1794477192429-admin",
+      "availabilityRequestId": "comp-1794477192419-169",
+      "recipient": "admin.ballari@janasuvidha.gov.in",
+      "message": "New grievance JAN-2026-000169 registered for Pharmacy and Medicine Availability (Medicine Shortage).",
+      "provider": "mock",
+      "deliveryStatus": "DELIVERED",
+      "sentAt": "2026-11-12T09:53:12.419Z",
+      "departmentName": "Pharmacy and Medicine Availability",
+      "recipientType": "ADMIN"
+    },
     {
       "id": "notif-1794475856097-dept",
       "availabilityRequestId": "comp-1794475856096-168",
@@ -5010,8 +5253,18 @@
       "idempotencyKey": "ivr:CA-TEST-1794475856095",
       "complaintId": "comp-1794475856096-168",
       "createdAt": "2026-11-12T09:30:56.096Z"
+    },
+    {
+      "idempotencyKey": "kiosk-med-1794477191463-qi16yf",
+      "complaintId": "comp-1794477192419-169",
+      "createdAt": "2026-11-12T09:53:12.419Z"
+    },
+    {
+      "idempotencyKey": "kiosk-1794544761871-zygsgl",
+      "complaintId": "comp-1794544762896-170",
+      "createdAt": "2026-11-13T04:39:22.896Z"
     }
   ],
-  "counter": 168,
+  "counter": 170,
   "counterAv": 104
 }
